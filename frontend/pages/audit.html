@@ -3,32 +3,60 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Audit Trail ΓÇö Matrix S2P</title>
+  <title>Audit Trail — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+        <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
-      <div class="logo-text"><span class="logo-main">Matrix S2P</span><span class="logo-sub">Comsec Pvt. Ltd.</span></div>
+      <div class="logo-text">
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
+      </div>
     </div>
     <nav class="sidebar-nav">
-  <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-  <a href="vendors.html"         class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
-  <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-  <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
-  <a href="purchase_orders.html" class="nav-item"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-  <a href="invoices.html"        class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-  <a href="payments.html"        class="nav-item"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-  <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-  <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
-  <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-  <a href="contracts.html"       class="nav-item"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-  <a href="negotiations.html"    class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-  <a href="checklists.html"      class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-  <a href="audit.html"           class="nav-item active"><i class="fa fa-history"></i><span>Audit Trail</span></a>
-</nav>
+      <a href="../index.html" class="nav-item" data-page="dashboard">
+        <i class="fa fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="vendors.html" class="nav-item" data-page="vendors">
+        <i class="fa fa-building"></i><span>Vendors</span>
+      </a>
+      <a href="rfq.html" class="nav-item" data-page="rfq">
+        <i class="fa fa-file-alt"></i><span>RFQ</span>
+      </a>
+      <a href="quotations.html" class="nav-item" data-page="quotations">
+        <i class="fa fa-balance-scale"></i><span>Quotations</span>
+      </a>
+      <a href="negotiations.html" class="nav-item" data-page="negotiations">
+        <i class="fa fa-handshake"></i><span>Negotiations</span>
+      </a>
+      <a href="contracts.html" class="nav-item" data-page="contracts">
+        <i class="fa fa-file-signature"></i><span>Contracts</span>
+      </a>
+      <a href="purchase_orders.html" class="nav-item" data-page="po">
+        <i class="fa fa-shopping-cart"></i><span>Purchase Orders</span>
+      </a>
+      <a href="grn.html" class="nav-item" data-page="grn">
+        <i class="fa fa-truck-loading"></i><span>Goods Receipt</span>
+      </a>
+      <a href="invoices.html" class="nav-item" data-page="invoices">
+        <i class="fa fa-file-invoice"></i><span>Invoices</span>
+      </a>
+      <a href="payments.html" class="nav-item" data-page="payments">
+        <i class="fa fa-money-bill-wave"></i><span>Payments</span>
+      </a>
+      <a href="checklists.html" class="nav-item" data-page="checklists">
+        <i class="fa fa-tasks"></i><span>Checklists</span>
+      </a>
+      <a href="audit.html" class="nav-item active" data-page="audit">
+        <i class="fa fa-history"></i><span>Audit Trail</span>
+      </a>
+      <a href="sap_integration.html" class="nav-item" data-page="sap_integration">
+        <i class="fa fa-plug"></i><span>SAP Integration</span>
+      </a>
+    </nav>
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
 
@@ -88,7 +116,7 @@
     </div>
   </div>
 
-  <script src="../js/api.js"></script>
+  <script src="../js/api.js?v=2.0"></script>
   <script>
     const actionColors = {
       CREATE : "#dbeafe", APPROVE: "#dcfce7", REJECT : "#fee2e2",
@@ -140,7 +168,7 @@
             <td style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;">
               ${l.new_values
                 ? `<span style="color:var(--text-muted);">${JSON.stringify(l.new_values).substring(0,60)}...</span>`
-                : 'ΓÇö'}
+                : '—'}
             </td>
           </tr>`).join('');
       } catch(e) { showToast("Failed to load audit log", "error"); }

@@ -3,36 +3,61 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vendors ΓÇö Matrix S2P</title>
+  <title>Vendors — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+        <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
       <div class="logo-text">
-        <span class="logo-main">Matrix S2P</span>
-        <span class="logo-sub">Comsec Pvt. Ltd.</span>
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
       </div>
     </div>
    
     <nav class="sidebar-nav">
-  <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-  <a href="vendors.html"         class="nav-item active"><i class="fa fa-building"></i><span>Vendors</span></a>
-  <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-  <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
-  <a href="purchase_orders.html" class="nav-item"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-  <a href="invoices.html"        class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-  <a href="payments.html"        class="nav-item"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-  <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-  <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
-  <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-  <a href="contracts.html"       class="nav-item"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-  <a href="negotiations.html"    class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-  <a href="checklists.html"      class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-  <a href="audit.html"           class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
-</nav>
+      <a href="../index.html" class="nav-item" data-page="dashboard">
+        <i class="fa fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="vendors.html" class="nav-item active" data-page="vendors">
+        <i class="fa fa-building"></i><span>Vendors</span>
+      </a>
+      <a href="rfq.html" class="nav-item" data-page="rfq">
+        <i class="fa fa-file-alt"></i><span>RFQ</span>
+      </a>
+      <a href="quotations.html" class="nav-item" data-page="quotations">
+        <i class="fa fa-balance-scale"></i><span>Quotations</span>
+      </a>
+      <a href="negotiations.html" class="nav-item" data-page="negotiations">
+        <i class="fa fa-handshake"></i><span>Negotiations</span>
+      </a>
+      <a href="contracts.html" class="nav-item" data-page="contracts">
+        <i class="fa fa-file-signature"></i><span>Contracts</span>
+      </a>
+      <a href="purchase_orders.html" class="nav-item" data-page="po">
+        <i class="fa fa-shopping-cart"></i><span>Purchase Orders</span>
+      </a>
+      <a href="grn.html" class="nav-item" data-page="grn">
+        <i class="fa fa-truck-loading"></i><span>Goods Receipt</span>
+      </a>
+      <a href="invoices.html" class="nav-item" data-page="invoices">
+        <i class="fa fa-file-invoice"></i><span>Invoices</span>
+      </a>
+      <a href="payments.html" class="nav-item" data-page="payments">
+        <i class="fa fa-money-bill-wave"></i><span>Payments</span>
+      </a>
+      <a href="checklists.html" class="nav-item" data-page="checklists">
+        <i class="fa fa-tasks"></i><span>Checklists</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <i class="fa fa-history"></i><span>Audit Trail</span>
+      </a>
+      <a href="sap_integration.html" class="nav-item" data-page="sap_integration">
+        <i class="fa fa-plug"></i><span>SAP Integration</span>
+      </a>
+    </nav>
 
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
@@ -44,17 +69,35 @@
         <h1>Vendor Master</h1>
         <span>Manage & approve vendors (BR-S2P-02)</span>
       </div>
-      <div class="topbar-right">
+      <div class="topbar-right" id="topbar-actions-master">
+        <button class="btn btn-outline" onclick="openMigrateModal()" style="margin-right:8px; border-color:var(--primary); color:var(--primary);">
+          <i class="fa fa-file-import"></i> Migrate Google Sheets
+        </button>
         <button class="btn btn-primary" onclick="openModal()">
           <i class="fa fa-plus"></i> Add Vendor
+        </button>
+      </div>
+      <div class="topbar-right" id="topbar-actions-perf" style="display:none;">
+        <button class="btn btn-primary" onclick="scoreAll()">
+          <i class="fa fa-sync"></i> Score All Vendors
         </button>
       </div>
     </header>
 
     <div class="content-body">
-      <!-- Filters -->
-      <div class="card">
+      
+      <!-- Tab Navigation -->
+      <div class="tabs" style="display:flex;gap:24px;border-bottom:2px solid var(--border);margin-bottom:24px;">
+        <div class="tab active" onclick="switchTab('master')" id="nav-master" style="padding:12px;cursor:pointer;font-weight:700;color:var(--primary);border-bottom:3px solid var(--primary);margin-bottom:-2px;"><i class="fa fa-building"></i> Vendor Master</div>
+        <div class="tab" onclick="switchTab('discovery')" id="nav-discovery" style="padding:12px;cursor:pointer;font-weight:600;color:var(--text-muted);"><i class="fa fa-robot"></i> AI Discovery</div>
+        <div class="tab" onclick="switchTab('performance')" id="nav-performance" style="padding:12px;cursor:pointer;font-weight:600;color:var(--text-muted);"><i class="fa fa-star"></i> Performance</div>
+      </div>
+
+      <!-- TAB: VENDOR MASTER -->
+      <div id="tab-master" class="tab-content" style="display:block;">
+        <div class="card">
         <div class="card-body" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="filter-search" placeholder="Search by name or code..." onkeyup="loadVendors()" style="padding:8px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;flex:1;min-width:200px;">
           <select id="filter-status" onchange="loadVendors()" style="padding:8px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;">
             <option value="">All Status</option>
             <option value="Pending">Pending</option>
@@ -90,15 +133,116 @@
           </table>
         </div>
       </div>
+      </div> <!-- /tab-master -->
+
+      <!-- TAB: AI DISCOVERY -->
+      <div id="tab-discovery" class="tab-content" style="display:none;">
+        <div class="card">
+          <div class="card-header"><i class="fa fa-robot"></i> Discover Vendors</div>
+          <div class="card-body">
+            <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">
+              <div class="form-group" style="margin:0;flex:1;min-width:160px;">
+                <label>Category *</label>
+                <select id="disc-category">
+                  <option value="Electronic">Electronic</option>
+                  <option value="Mechanical">Mechanical</option>
+                  <option value="Both">Both</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin:0;flex:1;min-width:160px;">
+                <label>Minimum AI Score</label>
+                <select id="disc-min-score">
+                  <option value="0">Any (0+)</option>
+                  <option value="40">Acceptable (40+)</option>
+                  <option value="60" selected>Good (60+)</option>
+                  <option value="80">Excellent (80+)</option>
+                </select>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding-bottom:2px;">
+                <input type="checkbox" id="disc-oem" style="width:16px;height:16px;"/>
+                <label for="disc-oem" style="font-size:14px;font-weight:600;cursor:pointer;">OEM Only</label>
+              </div>
+              <button class="btn btn-primary" onclick="runDiscovery()" style="padding:10px 24px;">
+                <i class="fa fa-search"></i> Discover
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="benchmark-card" style="display:none;">
+          <div class="card-header"><i class="fa fa-chart-bar"></i> Category Benchmark</div>
+          <div class="card-body" id="benchmark-body"></div>
+        </div>
+
+        <div id="discovery-results" style="display:none;">
+          <div class="card">
+            <div class="card-header">
+              <i class="fa fa-list"></i>
+              <span id="disc-result-title">Discovery Results</span>
+            </div>
+            <div id="disc-cards"></div>
+          </div>
+        </div>
+      </div> <!-- /tab-discovery -->
+
+      <!-- TAB: PERFORMANCE -->
+      <div id="tab-performance" class="tab-content" style="display:none;">
+        <div class="card">
+          <div class="card-header"><i class="fa fa-info-circle"></i> Scoring Formula</div>
+          <div class="card-body">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center;">
+              <div style="padding:16px;background:#dbeafe;border-radius:10px;">
+                <div style="font-size:24px;font-weight:800;color:var(--blue)">35%</div>
+                <div style="font-size:13px;color:var(--text-muted);margin-top:4px;"><i class="fa fa-truck"></i> On-Time Delivery</div>
+              </div>
+              <div style="padding:16px;background:#dcfce7;border-radius:10px;">
+                <div style="font-size:24px;font-weight:800;color:var(--green)">30%</div>
+                <div style="font-size:13px;color:var(--text-muted);margin-top:4px;"><i class="fa fa-check-double"></i> Quality Acceptance</div>
+              </div>
+              <div style="padding:16px;background:#ede9fe;border-radius:10px;">
+                <div style="font-size:24px;font-weight:800;color:var(--purple)">20%</div>
+                <div style="font-size:13px;color:var(--text-muted);margin-top:4px;"><i class="fa fa-rupee-sign"></i> Price</div>
+              </div>
+              <div style="padding:16px;background:#ffedd5;border-radius:10px;">
+                <div style="font-size:24px;font-weight:800;color:var(--orange)">15%</div>
+                <div style="font-size:13px;color:var(--text-muted);margin-top:4px;"><i class="fa fa-reply"></i> RFQ Response</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><i class="fa fa-trophy"></i> Vendor Leaderboard</div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Rank</th><th>Vendor</th><th>Delivery</th>
+                  <th>Quality</th><th>Pricing</th><th>Response</th>
+                  <th>Overall</th><th>Grade</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="perf-table-body">
+                <tr><td colspan="9" style="text-align:center;padding:30px;color:var(--text-muted);">
+                  Click "Score All Vendors" in the top right to generate scores
+                </td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div> <!-- /tab-performance -->
+
     </div>
   </div>
+
+
 
   <!-- ADD VENDOR MODAL -->
   <div class="modal-overlay" id="add-modal">
     <div class="modal">
       <div class="modal-header">
         <h2><i class="fa fa-building"></i> Add New Vendor</h2>
-        <button class="modal-close" onclick="closeModal()">├ù</button>
+        <button class="modal-close" onclick="closeModal()">×</button>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -181,7 +325,7 @@
     <div class="modal" style="max-width:400px;">
       <div class="modal-header">
         <h2><i class="fa fa-check-circle"></i> Approve Vendor</h2>
-        <button class="modal-close" onclick="closeApproveModal()">├ù</button>
+        <button class="modal-close" onclick="closeApproveModal()">×</button>
       </div>
       <div class="form-group">
         <label>Approver Name *</label>
@@ -197,8 +341,90 @@
     </div>
   </div>
 
-  <script src="../js/api.js"></script>
+  <!-- MIGRATE MODAL -->
+  <div class="modal-overlay" id="migrate-modal">
+    <div class="modal" style="max-width:500px;">
+      <div class="modal-header">
+        <h2><i class="fa fa-file-import"></i> Migrate Legacy Data</h2>
+        <button class="modal-close" onclick="closeMigrateModal()">×</button>
+      </div>
+      <div style="padding:10px 0;">
+        <p style="font-size:14px; color:var(--text-muted); margin-bottom:15px;">
+          Upload your exported Google Sheet (.csv) to migrate vendor master data into the secure S2P database.
+        </p>
+        <div style="margin-bottom:15px; padding:10px; background:#eff6ff; border-radius:8px; display:flex; align-items:center; gap:10px; border:1px solid #bfdbfe;">
+          <i class="fa fa-info-circle" style="color:#2563eb;"></i>
+          <span style="font-size:13px; color:#1e40af;">Please use our standard template for a 100% accurate migration. 
+            <a href="javascript:void(0)" onclick="downloadTemplate()" style="font-weight:700; text-decoration:underline; color:#2563eb;">Download Template</a>
+          </span>
+        </div>
+        <div style="border:2px dashed var(--border); padding:30px; text-align:center; border-radius:12px; background:#f8fafc;">
+          <i class="fa fa-cloud-upload-alt" style="font-size:40px; color:var(--primary); opacity:0.5; margin-bottom:10px;"></i>
+          <input type="file" id="migrate-file" accept=".csv" style="display:block; margin:10px auto; font-size:13px;"/>
+        </div>
+      </div>
+      <div style="display:flex; gap:12px; margin-top:20px; justify-content:flex-end;">
+        <button class="btn btn-outline" onclick="closeMigrateModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitMigration()"><i class="fa fa-upload"></i> Start Migration</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/api.js?v=2.0"></script>
   <script>
+    function openMigrateModal() { document.getElementById('migrate-modal').classList.add('open'); }
+    function closeMigrateModal() { document.getElementById('migrate-modal').classList.remove('open'); }
+
+    function downloadTemplate() {
+      const headers = "Company Name,Email,Phone,Contact Person,Category,Vendor Type,GST,PAN,MSME Registered,OEM Approved,OEM Brand,Address,City,State,Pincode,Country\n";
+      const sample  = "Example Corp,sales@example.sample,9876543210,John Doe,Electronic,Distributor,24AABCT1234A1Z5,ABCDE1234F,Yes,No,,123 Industrial Area,Ahmedabad,Gujarat,380001,India";
+      
+      // Use UTF-8 BOM to ensure Excel recognizes it correctly
+      const csvContent = "\ufeff" + headers + sample;
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url  = window.URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 's2p_full_fidelity_template.csv';
+      document.body.appendChild(a);
+      a.click();
+      
+      // Cleanup
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 100);
+    }
+
+    async function submitMigration() {
+      const fileInput = document.getElementById('migrate-file');
+      if (!fileInput.files.length) {
+        showToast("Please select a CSV file first", "error");
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      try {
+        showToast("Processing migration...", "info");
+        const response = await fetch(`${API_BASE}/vendors/migrate`, {
+          method: "POST",
+          body: formData
+        });
+        
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.detail || "Migration failed");
+
+        showToast(`✅ Success! ${data.count} vendors migrated from Google Sheets.`, "success");
+        closeMigrateModal();
+        loadVendors();
+      } catch (e) {
+        showToast(e.message, "error");
+      }
+    }
+
     async function loadVendors() {
       const status   = document.getElementById("filter-status").value;
       const category = document.getElementById("filter-category").value;
@@ -208,18 +434,29 @@
 
       try {
         const data = await api.get(url);
+        
+        const searchQ = (document.getElementById("filter-search").value || '').toLowerCase();
+        let filteredVendors = data.vendors;
+        if (searchQ) {
+          filteredVendors = filteredVendors.filter(v => 
+            v.company_name.toLowerCase().includes(searchQ) || 
+            v.vendor_code.toLowerCase().includes(searchQ) ||
+            v.vendor_type.toLowerCase().includes(searchQ)
+          );
+        }
+
         document.getElementById("vendor-count").textContent =
-          `${data.total} vendor(s) found`;
+          `${filteredVendors.length} vendor(s) found`;
         const tbody = document.getElementById("vendor-table-body");
 
-        if (!data.vendors.length) {
+        if (!filteredVendors.length) {
           tbody.innerHTML = `<tr><td colspan="9">
             <div class="empty-state"><i class="fa fa-building"></i>
             <p>No vendors found</p></div></td></tr>`;
           return;
         }
 
-        tbody.innerHTML = data.vendors.map(v => `
+        tbody.innerHTML = filteredVendors.map(v => `
           <tr>
             <td><strong>${v.vendor_code}</strong></td>
             <td>
@@ -230,8 +467,8 @@
             <td>${v.vendor_type}</td>
             <td>${v.oem_approved
               ? `<span style="color:var(--green)"><i class="fa fa-check-circle"></i> ${v.oem_brand||''}</span>`
-              : '<span style="color:var(--text-muted)">ΓÇö</span>'}</td>
-            <td>${v.city||'ΓÇö'}</td>
+              : '<span style="color:var(--text-muted)">—</span>'}</td>
+            <td>${v.city||'—'}</td>
             <td>${badge(v.status)}</td>
             <td>
               <div style="display:flex;align-items:center;gap:6px;">
@@ -292,7 +529,7 @@
           oem_approved   : document.getElementById("v-oem-approved").checked,
           msme_registered: document.getElementById("v-msme").checked,
         });
-        showToast("Γ£à Vendor added successfully!", "success");
+        showToast("✅ Vendor added successfully!", "success");
         closeModal();
         loadVendors();
       } catch(e) {
@@ -306,7 +543,7 @@
       if (!approver) { showToast("Enter approver name", "error"); return; }
       try {
         await api.post(`/vendors/${id}/approve?approver=${encodeURIComponent(approver)}`);
-        showToast("Γ£à Vendor approved!", "success");
+        showToast("✅ Vendor approved!", "success");
         closeApproveModal();
         loadVendors();
       } catch(e) { showToast("Error: " + e.message, "error"); }
@@ -322,6 +559,153 @@
     }
 
     loadVendors();
+
+    // -- Tab Logic --
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.tab').forEach(el => {
+        el.style.color = 'var(--text-muted)';
+        el.style.borderBottom = 'none';
+        el.style.fontWeight = '600';
+      });
+      document.getElementById('topbar-actions-master').style.display = 'none';
+      document.getElementById('topbar-actions-perf').style.display = 'none';
+
+      document.getElementById(`tab-${tabId}`).style.display = 'block';
+      let nav = document.getElementById(`nav-${tabId}`);
+      nav.style.color = 'var(--primary)';
+      nav.style.borderBottom = '3px solid var(--primary)';
+      nav.style.fontWeight = '700';
+
+      if (tabId === 'master') document.getElementById('topbar-actions-master').style.display = 'block';
+      if (tabId === 'performance') document.getElementById('topbar-actions-perf').style.display = 'block';
+    }
+
+    // -- AI Discovery Logic --
+    async function runDiscovery() {
+      const category = document.getElementById("disc-category").value;
+      const minScore = document.getElementById("disc-min-score").value;
+      const oemOnly  = document.getElementById("disc-oem").checked;
+
+      try {
+        const [discData, benchData] = await Promise.all([
+          api.get(`/vendors/discover/${category}?min_score=${minScore}&oem_only=${oemOnly}`),
+          api.get(`/vendors/benchmark/${category}`)
+        ]);
+
+        if (benchData.total_vendors) {
+          document.getElementById("benchmark-card").style.display = "block";
+          document.getElementById("benchmark-body").innerHTML = `
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;text-align:center;">
+              <div><div style="font-size:22px;font-weight:800;color:var(--blue)">${benchData.total_vendors}</div><div style="font-size:12px;color:var(--text-muted)">Total Vendors</div></div>
+              <div><div style="font-size:22px;font-weight:800;color:var(--green)">${benchData.avg_score}</div><div style="font-size:12px;color:var(--text-muted)">Avg Score</div></div>
+              <div><div style="font-size:22px;font-weight:800;color:gold">${benchData.top_score}</div><div style="font-size:12px;color:var(--text-muted)">Top Score</div></div>
+              <div><div style="font-size:22px;font-weight:800;color:var(--purple)">${benchData.oem_vendors}</div><div style="font-size:12px;color:var(--text-muted)">OEM Vendors</div></div>
+              <div><div style="font-size:22px;font-weight:800;color:var(--teal)">${benchData.msme_vendors}</div><div style="font-size:12px;color:var(--text-muted)">MSME Vendors</div></div>
+            </div>`;
+        }
+
+        document.getElementById("disc-result-title").textContent = `${discData.total_found} vendors found for "${category}"`;
+        document.getElementById("discovery-results").style.display = "block";
+
+        const cardsDiv = document.getElementById("disc-cards");
+        if (!discData.vendors.length) {
+          cardsDiv.innerHTML = `<div class="empty-state"><i class="fa fa-robot"></i><p>No vendors match your criteria.</p></div>`;
+          return;
+        }
+
+        cardsDiv.innerHTML = discData.vendors.map((v, i) => `
+          <div style="border:1px solid var(--border);border-radius:12px;padding:20px;
+                      margin:12px 16px;${i===0 ? 'border-color:var(--green);background:#f0fdf4;' : ''}">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:20px;">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'🏷️'}</span>
+                  <div>
+                    <div style="font-size:16px;font-weight:800;">${v.company_name}</div>
+                    <div style="font-size:12px;color:var(--text-muted);">${v.vendor_code} &bull; ${v.vendor_type}</div>
+                  </div>
+                </div>
+                <div style="margin-top:12px;">${v.recommendation}</div>
+              </div>
+              <div style="text-align:center;min-width:80px;">
+                <div style="font-size:36px;font-weight:900;
+                            color:${v.ai_match_score>=80?'var(--green)':v.ai_match_score>=60?'var(--blue)':v.ai_match_score>=40?'var(--orange)':'var(--red)'}">
+                  ${v.ai_match_score}
+                </div>
+                <div style="font-size:11px;color:var(--text-muted);">AI Match Score</div>
+              </div>
+            </div>
+          </div>`).join('');
+
+      } catch(e) { showToast("Discovery failed", "error"); }
+    }
+
+    // -- Performance Logic --
+    function scoreBar(value, color) {
+      return `
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="background:#e2e8f0;border-radius:20px;height:8px;width:70px;overflow:hidden;">
+            <div style="background:${color};height:100%;width:${value}%;border-radius:20px;transition:width 0.5s;"></div>
+          </div>
+          <span style="font-size:13px;font-weight:600;">${value}</span>
+        </div>`;
+    }
+
+    function gradeColor(grade) {
+      if (grade.startsWith("A+")) return "#15803d";
+      if (grade.startsWith("A"))  return "#0d9488";
+      if (grade.startsWith("B"))  return "#1a56db";
+      if (grade.startsWith("C"))  return "#ea7800";
+      return "#dc2626";
+    }
+
+    async function scoreAll() {
+      const btn = event.target;
+      btn.disabled = true; btn.textContent = "⏳ Scoring...";
+      try {
+        const data  = await api.post("/vendors/score-all");
+        renderLeaderboard(data.leaderboard);
+        showToast(`✅ ${data.message}`, "success");
+      } catch(e) {
+        showToast("Error", "error");
+      } finally {
+        btn.disabled = false; btn.innerHTML = '<i class="fa fa-sync"></i> Score All Vendors';
+      }
+    }
+
+    function renderLeaderboard(vendors) {
+      const tbody = document.getElementById("perf-table-body");
+      if (!vendors.length) {
+        tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><i class="fa fa-star"></i><p>No approved vendors to score</p></div></td></tr>`;
+        return;
+      }
+      tbody.innerHTML = vendors.map((v, i) => `
+        <tr style="${i === 0 ? 'background:#f0fdf4;' : ''}">
+          <td style="font-size:20px;text-align:center;">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`}</td>
+          <td>
+            <div style="font-weight:700;">${v.vendor_name}</div>
+            <div style="font-size:12px;color:var(--text-muted);">${v.period} &bull; ${v.total_orders} orders</div>
+          </td>
+          <td>${scoreBar(v.delivery_score, 'var(--blue)')}</td>
+          <td>${scoreBar(v.quality_score,  'var(--green)')}</td>
+          <td>${scoreBar(v.pricing_score,  'var(--purple)')}</td>
+          <td>${scoreBar(v.response_score, 'var(--orange)')}</td>
+          <td><div style="font-size:22px;font-weight:800;color:${gradeColor(v.grade)};">${v.overall_score}</div></td>
+          <td><span style="font-weight:700;font-size:12px;color:${gradeColor(v.grade)};">${v.grade}</span></td>
+          <td>
+            <button class="btn btn-outline" style="padding:4px 10px;font-size:12px;" onclick="scoreOne(${v.vendor_id},'${v.vendor_name}')"> Rescore</button>
+          </td>
+        </tr>`).join('');
+    }
+
+    async function scoreOne(id, name) {
+      try {
+        const res = await api.post(`/vendors/${id}/score`);
+        showToast(`✅ ${name} rescored: ${res.result.overall_score}`, "success");
+        scoreAll();
+      } catch(e) { showToast(e.message, "error"); }
+    }
   </script>
 </body>
 </html>

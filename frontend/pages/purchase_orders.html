@@ -3,33 +3,61 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Purchase Orders ΓÇö Matrix S2P</title>
+  <title>Purchase Orders — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+        <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
-      <div class="logo-text"><span class="logo-main">Matrix S2P</span><span class="logo-sub">Comsec Pvt. Ltd.</span></div>
+      <div class="logo-text">
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
+      </div>
     </div>
 
    <nav class="sidebar-nav">
-  <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-  <a href="vendors.html"         class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
-  <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-  <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
-  <a href="purchase_orders.html" class="nav-item active"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-  <a href="invoices.html"        class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-  <a href="payments.html"        class="nav-item"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-  <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-  <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
-  <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-  <a href="contracts.html"       class="nav-item"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-  <a href="negotiations.html"    class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-  <a href="checklists.html"      class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-  <a href="audit.html"           class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
-</nav>
+      <a href="../index.html" class="nav-item" data-page="dashboard">
+        <i class="fa fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="vendors.html" class="nav-item" data-page="vendors">
+        <i class="fa fa-building"></i><span>Vendors</span>
+      </a>
+      <a href="rfq.html" class="nav-item" data-page="rfq">
+        <i class="fa fa-file-alt"></i><span>RFQ</span>
+      </a>
+      <a href="quotations.html" class="nav-item" data-page="quotations">
+        <i class="fa fa-balance-scale"></i><span>Quotations</span>
+      </a>
+      <a href="negotiations.html" class="nav-item" data-page="negotiations">
+        <i class="fa fa-handshake"></i><span>Negotiations</span>
+      </a>
+      <a href="contracts.html" class="nav-item" data-page="contracts">
+        <i class="fa fa-file-signature"></i><span>Contracts</span>
+      </a>
+      <a href="purchase_orders.html" class="nav-item active" data-page="po">
+        <i class="fa fa-shopping-cart"></i><span>Purchase Orders</span>
+      </a>
+      <a href="grn.html" class="nav-item" data-page="grn">
+        <i class="fa fa-truck-loading"></i><span>Goods Receipt</span>
+      </a>
+      <a href="invoices.html" class="nav-item" data-page="invoices">
+        <i class="fa fa-file-invoice"></i><span>Invoices</span>
+      </a>
+      <a href="payments.html" class="nav-item" data-page="payments">
+        <i class="fa fa-money-bill-wave"></i><span>Payments</span>
+      </a>
+      <a href="checklists.html" class="nav-item" data-page="checklists">
+        <i class="fa fa-tasks"></i><span>Checklists</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <i class="fa fa-history"></i><span>Audit Trail</span>
+      </a>
+      <a href="sap_integration.html" class="nav-item" data-page="sap_integration">
+        <i class="fa fa-plug"></i><span>SAP Integration</span>
+      </a>
+    </nav>
 
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
@@ -51,10 +79,10 @@
     <div class="content-body">
       <!-- Approval Pipeline -->
       <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);">
-        <div class="kpi-card blue"   id="stat-draft">   <div class="kpi-icon"><i class="fa fa-pencil"></i></div><div class="kpi-data"><span class="kpi-value">ΓÇö</span><span class="kpi-label">Draft</span></div></div>
-        <div class="kpi-card orange" id="stat-l1">      <div class="kpi-icon"><i class="fa fa-user-check"></i></div><div class="kpi-data"><span class="kpi-value">ΓÇö</span><span class="kpi-label">Awaiting L1</span></div></div>
-        <div class="kpi-card purple" id="stat-l2">      <div class="kpi-icon"><i class="fa fa-user-shield"></i></div><div class="kpi-data"><span class="kpi-value">ΓÇö</span><span class="kpi-label">Awaiting L2</span></div></div>
-        <div class="kpi-card green"  id="stat-approved"><div class="kpi-icon"><i class="fa fa-check-double"></i></div><div class="kpi-data"><span class="kpi-value">ΓÇö</span><span class="kpi-label">Approved</span></div></div>
+        <div class="kpi-card blue"   id="stat-draft">   <div class="kpi-icon"><i class="fa fa-pencil"></i></div><div class="kpi-data"><span class="kpi-value">—</span><span class="kpi-label">Draft</span></div></div>
+        <div class="kpi-card orange" id="stat-l1">      <div class="kpi-icon"><i class="fa fa-user-check"></i></div><div class="kpi-data"><span class="kpi-value">—</span><span class="kpi-label">Awaiting L1</span></div></div>
+        <div class="kpi-card purple" id="stat-l2">      <div class="kpi-icon"><i class="fa fa-user-shield"></i></div><div class="kpi-data"><span class="kpi-value">—</span><span class="kpi-label">Awaiting L2</span></div></div>
+        <div class="kpi-card green"  id="stat-approved"><div class="kpi-icon"><i class="fa fa-check-double"></i></div><div class="kpi-data"><span class="kpi-value">—</span><span class="kpi-label">Approved</span></div></div>
       </div>
 
       <div class="card">
@@ -75,10 +103,10 @@
 
   <!-- CREATE PO MODAL -->
   <div class="modal-overlay" id="po-modal">
-    <div class="modal" style="max-width:640px;">
+    <div class="modal" style="width:94vw;max-width:720px;">
       <div class="modal-header">
         <h2><i class="fa fa-shopping-cart"></i> Create Purchase Order</h2>
-        <button class="modal-close" onclick="document.getElementById('po-modal').classList.remove('open')">├ù</button>
+        <button class="modal-close" onclick="document.getElementById('po-modal').classList.remove('open')">×</button>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -100,9 +128,27 @@
           <input type="date" id="po-delivery"/>
         </div>
       </div>
-      <div class="form-group">
-        <label>Delivery Address</label>
-        <textarea id="po-address" rows="2" placeholder="Matrix Comsec, Gujarat..."></textarea>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Incoterms</label>
+          <input type="text" id="po-incoterms" value="DAP — Gandhinagar"/>
+        </div>
+        <div class="form-group">
+          <label>Department</label>
+          <input type="text" id="po-dept" value="Procurement"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Delivery Address</label>
+          <textarea id="po-address" rows="2" placeholder="Ship to...">Matrix Comsec — Stores
+Plot No. 12, Electronic Estate
+Gandhinagar - 382 021, Gujarat</textarea>
+        </div>
+        <div class="form-group">
+          <label>Notes / Terms</label>
+          <textarea id="po-notes" rows="2" placeholder="Special conditions, warranty..."></textarea>
+        </div>
       </div>
 
       <div style="margin:16px 0 8px;font-weight:700;font-size:14px;">
@@ -124,7 +170,7 @@
     <div class="modal" style="max-width:400px;">
       <div class="modal-header">
         <h2 id="approve-modal-title">Approve PO</h2>
-        <button class="modal-close" onclick="document.getElementById('po-approve-modal').classList.remove('open')">├ù</button>
+        <button class="modal-close" onclick="document.getElementById('po-approve-modal').classList.remove('open')">×</button>
       </div>
       <div class="form-group">
         <label>Approver Name *</label>
@@ -139,7 +185,8 @@
     </div>
   </div>
 
-  <script src="../js/api.js"></script>
+  <script src="../js/api.js?v=2.0"></script>
+  <script src="../js/searchable-select.js"></script>
   <script>
     let poItemCount = 0;
 
@@ -147,18 +194,22 @@
       poItemCount++;
       const div = document.createElement("div");
       div.id = `po-item-${poItemCount}`;
-      div.style.cssText = "display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:end;";
+      div.style.cssText = "display:grid;grid-template-columns:1fr 2fr 0.8fr 0.8fr 1fr 0.8fr auto;gap:8px;margin-bottom:8px;align-items:end;";
       div.innerHTML = `
+        <input type="text"   class="pi-code"  placeholder="Item Code"
+               style="width:100%;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;"/>
         <input type="text"   class="pi-desc"  placeholder="Description *"
-               style="padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;" oninput="calcPOTotal()"/>
-        <input type="number" class="pi-qty"   placeholder="Qty" value="1"
-               style="padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;" oninput="calcPOTotal()"/>
-        <input type="number" class="pi-price" placeholder="Unit Price"
-               style="padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;" oninput="calcPOTotal()"/>
+               style="width:100%;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;" oninput="calcPOTotal()"/>
+        <input type="number" class="pi-qty"   placeholder="Qty *" value="1"
+               style="width:100%;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;" oninput="calcPOTotal()"/>
+        <input type="text"   class="pi-unit"  placeholder="Unit" value="PCS"
+               style="width:100%;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;"/>
+        <input type="number" class="pi-price" placeholder="Unit Price *"
+               style="width:100%;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;" oninput="calcPOTotal()"/>
         <input type="number" class="pi-tax"   placeholder="GST %" value="18"
-               style="padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;" oninput="calcPOTotal()"/>
+               style="width:100%;min-width:0;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:13px;" oninput="calcPOTotal()"/>
         <button onclick="document.getElementById('po-item-${poItemCount}').remove();calcPOTotal()"
-                style="padding:8px 12px;background:var(--red);color:white;border:none;border-radius:8px;cursor:pointer;">Γ£ò</button>`;
+                style="padding:8px 12px;background:var(--red);color:white;border:none;border-radius:8px;cursor:pointer;">✕</button>`;
       document.getElementById("po-items-container").appendChild(div);
     }
 
@@ -174,6 +225,8 @@
         total > 0 ? `Total: ${formatINR(total)}` : '';
     }
 
+    let ssPOVendor;
+
     async function loadVendorOptions() {
       try {
         const data = await api.get("/vendors/?status=Approved");
@@ -181,9 +234,16 @@
         data.vendors.forEach(v => {
           const opt  = document.createElement("option");
           opt.value  = v.id;
-          opt.text   = `${v.vendor_code} ΓÇö ${v.company_name}`;
+          opt.text   = `${v.vendor_code} — ${v.company_name}`;
           sel.appendChild(opt);
         });
+        if (!ssPOVendor) {
+          ssPOVendor = new SearchableSelect('po-vendor', {
+            placeholder:       '— Select Vendor —',
+            searchPlaceholder: 'Search vendors...'
+          });
+        }
+        ssPOVendor.refresh();
       } catch(e) {}
     }
 
@@ -211,39 +271,52 @@
         }
         tbody.innerHTML = pos.map(p => `
           <tr>
-            <td><strong>${p.po_number}</strong></td>
+            <td><strong>${p.po_number}</strong>${p.quotation_id ? `<br/><span style="font-size:10px;color:var(--text-muted);">Auto-Generated</span>` : ''}</td>
             <td>Vendor #${p.vendor_id}</td>
             <td>${formatDate(p.po_date)}</td>
             <td>${formatDate(p.delivery_date)}</td>
             <td><strong>${formatINR(p.total_amount)}</strong></td>
             <td>${badge(p.status)}</td>
-            <td style="display:flex;gap:6px;flex-wrap:wrap;">
+            <td style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+              <a href="po_template.html?po_id=${p.id}" target="_blank"
+                 class="btn btn-outline" style="padding:4px 10px;font-size:12px;color:#0f766e;border-color:#0f766e;">
+                <i class="fa fa-file-invoice"></i> View Document
+              </a>
+              <button class="btn btn-primary" style="padding:4px 10px;font-size:12px;background:#1a56db;"
+                      onclick="sendToVendor(${p.id},'${p.po_number}')">
+                <i class="fa fa-paper-plane"></i> Send to Vendor
+              </button>
               ${p.status === 'Draft'
                 ? `<button class="btn btn-outline" style="padding:4px 10px;font-size:12px;"
-                     onclick="submitForApproval(${p.id},'${p.po_number}')">Submit</button>` : ''}
+                     onclick="submitForApproval(${p.id},'${p.po_number}')">Submit for Approval</button>` : ''}
               ${p.status === 'Pending L1 Approval'
                 ? `<button class="btn btn-success" style="padding:4px 10px;font-size:12px;"
                      onclick="openPOApprove(${p.id},'L1','${p.po_number}')">L1 Approve</button>` : ''}
-              ${p.status === 'Pending L2 Approval'
-                ? `<button class="btn btn-success" style="padding:4px 10px;font-size:12px;"
-                     onclick="openPOApprove(${p.id},'L2','${p.po_number}')">L2 Approve</button>` : ''}
+               ${p.status === 'Pending L2 Approval'
+                 ? `<button class="btn btn-success" style="padding:4px 10px;font-size:12px;"
+                      onclick="openPOApprove(${p.id},'L2','${p.po_number}')">L2 Approve</button>` : ''}
+               ${(p.status === 'Approved' || p.status === 'Sent to Vendor' || p.status === 'Received')
+                 ? `<a href="grn.html" class="btn btn-primary" style="padding:4px 10px;font-size:12px;">
+                      <i class="fa fa-truck-loading"></i> Receive</a>` : ''}
             </td>
           </tr>`).join('');
       } catch(e) { showToast("Failed to load POs", "error"); }
     }
 
     async function submitPO() {
-      const vendorId = document.getElementById("po-vendor").value;
+      const vendorId = ssPOVendor ? ssPOVendor.getValue() : document.getElementById("po-vendor").value;
       const poDate   = document.getElementById("po-date").value;
       if (!vendorId || !poDate) { showToast("Vendor and PO date required", "error"); return; }
 
       const items = [];
       document.querySelectorAll("#po-items-container > div").forEach(row => {
+        const code  = row.querySelector(".pi-code")?.value.trim();
         const desc  = row.querySelector(".pi-desc")?.value.trim();
         const qty   = parseFloat(row.querySelector(".pi-qty")?.value) || 1;
+        const unit  = row.querySelector(".pi-unit")?.value.trim() || 'PCS';
         const price = parseFloat(row.querySelector(".pi-price")?.value) || 0;
         const tax   = parseFloat(row.querySelector(".pi-tax")?.value) || 18;
-        if (desc) items.push({ description: desc, quantity: qty, unit_price: price, tax_percent: tax });
+        if (desc) items.push({ item_code: code, description: desc, quantity: qty, unit: unit, unit_price: price, tax_percent: tax });
       });
       if (!items.length) { showToast("Add at least one item", "error"); return; }
 
@@ -253,11 +326,15 @@
           po_date         : poDate,
           delivery_date   : document.getElementById("po-delivery").value || null,
           payment_terms   : document.getElementById("po-terms").value,
+          incoterms       : document.getElementById("po-incoterms").value,
+          department      : document.getElementById("po-dept").value,
           delivery_address: document.getElementById("po-address").value,
+          notes           : document.getElementById("po-notes").value,
           items
         });
-        showToast(`Γ£à ${res.po_number} created!`, "success");
+        showToast(`✅ ${res.po_number} created!`, "success");
         document.getElementById("po-modal").classList.remove("open");
+        if (ssPOVendor) ssPOVendor.reset();
         loadPOs();
       } catch(e) { showToast("Error: " + e.message, "error"); }
     }
@@ -270,10 +347,22 @@
       } catch(e) { showToast(e.message, "error"); }
     }
 
+    async function sendToVendor(id, num) {
+      if (!confirm(`Send PO ${num} to the vendor via email?`)) return;
+      try {
+        showToast('Sending email to vendor...', 'info');
+        const res = await api.post(`/purchase-orders/${id}/send-to-vendor`);
+        showToast(`✅ ${res.message} (${res.email_status})`, 'success');
+        loadPOs();
+      } catch(e) {
+        showToast('Failed to send: ' + e.message, 'error');
+      }
+    }
+
     function openPOApprove(id, level, num) {
       document.getElementById("po-approve-id").value    = id;
       document.getElementById("po-approve-level").value = level;
-      document.getElementById("approve-modal-title").textContent = `${level} Approve ΓÇö ${num}`;
+      document.getElementById("approve-modal-title").textContent = `${level} Approve — ${num}`;
       document.getElementById("po-approve-modal").classList.add("open");
     }
 
@@ -287,7 +376,7 @@
           ? `/purchase-orders/${id}/approve-l1?approver=${encodeURIComponent(approver)}`
           : `/purchase-orders/${id}/approve-l2?approver=${encodeURIComponent(approver)}`;
         const res = await api.post(endpoint);
-        showToast(`Γ£à ${res.message}`, "success");
+        showToast(`✅ ${res.message}`, "success");
         document.getElementById("po-approve-modal").classList.remove("open");
         loadPOs();
       } catch(e) { showToast(e.message, "error"); }

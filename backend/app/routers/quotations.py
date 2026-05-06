@@ -33,28 +33,13 @@ def generate_quotation_number(db: Session) -> str:
     max_id = db.query(func.max(Quotation.id)).scalar() or 0
     return f"QUO-{year}-{str(max_id + 1).zfill(4)}"
 
-from app.models.vendor import Vendor
-from app.models.rfq import RFQ, RFQVendor
-
 # GET all quotations (optionally filter by RFQ)
 @router.get("/")
 def get_quotations(rfq_id: Optional[int] = None, db: Session = Depends(get_db)):
     query = db.query(Quotation)
     if rfq_id:
         query = query.filter(Quotation.rfq_id == rfq_id)
-    quos = query.order_by(Quotation.submitted_at.desc()).all()
-    
-    results = []
-    for q in quos:
-        vendor = db.query(Vendor).filter(Vendor.id == q.vendor_id).first()
-        rfq = db.query(RFQ).filter(RFQ.id == q.rfq_id).first()
-        
-        q_dict = {c.name: getattr(q, c.name) for c in q.__table__.columns}
-        q_dict["vendor_name"] = vendor.company_name if vendor else f"Vendor #{q.vendor_id}"
-        q_dict["rfq_number"] = rfq.rfq_number if rfq else f"RFQ #{q.rfq_id}"
-        results.append(q_dict)
-
-    return {"quotations": results}
+    return {"quotations": query.order_by(Quotation.submitted_at.desc()).all()}
 
 # GET single quotation
 @router.get("/{quotation_id}")

@@ -3,32 +3,91 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Negotiations ΓÇö Matrix S2P</title>
+  <title>Negotiations — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* ── Wide modals ── */
+    #neg-modal .modal,
+    #close-neg-modal .modal { max-width: 1000px !important; width: 96vw; }
+
+    /* ── Compact item pricing table inside modal ── */
+    .ni-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .ni-table thead tr { background: linear-gradient(135deg,#0f766e,#115e59); }
+    .ni-table thead th { padding:9px 12px; color:#fff; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; text-align:left; white-space:nowrap; }
+    .ni-table thead th:not(:first-child) { text-align:right; }
+    .ni-table tbody tr { border-bottom:1px solid #f1f5f9; transition:background 0.15s; }
+    .ni-table tbody tr:hover { background:#f8fafc; }
+    .ni-table tbody tr:last-child { border-bottom:none; }
+    .ni-table td { padding:8px 12px; vertical-align:middle; }
+    .ni-table td:not(:first-child) { text-align:right; }
+    .ni-table td.desc-cell { text-align:left; }
+    .ni-price-input {
+      width: 120px; padding:6px 10px;
+      border:1.5px solid #d1d5db; border-radius:7px;
+      font-size:13px; font-weight:600; color:#0f172a;
+      background:#fff; text-align:right;
+      transition:border-color 0.2s, box-shadow 0.2s;
+    }
+    .ni-price-input:focus {
+      outline:none; border-color:#0f766e;
+      box-shadow:0 0 0 3px rgba(15,118,110,0.12);
+    }
+    .ni-price-input::placeholder { color:#9ca3af; font-weight:400; }
+
+    /* ── Negotiation card redesign ── */
+    .neg-card { background:#fff; border-radius:14px; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.05); overflow:hidden; margin-bottom:20px; }
+    .neg-card-header { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid #f1f5f9; flex-wrap:wrap; gap:10px; }
+    .neg-ref { font-size:15px; font-weight:800; color:#0f172a; }
+    .neg-meta { font-size:12px; color:#64748b; margin-top:2px; }
+    .neg-totals-strip { display:grid; grid-template-columns:repeat(4,1fr); background:#f8fafc; border-bottom:1px solid #f1f5f9; }
+    .neg-total-cell { padding:10px 20px; border-right:1px solid #f1f5f9; }
+    .neg-total-cell:last-child { border-right:none; }
+    .neg-total-label { font-size:10px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:3px; }
+    .neg-total-val { font-size:15px; font-weight:800; color:#0f172a; }
+
+    /* ── Item detail table (inside card) ── */
+    .item-detail-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .item-detail-table thead tr { background:#f1f5f9; }
+    .item-detail-table th { padding:8px 14px; font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.4px; white-space:nowrap; }
+    .item-detail-table th:not(:first-child) { text-align:right; }
+    .item-detail-table td { padding:9px 14px; border-bottom:1px solid #f8fafc; vertical-align:middle; }
+    .item-detail-table td:not(:first-child) { text-align:right; }
+    .item-detail-table tbody tr:hover { background:#fafafa; }
+    .item-detail-table tbody tr:last-child td { border-bottom:none; }
+
+    /* ── Outcome summary bar ── */
+    .outcome-summary-bar { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; background:linear-gradient(135deg,#f0fdf4,#dcfce7); border-radius:10px; border:1px solid #bbf7d0; overflow:hidden; }
+    .osb-cell { padding:12px 20px; text-align:center; border-right:1px solid #bbf7d0; }
+    .osb-cell:last-child { border-right:none; }
+    .osb-label { font-size:10px; font-weight:700; color:#15803d; text-transform:uppercase; letter-spacing:0.5px; }
+    .osb-value { font-size:18px; font-weight:800; color:#0f172a; margin-top:3px; }
+  </style>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+        <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
-      <div class="logo-text"><span class="logo-main">Matrix S2P</span><span class="logo-sub">Comsec Pvt. Ltd.</span></div>
+      <div class="logo-text">
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
+      </div>
     </div>
    <nav class="sidebar-nav">
-  <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-  <a href="vendors.html"         class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
-  <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-  <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
-  <a href="purchase_orders.html" class="nav-item"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-  <a href="invoices.html"        class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-  <a href="payments.html"        class="nav-item"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-  <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-  <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
-  <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-  <a href="contracts.html"       class="nav-item"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-  <a href="negotiations.html"    class="nav-item active"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-  <a href="checklists.html"      class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-  <a href="audit.html"           class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
-</nav>
+      <a href="../index.html" class="nav-item" data-page="dashboard"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
+      <a href="vendors.html" class="nav-item" data-page="vendors"><i class="fa fa-building"></i><span>Vendors</span></a>
+      <a href="rfq.html" class="nav-item" data-page="rfq"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
+      <a href="quotations.html" class="nav-item" data-page="quotations"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
+      <a href="negotiations.html" class="nav-item active" data-page="negotiations"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
+      <a href="contracts.html" class="nav-item" data-page="contracts"><i class="fa fa-file-signature"></i><span>Contracts</span></a>
+      <a href="purchase_orders.html" class="nav-item" data-page="po"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
+      <a href="grn.html" class="nav-item" data-page="grn"><i class="fa fa-truck-loading"></i><span>Goods Receipt</span></a>
+      <a href="invoices.html" class="nav-item" data-page="invoices"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
+      <a href="payments.html" class="nav-item" data-page="payments"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
+      <a href="checklists.html" class="nav-item" data-page="checklists"><i class="fa fa-tasks"></i><span>Checklists</span></a>
+      <a href="audit.html" class="nav-item" data-page="audit"><i class="fa fa-history"></i><span>Audit Trail</span></a>
+      <a href="sap_integration.html" class="nav-item" data-page="sap_integration"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
+    </nav>
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
 
@@ -37,89 +96,78 @@
       <button class="menu-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
       <div class="topbar-title">
         <h1>Negotiation Tracking</h1>
-        <span>Track price commitments & savings achieved (BR-S2P-06)</span>
+        <span>Item-wise price revisions & savings (BR-S2P-06)</span>
       </div>
       <div class="topbar-right">
-        <button class="btn btn-primary" onclick="document.getElementById('neg-modal').classList.add('open')">
+        <button class="btn btn-primary" onclick="openNewNegModal()">
           <i class="fa fa-plus"></i> Start Negotiation
         </button>
       </div>
     </header>
 
     <div class="content-body">
-
-      <!-- Savings Summary -->
+      <!-- KPI Row -->
       <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);">
-        <div class="kpi-card blue">
-          <div class="kpi-icon"><i class="fa fa-handshake"></i></div>
-          <div class="kpi-data"><span class="kpi-value" id="kpi-neg-total">ΓÇö</span><span class="kpi-label">Total Negotiations</span></div>
-        </div>
-        <div class="kpi-card green">
-          <div class="kpi-icon"><i class="fa fa-rupee-sign"></i></div>
-          <div class="kpi-data"><span class="kpi-value" id="kpi-savings">ΓÇö</span><span class="kpi-label">Total Savings (INR)</span></div>
-        </div>
-        <div class="kpi-card purple">
-          <div class="kpi-icon"><i class="fa fa-percent"></i></div>
-          <div class="kpi-data"><span class="kpi-value" id="kpi-savings-pct">ΓÇö</span><span class="kpi-label">Avg Savings %</span></div>
-        </div>
-        <div class="kpi-card orange">
-          <div class="kpi-icon"><i class="fa fa-clock"></i></div>
-          <div class="kpi-data"><span class="kpi-value" id="kpi-open">ΓÇö</span><span class="kpi-label">Open Negotiations</span></div>
-        </div>
+        <div class="kpi-card blue"><div class="kpi-icon"><i class="fa fa-handshake"></i></div>
+          <div class="kpi-data"><span class="kpi-value" id="kpi-neg-total">—</span><span class="kpi-label">Total Negotiations</span></div></div>
+        <div class="kpi-card green"><div class="kpi-icon"><i class="fa fa-rupee-sign"></i></div>
+          <div class="kpi-data"><span class="kpi-value" id="kpi-savings">—</span><span class="kpi-label">Total Savings (INR)</span></div></div>
+        <div class="kpi-card purple"><div class="kpi-icon"><i class="fa fa-percent"></i></div>
+          <div class="kpi-data"><span class="kpi-value" id="kpi-savings-pct">—</span><span class="kpi-label">Avg Savings %</span></div></div>
+        <div class="kpi-card orange"><div class="kpi-icon"><i class="fa fa-clock"></i></div>
+          <div class="kpi-data"><span class="kpi-value" id="kpi-open">—</span><span class="kpi-label">Open Negotiations</span></div></div>
       </div>
 
-      <!-- Table -->
-      <div class="card">
-        <div class="card-header"><i class="fa fa-handshake"></i> All Negotiations</div>
-        <div style="overflow-x:auto;">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Ref</th><th>Vendor</th><th>Subject</th>
-                <th>Initial Price</th><th>Target</th><th>Agreed</th>
-                <th>Savings</th><th>Status</th><th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="neg-tbody">
-              <tr><td colspan="9" style="text-align:center;padding:30px;color:var(--text-muted);">Loading...</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- Negotiation Cards Grid -->
+      <div id="neg-grid" style="display:flex;flex-direction:column;gap:0;">
+        <div style="text-align:center;padding:40px;color:var(--text-muted);grid-column:1/-1;">Loading...</div>
       </div>
     </div>
   </div>
 
-  <!-- START NEGOTIATION MODAL -->
+  <!-- ═══ START NEGOTIATION MODAL ═══ -->
   <div class="modal-overlay" id="neg-modal">
-    <div class="modal" style="max-width:600px;">
+    <div class="modal" style="max-width:760px;">
       <div class="modal-header">
         <h2><i class="fa fa-handshake"></i> Start Negotiation</h2>
-        <button class="modal-close" onclick="document.getElementById('neg-modal').classList.remove('open')">├ù</button>
+        <button class="modal-close" onclick="closeNegModal()">×</button>
       </div>
+
       <div class="form-row">
         <div class="form-group">
           <label>Vendor *</label>
-          <select id="neg-vendor"><option value="">-- Select Vendor --</option></select>
+          <select id="neg-vendor" onchange="onVendorChange()"><option value="">-- Select Vendor --</option></select>
         </div>
         <div class="form-group">
           <label>Negotiated By</label>
           <input type="text" id="neg-by" value="Procurement Team"/>
         </div>
       </div>
-      <div class="form-group">
-        <label>Subject *</label>
-        <input type="text" id="neg-subject" placeholder="e.g. Q2 CCTV Camera pricing negotiation"/>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Link Quotation (Optional)</label>
+          <select id="neg-quotation" onchange="onQuotationSelect()">
+            <option value="">-- Select Quotation to negotiate --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Subject *</label>
+          <input type="text" id="neg-subject" placeholder="e.g. Q2 Laptop pricing negotiation"/>
+        </div>
       </div>
+
       <div class="form-row">
         <div class="form-group">
           <label>Initial / Quoted Price (INR) *</label>
-          <input type="number" id="neg-initial" placeholder="e.g. 500000"/>
+          <input type="number" id="neg-initial" placeholder="Auto-filled from quotation" readonly style="background:#f1f5f9;"/>
         </div>
         <div class="form-group">
-          <label>Target Price (INR) *</label>
+          <label>Overall Target Price (INR)</label>
           <input type="number" id="neg-target" placeholder="e.g. 420000"/>
         </div>
       </div>
+
       <div class="form-row">
         <div class="form-group">
           <label>Payment Terms</label>
@@ -130,176 +178,494 @@
           <input type="text" id="neg-delivery" placeholder="e.g. 14 days from PO"/>
         </div>
       </div>
+
+      <!-- ITEM-WISE TARGET PRICES -->
+      <div id="neg-items-section" style="display:none;margin-top:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span style="font-size:12px;font-weight:700;color:#0f766e;text-transform:uppercase;letter-spacing:0.5px;"><i class="fa fa-list"></i> Item-wise Target Prices</span>
+          <span style="font-size:11px;color:#94a3b8;">— set your target unit price per line</span>
+        </div>
+        <div style="border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;">
+          <table class="ni-table">
+            <thead><tr>
+              <th style="width:38%">Description</th>
+              <th>Qty</th>
+              <th>Unit</th>
+              <th>Initial ₹/Unit</th>
+              <th>Target ₹/Unit</th>
+              <th>Tax %</th>
+            </tr></thead>
+            <tbody id="neg-items-container"></tbody>
+          </table>
+        </div>
+      </div>
+
       <div style="display:flex;gap:12px;margin-top:20px;justify-content:flex-end;">
-        <button class="btn btn-outline" onclick="document.getElementById('neg-modal').classList.remove('open')">Cancel</button>
-        <button class="btn btn-primary" onclick="submitNegotiation()"><i class="fa fa-save"></i> Start</button>
+        <button class="btn btn-outline" onclick="closeNegModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitNegotiation()"><i class="fa fa-paper-plane"></i> Start & Email Vendor</button>
       </div>
     </div>
   </div>
 
-  <!-- CLOSE / AGREE MODAL -->
+  <!-- ═══ RECORD OUTCOME MODAL (ITEM-WISE) ═══ -->
   <div class="modal-overlay" id="close-neg-modal">
-    <div class="modal" style="max-width:480px;">
+    <div class="modal" style="max-width:700px;">
       <div class="modal-header">
-        <h2><i class="fa fa-check-circle"></i> Record Outcome</h2>
-        <button class="modal-close" onclick="document.getElementById('close-neg-modal').classList.remove('open')">├ù</button>
+        <h2><i class="fa fa-check-circle"></i> Record Negotiation Outcome</h2>
+        <button class="modal-close" onclick="document.getElementById('close-neg-modal').classList.remove('open')">×</button>
       </div>
       <input type="hidden" id="close-neg-id"/>
-      <div class="form-group">
-        <label>Agreed Price (INR) *</label>
-        <input type="number" id="close-agreed" placeholder="Final agreed amount"/>
+
+      <!-- Item-wise agreed prices -->
+      <div id="outcome-items-section">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span style="font-size:12px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:0.5px;"><i class="fa fa-tags"></i> Set Agreed Prices Per Item</span>
+        </div>
+        <div style="border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;">
+          <table class="ni-table">
+            <thead><tr>
+              <th style="width:36%">Description</th>
+              <th>Qty</th>
+              <th>Initial ₹/Unit</th>
+              <th>Agreed ₹/Unit</th>
+              <th>Line Savings</th>
+            </tr></thead>
+            <tbody id="outcome-items-container"></tbody>
+          </table>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Outcome</label>
-        <select id="close-status">
-          <option value="Agreed">Agreed Γ£à</option>
-          <option value="Failed">Failed Γ¥î</option>
-          <option value="In Progress">Still In Progress</option>
-        </select>
+
+      <!-- Grand totals preview -->
+      <div id="outcome-summary" style="margin:14px 0;display:none;">
+        <div class="outcome-summary-bar">
+          <div class="osb-cell"><div class="osb-label">Initial Total</div><div class="osb-value" id="sum-initial">—</div></div>
+          <div class="osb-cell"><div class="osb-label">Agreed Total</div><div class="osb-value" id="sum-agreed" style="color:#0f766e;">—</div></div>
+          <div class="osb-cell"><div class="osb-label">Total Savings</div><div class="osb-value" id="sum-savings" style="color:#16a34a;">—</div></div>
+        </div>
+        <div id="po-sync-notice" style="display:none;margin-top:8px;font-size:12px;color:#15803d;background:#dcfce7;border-radius:8px;padding:10px 14px;border:1px solid #bbf7d0;">
+          <i class="fa fa-sync-alt"></i> <strong>PO will auto-update:</strong> All PO line items and total will sync to these agreed prices on save.
+        </div>
       </div>
-      <div class="form-group">
-        <label>Outcome Notes</label>
-        <textarea id="close-notes" rows="3" placeholder="Key commitments, conditions agreed..."></textarea>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Outcome *</label>
+          <select id="close-status">
+            <option value="Agreed">Agreed ✅</option>
+            <option value="Failed">Failed ❌</option>
+            <option value="In Progress">Still In Progress</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Outcome Notes</label>
+          <input type="text" id="close-notes" placeholder="Key commitments, conditions..."/>
+        </div>
       </div>
-      <div id="savings-preview" style="background:#f0fdf4;border-radius:8px;padding:12px;margin-top:8px;display:none;">
-        <strong>≡ƒÆ░ Projected Savings:</strong>
-        <span id="savings-calc" style="color:var(--green);font-size:18px;font-weight:800;"></span>
-      </div>
+
       <div style="display:flex;gap:12px;margin-top:16px;justify-content:flex-end;">
         <button class="btn btn-outline" onclick="document.getElementById('close-neg-modal').classList.remove('open')">Cancel</button>
-        <button class="btn btn-success" onclick="closeNegotiation()"><i class="fa fa-check"></i> Save Outcome</button>
+        <button class="btn btn-success" onclick="saveOutcome()"><i class="fa fa-check"></i> Save & Sync PO</button>
       </div>
     </div>
   </div>
 
-  <script src="../js/api.js"></script>
+  <script src="../js/api.js?v=2.0"></script>
+  <script src="../js/searchable-select.js"></script>
   <script>
-    let currentInitial = 0;
+    let allVendors = [];
+    let allQuotations = [];
+    let currentNegItems = []; // NegotiationItem[] for the outcome modal
+    let ssNegVendor;
 
+    // ── Helpers ─────────────────────────────────────────────────
+    function formatINR(v) {
+      if (!v && v !== 0) return '—';
+      return '₹ ' + parseFloat(v).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function badge(status) {
+      const map = {
+        'Open'       : 'background:#dbeafe;color:#1d4ed8',
+        'In Progress': 'background:#fef9c3;color:#a16207',
+        'Agreed'     : 'background:#dcfce7;color:#15803d',
+        'Failed'     : 'background:#fee2e2;color:#b91c1c',
+        'Closed'     : 'background:#f3f4f6;color:#6b7280',
+      };
+      const s = map[status] || 'background:#f3f4f6;color:#6b7280';
+      return `<span style="padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;${s}">${status}</span>`;
+    }
+
+    // ── Load data ────────────────────────────────────────────────
     async function loadSummary() {
       try {
-        const s = await api.get("/negotiations/summary");
-        document.getElementById("kpi-savings").textContent     = formatINR(s.total_savings_inr);
-        document.getElementById("kpi-savings-pct").textContent = s.avg_savings_percent + "%";
+        const s = await api.get('/negotiations/summary');
+        document.getElementById('kpi-savings').textContent     = formatINR(s.total_savings_inr);
+        document.getElementById('kpi-savings-pct').textContent = (s.avg_savings_percent || 0) + '%';
       } catch(e) {}
     }
 
     async function loadNegotiations() {
       try {
-        const data  = await api.get("/negotiations/");
-        document.getElementById("kpi-neg-total").textContent =
-          data.total;
-        document.getElementById("kpi-open").textContent =
-          data.negotiations.filter(n => n.status === "Open" || n.status === "In Progress").length;
+        const data = await api.get('/negotiations/');
+        document.getElementById('kpi-neg-total').textContent = data.total;
+        document.getElementById('kpi-open').textContent =
+          data.negotiations.filter(n => n.status === 'Open' || n.status === 'In Progress').length;
 
-        const tbody = document.getElementById("neg-tbody");
+        const grid = document.getElementById('neg-grid');
         if (!data.negotiations.length) {
-          tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state">
-            <i class="fa fa-handshake"></i><p>No negotiations yet</p></div></td></tr>`;
+          grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><i class="fa fa-handshake"></i><p>No negotiations yet. Start one from a quotation.</p></div>`;
           return;
         }
 
-        tbody.innerHTML = data.negotiations.map(n => `
-          <tr>
-            <td><strong>${n.negotiation_ref}</strong></td>
-            <td>${n.vendor_name}</td>
-            <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
-                title="${n.subject}">${n.subject}</td>
-            <td>${formatINR(n.initial_price)}</td>
-            <td style="color:var(--blue);">${formatINR(n.target_price)}</td>
-            <td><strong>${n.agreed_price ? formatINR(n.agreed_price) : 'ΓÇö'}</strong></td>
-            <td>
-              ${n.savings_achieved > 0
-                ? `<span style="color:var(--green);font-weight:700;">
-                     ${formatINR(n.savings_achieved)}
-                     <small>(${n.savings_percent}%)</small>
-                   </span>`
-                : 'ΓÇö'}
-            </td>
-            <td>${badge(n.status)}</td>
-            <td>
-              ${['Open','In Progress'].includes(n.status)
-                ? `<button class="btn btn-success" style="padding:4px 10px;font-size:12px;"
-                     onclick="openCloseModal(${n.id},${n.initial_price})">
-                     <i class="fa fa-check"></i> Record
-                   </button>` : 'ΓÇö'}
-            </td>
-          </tr>`).join('');
-      } catch(e) { showToast("Failed to load negotiations", "error"); }
+        grid.innerHTML = data.negotiations.map(n => `
+          <div class="neg-card">
+            <!-- Header -->
+            <div class="neg-card-header">
+              <div>
+                <div class="neg-ref">${n.negotiation_ref}
+                  <span style="font-size:12px;font-weight:500;color:#64748b;margin-left:8px;">${n.vendor_name}</span>
+                </div>
+                <div class="neg-meta"><i class="fa fa-comment-alt" style="font-size:10px;"></i> ${n.subject}</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                ${badge(n.status)}
+                ${['Open','In Progress'].includes(n.status)
+                  ? `<button class="btn btn-success" style="padding:5px 14px;font-size:12px;border-radius:8px;"
+                       onclick="openOutcomeModal(${JSON.stringify(n).replace(/"/g,'&quot;')})">
+                       <i class="fa fa-check"></i> Record Outcome
+                     </button>` : ''}
+              </div>
+            </div>
+
+            <!-- Totals Strip -->
+            <div class="neg-totals-strip">
+              <div class="neg-total-cell">
+                <div class="neg-total-label">Initial Budget</div>
+                <div class="neg-total-val">${formatINR(n.initial_price)}</div>
+              </div>
+              <div class="neg-total-cell">
+                <div class="neg-total-label">Target Price</div>
+                <div class="neg-total-val" style="color:#3b82f6;">${formatINR(n.target_price)}</div>
+              </div>
+              <div class="neg-total-cell">
+                <div class="neg-total-label">Agreed Price</div>
+                <div class="neg-total-val" style="color:#0f766e;">${n.agreed_price ? formatINR(n.agreed_price) : '—'}</div>
+              </div>
+              <div class="neg-total-cell">
+                <div class="neg-total-label">Savings Achieved</div>
+                <div class="neg-total-val" style="color:#16a34a;">
+                  ${n.savings_achieved > 0
+                    ? `${formatINR(n.savings_achieved)} <span style="font-size:12px;font-weight:600;">(${n.savings_percent}%)</span>`
+                    : '<span style="color:#94a3b8;">—</span>'}
+                </div>
+              </div>
+            </div>
+
+            <!-- Item-wise breakdown -->
+            ${n.items && n.items.length > 0 ? `
+            <div style="padding:0 0 4px;">
+              <table class="item-detail-table">
+                <thead>
+                  <tr>
+                    <th style="width:36%;padding-left:20px;">Description</th>
+                    <th>Qty</th>
+                    <th>Initial ₹/Unit</th>
+                    <th>Target ₹/Unit</th>
+                    <th>Agreed ₹/Unit</th>
+                    <th style="padding-right:20px;">Line Savings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${n.items.map(item => `
+                    <tr>
+                      <td style="padding-left:20px;text-align:left;"><strong style="color:#0f172a;">${item.description}</strong></td>
+                      <td>${parseFloat(item.quantity).toLocaleString('en-IN')} ${item.unit}</td>
+                      <td>${formatINR(item.initial_unit_price)}</td>
+                      <td style="color:#3b82f6;">${item.target_unit_price ? formatINR(item.target_unit_price) : '—'}</td>
+                      <td style="color:#0f766e;font-weight:700;">${item.agreed_unit_price ? formatINR(item.agreed_unit_price) : '—'}</td>
+                      <td style="color:#16a34a;font-weight:700;padding-right:20px;">
+                        ${item.agreed_unit_price && item.agreed_unit_price < item.initial_unit_price
+                          ? formatINR((item.initial_unit_price - item.agreed_unit_price) * item.quantity)
+                          : item.agreed_unit_price ? '<span style="color:#94a3b8;">No saving</span>' : '—'}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+              ${n.po_id ? `<div style="font-size:11px;color:#15803d;padding:8px 20px 12px;"><i class="fa fa-link"></i> Linked PO — item prices auto-sync when negotiation is Agreed</div>` : ''}
+            </div>` : '<div style="padding:14px 20px;font-size:13px;color:#94a3b8;"><i class="fa fa-info-circle"></i> No item breakdown — single-price negotiation</div>'}
+          </div>
+        `).join('');
+      } catch(e) { showToast('Failed to load negotiations', 'error'); }
     }
 
     async function loadVendors() {
       try {
-        const data = await api.get("/vendors/");
-        const sel  = document.getElementById("neg-vendor");
-        data.vendors.forEach(v =>
-          sel.appendChild(new Option(`${v.vendor_code} ΓÇö ${v.company_name}`, v.id)));
+        const data = await api.get('/vendors/');
+        allVendors = data.vendors || [];
+        const sel = document.getElementById('neg-vendor');
+        allVendors.forEach(v => sel.appendChild(new Option(`${v.vendor_code} — ${v.company_name}`, v.id)));
+        if (!ssNegVendor) {
+          ssNegVendor = new SearchableSelect('neg-vendor', { placeholder: '— Select Vendor —', searchPlaceholder: 'Search vendors...' });
+        }
+        ssNegVendor.refresh();
       } catch(e) {}
     }
 
-    async function submitNegotiation() {
-      const vendor  = document.getElementById("neg-vendor").value;
-      const subject = document.getElementById("neg-subject").value.trim();
-      const initial = document.getElementById("neg-initial").value;
-      const target  = document.getElementById("neg-target").value;
-      if (!vendor || !subject || !initial || !target) {
-        showToast("All required fields must be filled", "error"); return;
+    async function loadQuotations() {
+      try {
+        const data = await api.get('/quotations/');
+        allQuotations = data.quotations || [];
+        const sel = document.getElementById('neg-quotation');
+        allQuotations.forEach(q => {
+          const opt = new Option(`${q.quotation_number} — ₹${parseFloat(q.total_amount||0).toLocaleString('en-IN', {maximumFractionDigits:0})}`, q.id);
+          sel.appendChild(opt);
+        });
+      } catch(e) {}
+    }
+
+    // ── Modal control ────────────────────────────────────────────
+    function openNewNegModal() {
+      document.getElementById('neg-subject').value  = '';
+      document.getElementById('neg-initial').value  = '';
+      document.getElementById('neg-target').value   = '';
+      document.getElementById('neg-payment').value  = '';
+      document.getElementById('neg-delivery').value = '';
+      document.getElementById('neg-quotation').value = '';
+      document.getElementById('neg-items-section').style.display = 'none';
+      document.getElementById('neg-items-container').innerHTML   = '';
+      if (ssNegVendor) ssNegVendor.reset();
+      document.getElementById('neg-modal').classList.add('open');
+    }
+
+    function closeNegModal() {
+      document.getElementById('neg-modal').classList.remove('open');
+    }
+
+    function onVendorChange() {}
+
+    async function onQuotationSelect() {
+      const qId = document.getElementById('neg-quotation').value;
+      if (!qId) {
+        document.getElementById('neg-items-section').style.display = 'none';
+        return;
       }
       try {
-        const res = await api.post("/negotiations/", {
+        const data = await api.get(`/negotiations/quotation-items/${qId}`);
+        document.getElementById('neg-initial').value = data.total_amount;
+        document.getElementById('neg-items-section').style.display = 'block';
+        document.getElementById('neg-items-container').innerHTML = data.items.map((item, i) => `
+          <tr id="ni-row-${i}">
+            <td class="desc-cell">
+              <div style="font-weight:600;color:#0f172a;font-size:13px;">${item.description}</div>
+            </td>
+            <td>${parseFloat(item.quantity).toLocaleString('en-IN')}</td>
+            <td>PCS</td>
+            <td>₹${parseFloat(item.unit_price).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+            <td>
+              <input type="number" placeholder="Target ₹" id="ni-target-${i}" class="ni-price-input"
+                     data-qi-id="${item.id}" data-initial="${item.unit_price}" data-qty="${item.quantity}" data-tax="${item.tax_percent}"
+                     oninput="recalcNegTotal()">
+            </td>
+            <td>${item.tax_percent}%</td>
+          </tr>
+        `).join('');
+      } catch(e) { showToast('Could not load quotation items: ' + e.message, 'error'); }
+    }
+
+    function recalcNegTotal() {
+      let total = 0;
+      document.querySelectorAll('[id^="ni-target-"]').forEach(inp => {
+        const val = parseFloat(inp.value) || parseFloat(inp.dataset.initial);
+        const qty = parseFloat(inp.dataset.qty) || 1;
+        const tax = parseFloat(inp.dataset.tax)  || 18;
+        total += qty * val * (1 + tax / 100);
+      });
+      document.getElementById('neg-target').value = total.toFixed(2);
+    }
+
+    async function submitNegotiation() {
+      const vendor  = ssNegVendor ? ssNegVendor.getValue() : document.getElementById('neg-vendor').value;
+      const subject = document.getElementById('neg-subject').value.trim();
+      const initial = document.getElementById('neg-initial').value;
+      const target  = document.getElementById('neg-target').value;
+      const qId     = document.getElementById('neg-quotation').value;
+
+      if (!vendor || !subject) { showToast('Vendor and Subject are required.', 'error'); return; }
+      if (!initial) { showToast('Link a quotation or enter an initial price.', 'error'); return; }
+
+      // Build item-wise targets
+      const items = [];
+      document.querySelectorAll('[id^="ni-target-"]').forEach(inp => {
+        const row = inp.closest('tr');
+        const descEl = row ? row.querySelector('.desc-cell div') : null;
+        items.push({
+          description        : descEl ? descEl.textContent.trim() : '',
+          quantity           : parseFloat(inp.dataset.qty),
+          initial_unit_price : parseFloat(inp.dataset.initial),
+          target_unit_price  : parseFloat(inp.value) || null,
+          tax_percent        : parseFloat(inp.dataset.tax) || 18,
+          quotation_item_id  : parseInt(inp.dataset.qiId) || null,
+        });
+      });
+
+      try {
+        const res = await api.post('/negotiations/', {
           vendor_id          : parseInt(vendor),
+          quotation_id       : qId ? parseInt(qId) : null,
           subject            : subject,
           initial_price      : parseFloat(initial),
-          target_price       : parseFloat(target),
-          payment_terms      : document.getElementById("neg-payment").value,
-          delivery_commitment: document.getElementById("neg-delivery").value,
-          negotiated_by      : document.getElementById("neg-by").value
+          target_price       : parseFloat(target) || parseFloat(initial),
+          payment_terms      : document.getElementById('neg-payment').value,
+          delivery_commitment: document.getElementById('neg-delivery').value,
+          negotiated_by      : document.getElementById('neg-by').value,
+          items              : items
         });
-        showToast(`Γ£à Negotiation ${res.ref} started!`, "success");
-        document.getElementById("neg-modal").classList.remove("open");
-        loadNegotiations();
-      } catch(e) { showToast("Error: " + e.message, "error"); }
+        showToast(`Negotiation ${res.ref} started. Email fired to vendor!`, 'success');
+        closeNegModal();
+        loadNegotiations(); loadSummary();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
     }
 
-    function openCloseModal(id, initial) {
-      currentInitial = initial;
-      document.getElementById("close-neg-id").value = id;
-      document.getElementById("close-neg-modal").classList.add("open");
-      document.getElementById("close-agreed").oninput = () => {
-        const agreed  = parseFloat(document.getElementById("close-agreed").value) || 0;
-        const savings = currentInitial - agreed;
-        const pct     = ((savings / currentInitial) * 100).toFixed(1);
-        if (agreed > 0) {
-          document.getElementById("savings-preview").style.display = "block";
-          document.getElementById("savings-calc").textContent =
-            `${formatINR(Math.max(savings,0))} (${pct}%)`;
+    // ── Outcome Modal ────────────────────────────────────────────
+    function openOutcomeModal(neg) {
+      currentNegItems = neg.items || [];
+      document.getElementById('close-neg-id').value = neg.id;
+      document.getElementById('close-status').value  = 'Agreed';
+      document.getElementById('close-notes').value   = '';
+      document.getElementById('outcome-summary').style.display = 'none';
+
+      const hasPO = !!neg.po_id;
+      document.getElementById('po-sync-notice').style.display = hasPO ? 'block' : 'none';
+
+      // Render item grid
+      const container = document.getElementById('outcome-items-container');
+      if (currentNegItems.length === 0) {
+        container.innerHTML = `
+          <div style="padding:16px;background:#f8fafc;border-radius:8px;border:1px solid var(--border);">
+            <div class="form-group" style="margin:0;">
+              <label>Agreed Total Price (INR) *</label>
+              <input type="number" id="fallback-agreed" placeholder="Final agreed amount" oninput="recalcFallback(${neg.initial_price})"/>
+            </div>
+          </div>`;
+      } else {
+        container.innerHTML = currentNegItems.map((item, i) => `
+          <tr id="oi-row-${i}">
+            <td class="desc-cell">
+              <div style="font-weight:600;color:#0f172a;font-size:13px;">${item.description}</div>
+              <div style="font-size:11px;color:#94a3b8;">${item.quantity} PCS · ${item.tax_percent}% GST</div>
+            </td>
+            <td>${parseFloat(item.quantity).toLocaleString('en-IN')}</td>
+            <td>₹${parseFloat(item.initial_unit_price).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>
+            <td>
+              <input type="number" id="oi-agreed-${i}" placeholder="Agreed ₹" class="ni-price-input"
+                     value="${item.agreed_unit_price || ''}"
+                     data-ni-id="${item.id}" data-initial="${item.initial_unit_price}" data-qty="${item.quantity}" data-tax="${item.tax_percent}"
+                     oninput="recalcOutcome()">
+            </td>
+            <td id="oi-saving-${i}" style="color:#16a34a;font-weight:700;">—</td>
+          </tr>
+        `).join('');
+      }
+
+      document.getElementById('close-neg-modal').classList.add('open');
+    }
+
+    function recalcOutcome() {
+      let totalInitial = 0, totalAgreed = 0;
+      let allFilled = true;
+      document.querySelectorAll('[id^="oi-agreed-"]').forEach((inp, i) => {
+        const initial = parseFloat(inp.dataset.initial) || 0;
+        const agreed  = parseFloat(inp.value) || 0;
+        const qty     = parseFloat(inp.dataset.qty)  || 1;
+        const tax     = parseFloat(inp.dataset.tax)  || 18;
+        const factor  = 1 + tax / 100;
+        totalInitial += qty * initial * factor;
+        totalAgreed  += qty * (agreed || initial) * factor;
+        if (!inp.value) allFilled = false;
+        const savings = (initial - agreed) * qty;
+        document.getElementById(`oi-saving-${i}`).textContent =
+          agreed > 0 ? formatINR(Math.max(savings, 0)) : '—';
+      });
+      const totalSavings = Math.max(totalInitial - totalAgreed, 0);
+      document.getElementById('outcome-summary').style.display = 'block';
+      document.getElementById('sum-initial').textContent = formatINR(totalInitial);
+      document.getElementById('sum-agreed').textContent  = formatINR(totalAgreed);
+      document.getElementById('sum-savings').textContent = formatINR(totalSavings);
+    }
+
+    function recalcFallback(initial) {
+      const agreed  = parseFloat(document.getElementById('fallback-agreed').value) || 0;
+      const savings = initial - agreed;
+      document.getElementById('outcome-summary').style.display = 'block';
+      document.getElementById('sum-initial').textContent = formatINR(initial);
+      document.getElementById('sum-agreed').textContent  = formatINR(agreed);
+      document.getElementById('sum-savings').textContent = formatINR(Math.max(savings,0));
+    }
+
+    async function saveOutcome() {
+      const id     = document.getElementById('close-neg-id').value;
+      const status = document.getElementById('close-status').value;
+      const notes  = document.getElementById('close-notes').value;
+
+      // Build item-wise agreed prices
+      const itemPayload = [];
+      document.querySelectorAll('[id^="oi-agreed-"]').forEach(inp => {
+        const val = parseFloat(inp.value);
+        if (!isNaN(val) && val > 0) {
+          itemPayload.push({
+            negotiation_item_id: parseInt(inp.dataset.niId),
+            agreed_unit_price  : val
+          });
         }
-      };
-    }
+      });
 
-    async function closeNegotiation() {
-      const id     = document.getElementById("close-neg-id").value;
-      const agreed = document.getElementById("close-agreed").value;
-      const status = document.getElementById("close-status").value;
-      const notes  = document.getElementById("close-notes").value;
-      if (!agreed) { showToast("Enter agreed price", "error"); return; }
+      // Fallback for non-item negotiations
+      let agreedPrice = null;
+      const fallback = document.getElementById('fallback-agreed');
+      if (fallback) agreedPrice = parseFloat(fallback.value) || null;
+
+      const payload = { status, outcome_notes: notes, items: itemPayload };
+      if (agreedPrice) payload.agreed_price = agreedPrice;
+
       try {
-        const res = await api.patch(`/negotiations/${id}/close`, {
-          agreed_price : parseFloat(agreed),
-          status       : status,
-          outcome_notes: notes
-        });
-        showToast(`Γ£à Outcome saved! Savings: ${formatINR(res.savings_achieved)} (${res.savings_percent}%)`,
-                  "success");
-        document.getElementById("close-neg-modal").classList.remove("open");
-        loadNegotiations();
-        loadSummary();
-      } catch(e) { showToast(e.message, "error"); }
+        const res = await api.patch(`/negotiations/${id}/close`, payload);
+        let msg = `Outcome saved! Savings: ${formatINR(res.savings_achieved)} (${res.savings_percent}%)`;
+        if (status === 'Agreed') msg += ' — PO & Quotation prices updated!';
+        showToast(msg, 'success');
+        document.getElementById('close-neg-modal').classList.remove('open');
+        loadNegotiations(); loadSummary();
+      } catch(e) { showToast(e.message, 'error'); }
     }
 
-    loadVendors();
-    loadNegotiations();
-    loadSummary();
+    // ── Init ─────────────────────────────────────────────────────
+    async function init() {
+      await loadVendors();
+      await loadQuotations();
+      await loadNegotiations();
+      await loadSummary();
+
+      // Pre-fill from URL params (from Quotations page redirect)
+      const params = new URLSearchParams(window.location.search);
+      const vId    = params.get('vendor_id');
+      const price  = params.get('initial_price');
+      const qId    = params.get('quotation_id');
+      const subj   = params.get('subject');
+
+      if (vId || price || qId) {
+        openNewNegModal();
+        if (vId)   { if (ssNegVendor) ssNegVendor.setValue(vId); }
+        if (price) document.getElementById('neg-initial').value = price;
+        if (subj)  document.getElementById('neg-subject').value = subj;
+        if (qId)   {
+          document.getElementById('neg-quotation').value = qId;
+          await onQuotationSelect();
+        }
+        showToast('Pre-filled from Quotation', 'info');
+      }
+    }
+
+    init();
   </script>
 </body>
 </html>

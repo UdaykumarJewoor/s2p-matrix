@@ -1,68 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>S2P ΓÇö Matrix Comsec</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S2P — Matrix Comsec | Commercial Governance Dashboard</title>
+  <meta name="description" content="Source-to-Pay Commercial Governance Dashboard — Budget tracking, EBIT margin, spend visibility (BR-S2P-08)." />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+    <div class="sidebar-header" onclick="window.location.href='index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
       <div class="logo-text">
-        <span class="logo-main">Matrix S2P</span>
-        <span class="logo-sub">Comsec Pvt. Ltd.</span>
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
       </div>
     </div>
 
-<nav class="sidebar-nav">
-  <a href="index.html"                   class="nav-item active" data-page="dashboard">
-    <i class="fa fa-chart-pie"></i><span>Dashboard</span>
-  </a>
-  <a href="pages/vendors.html"           class="nav-item" data-page="vendors">
-    <i class="fa fa-building"></i><span>Vendors</span>
-  </a>
-  <a href="pages/rfq.html"               class="nav-item" data-page="rfq">
-    <i class="fa fa-file-alt"></i><span>RFQ</span>
-  </a>
-  <a href="pages/quotations.html"        class="nav-item" data-page="quotations">
-    <i class="fa fa-balance-scale"></i><span>Quotations</span>
-  </a>
-  <a href="pages/purchase_orders.html"   class="nav-item" data-page="po">
-    <i class="fa fa-shopping-cart"></i><span>Purchase Orders</span>
-  </a>
-  <a href="pages/invoices.html"          class="nav-item" data-page="invoices">
-    <i class="fa fa-file-invoice"></i><span>Invoices</span>
-  </a>
-  <a href="pages/payments.html"          class="nav-item" data-page="payments">
-    <i class="fa fa-money-bill-wave"></i><span>Payments</span>
-  </a>
-  <a href="pages/performance.html"       class="nav-item" data-page="performance">
-    <i class="fa fa-star"></i><span>Performance</span>
-  </a>
-  <a href="pages/ai_discovery.html"      class="nav-item" data-page="ai_discovery">
-    <i class="fa fa-robot"></i><span>AI Discovery</span>
-  </a>
-  <a href="pages/sap_integration.html"   class="nav-item" data-page="sap_integration">
-    <i class="fa fa-plug"></i><span>SAP Integration</span>
-  </a>
-  <a href="pages/contracts.html"         class="nav-item" data-page="contracts">
-    <i class="fa fa-file-contract"></i><span>Contracts</span>
-  </a>
-  <a href="pages/negotiations.html"      class="nav-item" data-page="negotiations">
-    <i class="fa fa-handshake"></i><span>Negotiations</span>
-  </a>
-  <a href="pages/checklists.html"        class="nav-item" data-page="checklists">
-    <i class="fa fa-tasks"></i><span>Checklists</span>
-  </a>
-  <a href="pages/audit.html"             class="nav-item" data-page="audit">
-    <i class="fa fa-history"></i><span>Audit Trail</span>
-  </a>
-</nav>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item active" data-page="dashboard"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
+      <a href="pages/vendors.html" class="nav-item" data-page="vendors"><i class="fa fa-building"></i><span>Vendors</span></a>
+      <a href="pages/rfq.html" class="nav-item" data-page="rfq"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
+      <a href="pages/quotations.html" class="nav-item" data-page="quotations"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
+      <a href="pages/negotiations.html" class="nav-item" data-page="negotiations"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
+      <a href="pages/contracts.html" class="nav-item" data-page="contracts"><i class="fa fa-file-signature"></i><span>Contracts</span></a>
+      <a href="pages/purchase_orders.html" class="nav-item" data-page="po"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
+      <a href="pages/grn.html" class="nav-item" data-page="grn"><i class="fa fa-truck-loading"></i><span>Goods Receipt</span></a>
+      <a href="pages/invoices.html" class="nav-item" data-page="invoices"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
+      <a href="pages/payments.html" class="nav-item" data-page="payments"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
+      <a href="pages/checklists.html" class="nav-item" data-page="checklists"><i class="fa fa-tasks"></i><span>Checklists</span></a>
+      <a href="pages/audit.html" class="nav-item" data-page="audit"><i class="fa fa-history"></i><span>Audit Trail</span></a>
+      <a href="pages/sap_integration.html" class="nav-item" data-page="sap_integration"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
+    </nav>
 
     <div class="sidebar-footer">
       <span><i class="fa fa-circle green-dot"></i> System Online</span>
@@ -72,27 +47,21 @@
   <!-- MAIN CONTENT -->
   <div class="main-content">
 
-    <!-- TOP NAR -->
     <header class="topbar">
-      <button class="menu-toggle" onclick="toggleSidebar()">
-        <i class="fa fa-bars"></i>
-      </button>
+      <button class="menu-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
       <div class="topbar-title">
         <h1 id="page-title">Dashboard</h1>
-        <span id="page-subtitle">Source-to-Pay Overview</span>
+        <span id="page-subtitle">Commercial Governance · Source-to-Pay Overview (BR-S2P-08)</span>
       </div>
       <div class="topbar-right">
         <span class="badge-date" id="today-date"></span>
-        <div class="user-avatar">
-          <i class="fa fa-user-circle"></i>
-        </div>
+        <div class="user-avatar"><i class="fa fa-user-circle"></i></div>
       </div>
     </header>
 
-    <!-- DASHBOARD BODY -->
     <div class="content-body">
 
-      <!-- KPI CARDS -->
+      <!-- ── KPI CARDS ─────────────────────────────────────────── -->
       <div class="kpi-grid" id="kpi-grid">
         <div class="kpi-card blue">
           <div class="kpi-icon"><i class="fa fa-building"></i></div>
@@ -130,7 +99,7 @@
           </div>
         </div>
         <div class="kpi-card teal">
-          <div class="kpi-icon"><i class="fa fa-rupee-sign"></i></div>
+          <div class="kpi-icon"><span style="font-family:serif;font-weight:bold;font-size:18px;">Rs</span></div>
           <div class="kpi-data">
             <span class="kpi-value" id="kpi-spend">--</span>
             <span class="kpi-label">Total Spend (INR)</span>
@@ -138,55 +107,114 @@
         </div>
       </div>
 
-      <!-- PENDING ACTIONS -->
-      <div class="section-row">
-        <div class="card">
-          <div class="card-header">
-            <i class="fa fa-clock"></i> Pending Approvals
-          </div>
-          <div class="card-body" id="pending-approvals">
-            <div class="loading-msg">Loading...</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <i class="fa fa-exclamation-circle"></i> Invoice Exceptions
-          </div>
-          <div class="card-body" id="invoice-exceptions">
-            <div class="loading-msg">Loading...</div>
+      <!-- ── BR-S2P-08: COMMERCIAL GOVERNANCE ─────────────────── -->
+      <div style="margin-top:32px;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:4px;height:30px;background:linear-gradient(180deg,#3b82f6,#8b5cf6);border-radius:4px;"></div>
+          <div>
+            <div style="font-size:18px;font-weight:800;color:var(--text);">Commercial Governance</div>
+            <div style="font-size:12px;color:var(--text-muted);">BR-S2P-08 &middot; Budget tracking, EBIT margin monitoring &amp; spend-vs-plan visibility at category and vendor level</div>
           </div>
         </div>
       </div>
 
-      <!-- QUICK ACTIONS -->
-      <div class="card full-width">
-        <div class="card-header">
-          <i class="fa fa-bolt"></i> Quick Actions
+      <!-- Governance KPI Strip -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:16px;margin-bottom:24px;">
+        <div style="background:linear-gradient(135deg,#0f172a,#1e3a5f);color:#fff;border-radius:14px;padding:20px 18px;">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:.7;margin-bottom:8px;">Total Planned Budget</div>
+          <div id="gov-planned" style="font-size:24px;font-weight:900;color:#60a5fa;">—</div>
+          <div style="font-size:11px;opacity:.6;margin-top:4px;">From RFQ Estimates</div>
         </div>
+        <div style="background:linear-gradient(135deg,#064e3b,#065f46);color:#fff;border-radius:14px;padding:20px 18px;">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:.7;margin-bottom:8px;">Actual Spend (INR)</div>
+          <div id="gov-actual" style="font-size:24px;font-weight:900;color:#34d399;">—</div>
+          <div style="font-size:11px;opacity:.6;margin-top:4px;">Committed POs</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#4c1d95,#5b21b6);color:#fff;border-radius:14px;padding:20px 18px;">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:.7;margin-bottom:8px;">EBIT Contribution</div>
+          <div id="gov-ebit" style="font-size:24px;font-weight:900;color:#c4b5fd;">—</div>
+          <div style="font-size:11px;opacity:.6;margin-top:4px;">Direct Procurement Savings</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#7c2d12,#9a3412);color:#fff;border-radius:14px;padding:20px 18px;">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:.7;margin-bottom:8px;">EBIT Margin %</div>
+          <div id="gov-ebit-pct" style="font-size:24px;font-weight:900;color:#fdba74;">—</div>
+          <div style="font-size:11px;opacity:.6;margin-top:4px;">Savings vs. Quoted Value</div>
+        </div>
+      </div>
+
+      <!-- Budget Chart + Vendor Spend Table -->
+      <div class="section-row" style="margin-bottom:24px; align-items: stretch;">
+        <div class="card" style="flex:3; display: flex; flex-direction: column;">
+          <div class="card-header"><i class="fa fa-chart-bar"></i> Budget vs Actual Spend — by Category</div>
+          <div class="card-body" style="height:300px;position:relative;flex-shrink:0;">
+            <canvas id="budgetChart"></canvas>
+          </div>
+          <div id="category-detail-table" style="padding:0 16px 16px; flex: 1;"></div>
+        </div>
+        <div class="card" style="flex:2; display: flex; flex-direction: column;">
+          <div class="card-header"><i class="fa fa-trophy"></i> Top Vendor Spend Allocation</div>
+          <div class="card-body" style="padding:0; flex: 1; display: flex; flex-direction: column; min-height: 0;">
+            <div id="vendor-spend-table" style="flex: 1; overflow-y: auto;">
+              <div style="text-align:center;padding:30px;color:var(--text-muted);"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Value Realization + Negotiation Efficiency -->
+      <div class="section-row" style="margin-bottom:24px;">
+        <div class="card" style="flex:2;">
+          <div class="card-header"><i class="fa fa-chart-line"></i> Procurement Value Realization (Monthly)</div>
+          <div class="card-body" style="height:300px;position:relative;">
+            <canvas id="savingsChart"></canvas>
+          </div>
+        </div>
+        <div class="card" style="flex:1;display:flex;flex-direction:column;">
+          <div class="card-header"><i class="fa fa-bullseye"></i> Negotiation Efficiency</div>
+          <div class="card-body" style="padding:20px;display:flex;flex-direction:column;gap:20px;">
+            <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);padding:24px 20px;border-radius:12px;text-align:center;border:1px solid #bbf7d0;">
+              <div style="font-size:12px;color:#166534;text-transform:uppercase;letter-spacing:1px;font-weight:800;margin-bottom:8px;">Procurement Efficiency</div>
+              <div style="font-size:42px;font-weight:900;color:#15803d;line-height:1;" id="avg-savings-pct">0%</div>
+              <div style="font-size:12px;color:#166534;opacity:.8;margin-top:8px;">Avg. Negotiated Savings</div>
+            </div>
+            <div id="neg-insight-container" style="flex:1;">
+              <div style="text-align:center;padding:40px;color:var(--text-muted);">
+                <i class="fa fa-sync-alt fa-spin"></i> Loading insights...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Pending Approvals + Invoice Exceptions ────────────── -->
+      <div class="section-row" style="margin-bottom:24px;">
+        <div class="card">
+          <div class="card-header"><i class="fa fa-clock"></i> Pending Approvals</div>
+          <div class="card-body" id="pending-approvals"><div class="loading-msg">Loading...</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><i class="fa fa-exclamation-circle"></i> Invoice Exceptions</div>
+          <div class="card-body" id="invoice-exceptions"><div class="loading-msg">Loading...</div></div>
+        </div>
+      </div>
+
+      <!-- ── Quick Actions ─────────────────────────────────────── -->
+      <div class="card full-width">
+        <div class="card-header"><i class="fa fa-bolt"></i> Quick Actions</div>
         <div class="quick-actions">
-          <a href="pages/vendors.html" class="qa-btn blue">
-            <i class="fa fa-plus"></i> Add Vendor
-          </a>
-          <a href="pages/rfq.html" class="qa-btn green">
-            <i class="fa fa-file-alt"></i> Create RFQ
-          </a>
-          <a href="pages/purchase_orders.html" class="qa-btn orange">
-            <i class="fa fa-shopping-cart"></i> Create PO
-          </a>
-          <a href="pages/invoices.html" class="qa-btn purple">
-            <i class="fa fa-file-invoice"></i> Upload Invoice
-          </a>
-          <a href="pages/quotations.html" class="qa-btn teal">
-            <i class="fa fa-balance-scale"></i> Compare Quotes
-          </a>
+          <a href="pages/vendors.html" class="qa-btn blue"><i class="fa fa-plus"></i> Add Vendor</a>
+          <a href="pages/rfq.html" class="qa-btn green"><i class="fa fa-file-alt"></i> Create RFQ</a>
+          <a href="pages/purchase_orders.html" class="qa-btn orange"><i class="fa fa-shopping-cart"></i> Create PO</a>
+          <a href="pages/invoices.html" class="qa-btn purple"><i class="fa fa-file-invoice"></i> Upload Invoice</a>
+          <a href="pages/quotations.html" class="qa-btn teal"><i class="fa fa-balance-scale"></i> Compare Quotes</a>
         </div>
       </div>
 
     </div><!-- /content-body -->
   </div><!-- /main-content -->
 
-  <script src="js/api.js"></script>
-  <script src="js/dashboard.js"></script>
+  <script src="js/api.js?v=2.0"></script>
+  <script src="js/dashboard.js?v=3.0"></script>
 </body>
+
 </html>

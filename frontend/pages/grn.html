@@ -3,32 +3,59 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Goods Receipt — Matrix S2P</title>
+  <title>Goods Receipt (GRN) — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+        <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
-      <div class="logo-text"><span class="logo-main">Matrix S2P</span><span class="logo-sub">Comsec Pvt. Ltd.</span></div>
+      <div class="logo-text">
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
+      </div>
     </div>
     <nav class="sidebar-nav">
-      <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-      <a href="vendors.html"         class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
-      <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-      <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
-      <a href="purchase_orders.html" class="nav-item"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-      <a href="grn.html"             class="nav-item active"><i class="fa fa-boxes"></i><span>Goods Receipt</span></a>
-      <a href="invoices.html"        class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-      <a href="payments.html"        class="nav-item"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-      <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-      <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
-      <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-      <a href="contracts.html"       class="nav-item"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-      <a href="negotiations.html"    class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-      <a href="checklists.html"      class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-      <a href="audit.html"           class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
+      <a href="../index.html" class="nav-item" data-page="dashboard">
+        <i class="fa fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="vendors.html" class="nav-item" data-page="vendors">
+        <i class="fa fa-building"></i><span>Vendors</span>
+      </a>
+      <a href="rfq.html" class="nav-item" data-page="rfq">
+        <i class="fa fa-file-alt"></i><span>RFQ</span>
+      </a>
+      <a href="quotations.html" class="nav-item" data-page="quotations">
+        <i class="fa fa-balance-scale"></i><span>Quotations</span>
+      </a>
+      <a href="negotiations.html" class="nav-item" data-page="negotiations">
+        <i class="fa fa-handshake"></i><span>Negotiations</span>
+      </a>
+      <a href="contracts.html" class="nav-item" data-page="contracts">
+        <i class="fa fa-file-signature"></i><span>Contracts</span>
+      </a>
+      <a href="purchase_orders.html" class="nav-item" data-page="po">
+        <i class="fa fa-shopping-cart"></i><span>Purchase Orders</span>
+      </a>
+      <a href="grn.html" class="nav-item active" data-page="grn">
+        <i class="fa fa-truck-loading"></i><span>Goods Receipt</span>
+      </a>
+      <a href="invoices.html" class="nav-item" data-page="invoices">
+        <i class="fa fa-file-invoice"></i><span>Invoices</span>
+      </a>
+      <a href="payments.html" class="nav-item" data-page="payments">
+        <i class="fa fa-money-bill-wave"></i><span>Payments</span>
+      </a>
+      <a href="checklists.html" class="nav-item" data-page="checklists">
+        <i class="fa fa-tasks"></i><span>Checklists</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <i class="fa fa-history"></i><span>Audit Trail</span>
+      </a>
+      <a href="sap_integration.html" class="nav-item" data-page="sap_integration">
+        <i class="fa fa-plug"></i><span>SAP Integration</span>
+      </a>
     </nav>
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
@@ -37,8 +64,8 @@
     <header class="topbar">
       <button class="menu-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
       <div class="topbar-title">
-        <h1>Goods Receipt Notes</h1>
-        <span>3-Way Match: PO → GRN → Invoice (BR-S2P-11)</span>
+        <h1>Goods Receipt Note (GRN)</h1>
+        <span>Confirm physical delivery of goods against Purchase Orders</span>
       </div>
       <div class="topbar-right">
         <button class="btn btn-primary" onclick="openReceiptModal()">
@@ -47,49 +74,41 @@
       </div>
     </header>
 
-    <div class="page-body">
-      <!-- Stats Row -->
-      <div class="stats-grid" style="grid-template-columns: repeat(4,1fr); margin-bottom:1.5rem;">
+    <div class="content-body">
+      <!-- SUMMARY CARDS -->
+      <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 24px;">
         <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(99,102,241,0.15);color:#6366f1;"><i class="fa fa-box"></i></div>
-          <div class="stat-info"><div class="stat-value" id="total-grn">—</div><div class="stat-label">Total GRNs</div></div>
+          <div class="stat-icon" style="background:rgba(88,166,255,0.1);color:var(--primary);"><i class="fa fa-clock"></i></div>
+          <div class="stat-info">
+            <h3 id="stat-pending">0</h3>
+            <p>POs Pending Receipt</p>
+          </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(16,185,129,0.15);color:#10b981;"><i class="fa fa-check-circle"></i></div>
-          <div class="stat-info"><div class="stat-value" id="matched-grn">—</div><div class="stat-label">3-Way Matched</div></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(245,158,11,0.15);color:#f59e0b;"><i class="fa fa-clock"></i></div>
-          <div class="stat-info"><div class="stat-value" id="pending-grn">—</div><div class="stat-label">Pending Matching</div></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(239,68,68,0.15);color:#ef4444;"><i class="fa fa-exclamation-triangle"></i></div>
-          <div class="stat-info"><div class="stat-value" id="exception-grn">—</div><div class="stat-label">Exceptions</div></div>
+          <div class="stat-icon" style="background:rgba(63,185,80,0.1);color:var(--green);"><i class="fa fa-check-circle"></i></div>
+          <div class="stat-info">
+            <h3 id="stat-total">0</h3>
+            <p>Total GRNs Issued</p>
+          </div>
         </div>
       </div>
 
-      <!-- GRN Table -->
       <div class="card">
-        <div class="card-header">
-          <h2 class="card-title"><i class="fa fa-clipboard-list"></i> Goods Receipt Register</h2>
-          <input type="text" class="search-box" id="grn-search" placeholder="Search GRN, PO, vendor..." oninput="filterGRNs(this.value)"/>
-        </div>
-        <div class="table-wrapper">
-          <table class="data-table" id="grn-table">
+        <div class="card-header"><i class="fa fa-receipt"></i> Recent Goods Receipts</div>
+        <div style="overflow-x:auto;">
+          <table class="data-table">
             <thead>
               <tr>
-                <th>GRN Number</th>
-                <th>PO Reference</th>
-                <th>Vendor Partner</th>
-                <th>Received Date</th>
-                <th>Items Received</th>
-                <th>Total Value</th>
-                <th>Match Status</th>
+                <th>GRN No.</th>
+                <th>PO No.</th>
+                <th>Receipt Date</th>
+                <th>Received By</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody id="grn-tbody">
-              <tr><td colspan="8" class="empty-state"><i class="fa fa-inbox"></i> Loading GRN records...</td></tr>
+            <tbody id="grn-table-body">
+              <tr><td colspan="6" style="text-align:center;padding:30px;">Loading...</td></tr>
             </tbody>
           </table>
         </div>
@@ -97,266 +116,628 @@
     </div>
   </div>
 
-  <!-- Record Receipt Modal -->
+  <!-- RECEIPT MODAL (CREATE) -->
   <div class="modal-overlay" id="receipt-modal">
-    <div class="modal" style="max-width:750px;">
+    <div class="modal" style="max-width:500px;">
       <div class="modal-header">
-        <h3><i class="fa fa-boxes"></i> Record Goods Receipt</h3>
-        <button class="modal-close" onclick="closeReceiptModal()"><i class="fa fa-times"></i></button>
+        <h2><i class="fa fa-truck-loading"></i> Record New Receipt</h2>
+        <button class="modal-close" onclick="closeModal()">×</button>
       </div>
-      <div class="modal-body">
-        <div class="form-row">
-          <div class="form-group" style="flex:1;">
-            <label>Select Purchase Order *</label>
-            <select id="po-select" onchange="loadPOItems(this.value)" class="form-control">
-              <option value="">-- Select Approved PO --</option>
-            </select>
-          </div>
-          <div class="form-group" style="flex:1;">
-            <label>Receipt Date *</label>
-            <input type="date" id="receipt-date" class="form-control"/>
-          </div>
+      <div class="form-group">
+        <label>Select Purchase Order *</label>
+        <select id="rec-po">
+          <option value="">-- Choose Approved PO --</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Received Date *</label>
+          <input type="date" id="rec-date"/>
         </div>
         <div class="form-group">
-          <label>Received By (Name) *</label>
-          <input type="text" id="received-by" class="form-control" placeholder="Warehouse Manager Name"/>
-        </div>
-        <div class="form-group">
-          <label>Items Received</label>
-          <div id="grn-items-container" style="border:1px solid var(--border);border-radius:8px;overflow:hidden;">
-            <table class="data-table" style="margin:0;">
-              <thead>
-                <tr>
-                  <th>Item Description</th>
-                  <th>Ordered Qty</th>
-                  <th>Received Qty</th>
-                  <th>Accepted Qty</th>
-                  <th>Condition</th>
-                </tr>
-              </thead>
-              <tbody id="grn-items-tbody">
-                <tr><td colspan="5" class="empty-state">Select a PO to load items</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Delivery Notes / Remarks</label>
-          <textarea id="grn-notes" class="form-control" rows="2" placeholder="Any delivery notes or discrepancies..."></textarea>
+          <label>Received By</label>
+          <input type="text" id="rec-user" value="Warehouse Admin"/>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeReceiptModal()">Cancel</button>
-        <button class="btn btn-primary" onclick="submitReceipt()"><i class="fa fa-check"></i> Record Receipt</button>
+      <div class="form-group">
+        <label>Received Quality *</label>
+        <select id="rec-quality" class="form-control" style="width:100%; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px;">
+          <option value="Accepted">Excellent - fully accepted</option>
+          <option value="Partially Accepted">Average - partially accepted (minor issues)</option>
+          <option value="Rejected">Poor - rejected (items damaged/incorrect)</option>
+        </select>
+      </div>
+      <div id="grn-item-checklist" style="display:none; margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; background: #f8fafc;">
+        <label style="font-weight: 700; color: var(--primary); display: block; margin-bottom: 10px; font-size: 13px;">
+          <i class="fa fa-list-check"></i> Item Verification Checklist *
+        </label>
+        <table style="width: 100%; font-size: 12px; border-collapse: collapse;" id="grn-items-table">
+          <thead>
+            <tr style="text-align: left; border-bottom: 1px solid #cbd5e1;">
+              <th style="padding: 6px;">Description</th>
+              <th style="padding: 6px; width: 60px;">Ord.</th>
+              <th style="padding: 6px; width: 70px;">Recv.</th>
+              <th style="padding: 6px; width: 70px;">Reject</th>
+            </tr>
+          </thead>
+          <tbody id="grn-items-body"></tbody>
+        </table>
+      </div>
+
+      <div class="form-group">
+        <label>Notes / Quality Observation</label>
+        <textarea id="rec-notes" placeholder="e.g. 5 boxes received, no external damage" rows="3"></textarea>
+      </div>
+
+      <div class="form-group" style="margin-top:15px; padding: 12px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;">
+        <label style="font-weight: 600; color: #92400e; font-size: 12px; display: block; margin-bottom: 8px;">
+          <i class="fa fa-file-invoice"></i> Vendor Invoice Digitize (PDF/Image)
+        </label>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <input type="file" id="rec-invoice" style="font-size:11px;" accept="application/pdf,image/*" />
+          <div id="upload-status" style="font-size:11px; color:#15803d; display:none;"><i class="fa fa-check"></i> Selected</div>
+        </div>
+      </div>
+      <div class="form-group" style="background:#fefce8; border: 1px solid #fde68a; padding: 15px; border-radius: 12px; margin-top:20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <input type="checkbox" id="rec-autosettle" style="width:20px; height:20px; cursor:pointer; accent-color: #92400e;">
+          <div>
+            <label style="margin:0; font-weight:700; color:#92400e; font-size:14px;">⚡ Touchless Auto-Settle (ERS)</label>
+            <div style="font-size:11px; color:#a16207;">Verified 3-Way Match: PO ↔ GRN ↔ Invoice</div>
+          </div>
+        </div>
+
+        <div id="payment-method-container" style="display:none; padding-top:12px; border-top: 1px dashed #fde68a; animation: fadeIn 0.3s ease;">
+          <label style="font-weight: 600; color: #92400e; font-size: 11px; display: block; margin-bottom: 8px;">
+            <i class="fa fa-credit-card"></i> SELECT PAYMENT METHOD
+          </label>
+          <select id="rec-payment-method" class="form-control" style="width:100%; border:1px solid #fde68a; border-radius:8px; padding:10px; font-size:13px; background:#fff;">
+            <option value="NEFT">NEFT / Bank Transfer</option>
+            <option value="RTGS">RTGS (Instant High-Value)</option>
+            <option value="Check">Manual Check Payment</option>
+            <option value="UPI">Business UPI</option>
+          </select>
+          <div style="margin-top:8px; font-size:10px; color:#b45309; line-height:1.4;">
+            <i class="fa fa-shield-halved"></i> <b>Integrity Gate Active:</b> Payment will ONLY be recorded if the AI Match Status is <u>Matched</u>. Any discrepancy will halt the automation.
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; margin-top:25px; justify-content:flex-end;">
+        <button class="btn btn-outline" style="border-radius:8px;" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" style="border-radius:8px; padding: 10px 24px;" onclick="submitReceipt()">
+          <i class="fa fa-save"></i> Confirm Receipt
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- GRN Detail Modal -->
-  <div class="modal-overlay" id="grn-detail-modal">
-    <div class="modal" style="max-width:700px;">
+  <!-- VIEW MODAL -->
+  <div class="modal-overlay" id="view-modal">
+    <div class="modal" style="max-width:500px;">
       <div class="modal-header">
-        <h3 id="grn-detail-title">GRN Details</h3>
-        <button class="modal-close" onclick="document.getElementById('grn-detail-modal').classList.remove('open')"><i class="fa fa-times"></i></button>
+        <h2><i class="fa fa-eye"></i> Receipt Details</h2>
+        <button class="modal-close" onclick="closeViewModal()">×</button>
       </div>
-      <div class="modal-body" id="grn-detail-body"></div>
+      <div id="view-content" style="padding:10px 0;">
+        <!-- Filled by JS -->
+      </div>
+      <div style="display:flex;margin-top:20px;justify-content:flex-end;">
+        <button class="btn btn-outline" onclick="closeViewModal()">Close</button>
+      </div>
     </div>
   </div>
 
-  <script src="../js/api.js"></script>
+  <script src="../js/api.js?v=2.0"></script>
+  <script src="../js/searchable-select.js"></script>
   <script>
-    let allGRNs = [];
     let approvedPOs = [];
+    let allGRNs = [];
+    let ssRecPO;
 
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('collapsed');
+    async function init() {
+      try {
+        console.log("[GRN] Initializing dashboard...");
+        document.getElementById('rec-date').value = new Date().toISOString().split('T')[0];
+        
+        // Load in parallel for speed
+        await Promise.all([
+          loadPOs(),
+          loadGRNs()
+        ]);
+        console.log("[GRN] Initialization successful.");
+      } catch (err) {
+        console.error("[GRN] Fatal Init Error:", err);
+      }
+    }
+
+    async function loadPOs() {
+      try {
+        const [approved, sent, acknowledged, partial] = await Promise.all([
+          api.get("/purchase-orders/?status=Approved"),
+          api.get("/purchase-orders/?status=Sent to Vendor"),
+          api.get("/purchase-orders/?status=Acknowledged"),
+          api.get("/purchase-orders/?status=Partially Received")
+        ]);
+        approvedPOs = [
+          ...approved.purchase_orders, 
+          ...sent.purchase_orders, 
+          ...acknowledged.purchase_orders,
+          ...partial.purchase_orders
+        ];
+        
+        const sel = document.getElementById('rec-po');
+        sel.innerHTML = '<option value="">-- Choose Approved PO --</option>';
+        approvedPOs.forEach(p => {
+          sel.appendChild(new Option(`${p.po_number} — ${formatINR(p.total_amount)}`, p.id));
+        });
+        
+        sel.onchange = async () => {
+          const poId = sel.value;
+          if(!poId) {
+            document.getElementById('grn-item-checklist').style.display = 'none';
+            return;
+          }
+          try {
+            const poData = await api.get(`/purchase-orders/${poId}`);
+            const tbody = document.getElementById('grn-items-body');
+            document.getElementById('grn-item-checklist').style.display = 'block';
+            
+            tbody.innerHTML = poData.items.map(it => {
+              if (it.remaining_qty <= 0) return ''; // Skip fully received items
+              return `
+                <tr style="border-bottom: 1px solid #f1f5f9;" class="grn-item-row" data-po-item-id="${it.id}">
+                  <td style="padding: 6px; font-weight: 500;">
+                    ${it.description}
+                    <div style="font-size:10px; color:#64748b;">Prev. Received: ${it.delivered_qty} | Total: ${it.quantity}</div>
+                  </td>
+                  <td style="padding: 6px;" class="ord-qty">${it.remaining_qty}</td>
+                  <td style="padding: 6px;"><input type="number" class="recv-qty" value="${it.remaining_qty}" style="width:50px; padding:2px;"/></td>
+                  <td style="padding: 6px;"><input type="number" class="reject-qty" value="0" style="width:50px; padding:2px;"/></td>
+                </tr>
+              `;
+            }).join('');
+          } catch(e) {
+            console.error("[GRN] Failed to load PO details for checklist:", e);
+          }
+        };
+
+        if (!ssRecPO) {
+          ssRecPO = new SearchableSelect('rec-po', {
+            placeholder:       '-- Choose Approved PO --',
+            searchPlaceholder: 'Search PO number...',
+            onChange: (val) => { sel.value = val; sel.onchange(); }
+          });
+        }
+        ssRecPO.refresh();
+        document.getElementById('stat-pending').textContent = approvedPOs.length;
+      } catch(e) {
+        console.error("[GRN] Failed to fetch PO list:", e);
+        document.getElementById('stat-pending').textContent = 'Error';
+      }
     }
 
     async function loadGRNs() {
       try {
-        const data = await api.get('/grn/');
+        const data = await api.get("/invoices/grn/");
         allGRNs = data.grns || [];
-        renderGRNTable(allGRNs);
-        updateStats(allGRNs);
-      } catch (e) {
-        document.getElementById('grn-tbody').innerHTML = `<tr><td colspan="8" class="empty-state"><i class="fa fa-exclamation-triangle"></i> Failed to load GRNs</td></tr>`;
-      }
-    }
+        const tbody = document.getElementById("grn-table-body");
+        document.getElementById('stat-total').textContent = allGRNs.length;
+        
+        if (!allGRNs.length) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;">No receipts found.</td></tr>';
+          return;
+        }
 
-    function updateStats(grns) {
-      document.getElementById('total-grn').textContent = grns.length;
-      document.getElementById('matched-grn').textContent = grns.filter(g => g.match_status === 'Matched').length;
-      document.getElementById('pending-grn').textContent = grns.filter(g => g.match_status === 'Pending').length;
-      document.getElementById('exception-grn').textContent = grns.filter(g => g.match_status === 'Exception').length;
-    }
+        tbody.innerHTML = allGRNs.map(g => {
+          let badgeClass = 'badge-success';
+          const status = g.quality_status || 'Accepted';
+          
+          if (status.includes('Failed') || status === 'Rejected') {
+            badgeClass = 'badge-danger';
+          } else if (status === 'Partially Accepted') {
+            badgeClass = 'badge-warning';
+          }
 
-    function renderGRNTable(grns) {
-      const tbody = document.getElementById('grn-tbody');
-      if (!grns.length) {
-        tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><i class="fa fa-inbox"></i> No GRN records found</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = grns.map(g => {
-        const statusClass = g.match_status === 'Matched' ? 'badge-success' : g.match_status === 'Exception' ? 'badge-danger' : 'badge-warning';
-        const val = g.total_value ? `₹${parseFloat(g.total_value).toLocaleString('en-IN', {minimumFractionDigits:2})}` : '—';
-        return `
+          return `
           <tr>
             <td><strong>${g.grn_number}</strong></td>
-            <td>${g.po_number || '—'}</td>
-            <td><span class="vendor-tag">${g.vendor_name || '—'}</span></td>
-            <td>${g.received_date ? new Date(g.received_date).toLocaleDateString('en-IN') : '—'}</td>
-            <td>${g.items_count || 0} item(s)</td>
-            <td>${val}</td>
-            <td><span class="badge ${statusClass}">${g.match_status}</span></td>
-            <td>
-              <button class="btn-icon" onclick="viewGRNDetail(${g.id})" title="View Details"><i class="fa fa-eye"></i></button>
+            <td>PO#${g.po_id}</td>
+            <td>${formatDate(g.received_date)}</td>
+            <td>${g.received_by || 'system'}</td>
+            <td><span class="badge ${badgeClass}">${status}</span></td>
+            <td style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button class="btn btn-outline" style="padding:4px 8px;font-size:11px;" onclick="viewGRN(${g.id})">
+                <i class="fa fa-eye"></i> View
+              </button>
+              ${status !== 'Accepted' ? `
+              <button class="btn" style="padding:4px 8px;font-size:11px;background:#f59e0b;color:#fff;border:none;border-radius:6px;cursor:pointer;" onclick="openReprocessModal(${g.id}, '${g.grn_number}')">
+                <i class="fa fa-rotate"></i> Reprocess
+              </button>` : ''}
             </td>
-          </tr>`;
-      }).join('');
+          </tr>
+        `; }).join('');
+      } catch(e) {
+        console.error("[GRN] Failed to load GRNs:", e);
+        const tbody = document.getElementById("grn-table-body");
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--red);padding:20px;">
+            <i class="fa fa-exclamation-triangle"></i> Error loading receipts: ${e.message}
+          </td></tr>`;
+        }
+      }
     }
 
-    function filterGRNs(q) {
-      if (!q) { renderGRNTable(allGRNs); return; }
-      const filtered = allGRNs.filter(g =>
-        (g.grn_number||'').toLowerCase().includes(q.toLowerCase()) ||
-        (g.po_number||'').toLowerCase().includes(q.toLowerCase()) ||
-        (g.vendor_name||'').toLowerCase().includes(q.toLowerCase())
-      );
-      renderGRNTable(filtered);
+    async function viewGRN(id) {
+      document.getElementById('view-content').innerHTML = `
+        <div style="text-align:center;padding:30px;color:var(--text-muted);">
+          <i class="fa fa-spinner fa-spin fa-2x"></i><br>Loading details...
+        </div>
+      `;
+      document.getElementById('view-modal').classList.add('open');
+
+      try {
+        const fullGrn = await api.get(`/invoices/grn/${id}`);
+        
+        let itemsHtml = `
+          <table class="data-table" style="margin-top:16px; font-size:12px;">
+            <thead style="background:#f8fafc;">
+              <tr>
+                <th style="padding:8px;">Description</th>
+                <th style="padding:8px; text-align:center;">Ordered</th>
+                <th style="padding:8px; text-align:center;">Received</th>
+                <th style="padding:8px; text-align:center;">Accepted</th>
+                <th style="padding:8px; text-align:center;">Rejected</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+        
+        if (fullGrn.items && fullGrn.items.length > 0) {
+          itemsHtml += fullGrn.items.map(it => `
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:8px; font-weight:500;">${it.description}</td>
+              <td style="padding:8px; text-align:center;">${it.ordered_qty}</td>
+              <td style="padding:8px; text-align:center; font-weight:600; color:#3b82f6;">${it.received_qty}</td>
+              <td style="padding:8px; text-align:center; font-weight:600; color:#16a34a;">${it.accepted_qty}</td>
+              <td style="padding:8px; text-align:center; font-weight:600; color:${it.rejected_qty > 0 ? '#ef4444' : '#64748b'};">${it.rejected_qty}</td>
+            </tr>
+          `).join('');
+        } else {
+          itemsHtml += `<tr><td colspan="5" style="text-align:center; padding:10px;">No items found.</td></tr>`;
+        }
+        itemsHtml += `</tbody></table>`;
+
+        document.getElementById('view-content').innerHTML = `
+          <div style="display:grid;grid-template-columns:100px 1fr;gap:12px;font-size:14px;">
+            <div style="color:var(--text-muted);">GRN Code:</div><div><strong style="color:var(--primary);">${fullGrn.grn_number}</strong></div>
+            <div style="color:var(--text-muted);">PO No:</div><div>${fullGrn.po_number || 'PO#' + fullGrn.po_id}</div>
+            <div style="color:var(--text-muted);">Date:</div><div>${formatDate(fullGrn.received_date)}</div>
+            <div style="color:var(--text-muted);">Recv By:</div><div>${fullGrn.received_by || 'Warehouse Team'}</div>
+            <div style="color:var(--text-muted);">Status:</div>
+            <div>
+              <span style="font-size:12px; padding:3px 8px; border-radius:12px; font-weight:600; background:${fullGrn.quality_status.includes('Accepted') ? '#dcfce7; color:#166534' : '#fee2e2; color:#991b1b'}">
+                ${fullGrn.quality_status}
+              </span>
+            </div>
+            
+            <div style="grid-column: span 2; margin-top:10px; border-top:1px solid var(--border); padding-top:10px;">
+              <strong style="color:var(--primary);"><i class="fa fa-boxes"></i> Received Items</strong>
+              ${itemsHtml}
+            </div>
+
+            <div style="color:var(--text-muted); grid-column: span 2; margin-top:10px;">Observations / Notes:</div>
+            <div style="grid-column: span 2; padding:12px; background:#f8fafc; border-radius:8px; border:1px solid #e2e8f0; min-height:60px;">
+              ${fullGrn.notes ? fullGrn.notes : '<i style="color:#94a3b8;">No specific notes recorded.</i>'}
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        document.getElementById('view-content').innerHTML = `
+          <div style="text-align:center;padding:30px;color:var(--red);">
+            <i class="fa fa-exclamation-triangle fa-2x"></i><br>Error loading details: ${err.message}
+          </div>
+        `;
+      }
     }
 
-    async function openReceiptModal() {
+    function openReceiptModal() {
       document.getElementById('receipt-modal').classList.add('open');
-      document.getElementById('receipt-date').value = new Date().toISOString().split('T')[0];
-      await loadAvailablePOs();
     }
-
-    function closeReceiptModal() {
+    function closeModal() {
       document.getElementById('receipt-modal').classList.remove('open');
-      document.getElementById('po-select').value = '';
-      document.getElementById('grn-items-tbody').innerHTML = '<tr><td colspan="5" class="empty-state">Select a PO to load items</td></tr>';
+    }
+    function closeViewModal() {
+      document.getElementById('view-modal').classList.remove('open');
     }
 
-    async function loadAvailablePOs() {
-      try {
-        const [approved, sent, acknowledged, partial] = await Promise.all([
-          api.get('/purchase-orders/?status=Approved'),
-          api.get('/purchase-orders/?status=Sent to Vendor'),
-          api.get('/purchase-orders/?status=Acknowledged'),
-          api.get('/purchase-orders/?status=Partially Received')
-        ]);
-        approvedPOs = [
-          ...(approved.purchase_orders || []),
-          ...(sent.purchase_orders || []),
-          ...(acknowledged.purchase_orders || []),
-          ...(partial.purchase_orders || [])
-        ];
-        const sel = document.getElementById('po-select');
-        sel.innerHTML = '<option value="">-- Select a PO --</option>' +
-          approvedPOs.map(p => `<option value="${p.id}">${p.po_number} — ${p.vendor_name || 'Vendor'} (${p.status})</option>`).join('');
-      } catch (e) {
-        console.error('Failed to load POs', e);
-      }
-    }
-
-    async function loadPOItems(poId) {
-      if (!poId) {
-        document.getElementById('grn-items-tbody').innerHTML = '<tr><td colspan="5" class="empty-state">Select a PO to load items</td></tr>';
-        return;
-      }
-      try {
-        const poData = await api.get(`/purchase-orders/${poId}`);
-        const tbody = document.getElementById('grn-items-tbody');
-        tbody.innerHTML = poData.items.map(it => {
-          if (it.remaining_qty <= 0) return ''; // Skip fully received items
-          return `
-            <tr style="border-bottom: 1px solid #f1f5f9;" class="grn-item-row" data-po-item-id="${it.id}">
-              <td style="padding: 6px; font-weight: 500;">${it.description}</td>
-              <td style="padding: 6px; color: #64748b;">${it.quantity} <small>(Prev: ${(it.delivered_qty||0)}, Rem: ${it.remaining_qty||it.quantity})</small></td>
-              <td style="padding: 6px;"><input type="number" class="form-control recv-qty" style="width:80px;padding:4px;" value="${it.remaining_qty||it.quantity}" min="0" max="${it.remaining_qty||it.quantity}"/></td>
-              <td style="padding: 6px;"><input type="number" class="form-control acc-qty" style="width:80px;padding:4px;" value="${it.remaining_qty||it.quantity}" min="0" max="${it.remaining_qty||it.quantity}"/></td>
-              <td style="padding: 6px;">
-                <select class="form-control item-condition" style="width:120px;padding:4px;">
-                  <option value="Good">Good</option>
-                  <option value="Damaged">Damaged</option>
-                  <option value="Partial">Partial</option>
-                </select>
-              </td>
-            </tr>`;
-        }).join('') || '<tr><td colspan="5" class="empty-state">All items fully received for this PO</td></tr>';
-      } catch (e) {
-        console.error('Failed to load PO items', e);
-      }
-    }
+    // Toggle Payment Method Visibility
+    document.getElementById('rec-autosettle').addEventListener('change', function() {
+      const container = document.getElementById('payment-method-container');
+      container.style.display = this.checked ? 'block' : 'none';
+    });
 
     async function submitReceipt() {
-      const poId = document.getElementById('po-select').value;
-      const receivedDate = document.getElementById('receipt-date').value;
-      const receivedBy = document.getElementById('received-by').value.trim();
-      const notes = document.getElementById('grn-notes').value.trim();
+      const poId = ssRecPO ? ssRecPO.getValue() : document.getElementById('rec-po').value;
+      const date = document.getElementById('rec-date').value;
+      const user = document.getElementById('rec-user').value;
+      const notes = document.getElementById('rec-notes').value;
+      const quality = document.getElementById('rec-quality').value;
+      const autoSettle = document.getElementById('rec-autosettle').checked;
+      const invoiceFile = document.getElementById('rec-invoice').files[0];
 
-      if (!poId || !receivedDate || !receivedBy) {
-        alert('Please fill in all required fields (PO, Date, Received By).');
+      if (!poId || !date) {
+        showToast("Please select a PO and Date", "error");
         return;
       }
 
-      const rows = document.querySelectorAll('.grn-item-row');
-      if (!rows.length) { alert('No items to receive.'); return; }
+      // Collect item data
+      const items = [];
+      document.querySelectorAll('.grn-item-row').forEach(row => {
+        items.push({
+          po_item_id:   parseInt(row.getAttribute('data-po-item-id')),
+          description:  row.querySelector('.ord-qty').previousElementSibling.innerText,
+          ordered_qty:  parseFloat(row.querySelector('.ord-qty').innerText),
+          received_qty: parseFloat(row.querySelector('.recv-qty').value),
+          rejected_qty: parseFloat(row.querySelector('.reject-qty').value)
+        });
+      });
 
-      const items = Array.from(rows).map(row => ({
-        po_item_id: parseInt(row.dataset.poItemId),
-        received_qty: parseFloat(row.querySelector('.recv-qty').value) || 0,
-        accepted_qty: parseFloat(row.querySelector('.acc-qty').value) || 0,
-        condition: row.querySelector('.item-condition').value
-      }));
+      const po = approvedPOs.find(p => p.id == poId);
+      const payMethod = document.getElementById('rec-payment-method').value;
+
+      const payload = {
+        po_id: parseInt(poId),
+        vendor_id: po.vendor_id,
+        received_date: date,
+        received_by: user,
+        notes: notes,
+        quality_status: quality,
+        auto_settle: autoSettle,
+        items: items,
+        payment_method: payMethod,
+        invoice_file_b64: null
+      };
 
       try {
-        const payload = { po_id: parseInt(poId), received_date: receivedDate, received_by: receivedBy, notes, items };
-        const result = await api.post('/grn/', payload);
-        alert(`✅ GRN ${result.grn_number} recorded successfully!\nMatch Status: ${result.match_status}`);
-        closeReceiptModal();
+        if (invoiceFile) {
+          showToast("Digitizing Document...", "info");
+          const reader = new FileReader();
+          reader.onload = async (e) => {
+            payload.invoice_file_b64 = e.target.result.split(',')[1];
+            await executeReceipt(payload);
+          };
+          reader.readAsDataURL(invoiceFile);
+        } else {
+          await executeReceipt(payload);
+        }
+      } catch(e) {
+        showToast(e.message || "Automation failed.", "error");
+      }
+    }
+
+    async function executeReceipt(payload) {
+      try {
+        const res = await api.post("/invoices/grn/", payload);
+        if (res.match_status === "Mismatch" || res.status === "mismatch") {
+          showToast(`⚠️ AUTOMATION HALTED: ${res.message}`, "error");
+        } else {
+          showToast("✅ Zero-Touch Settlement Verified!", "success");
+        }
+        closeModal();
         loadGRNs();
-      } catch (e) {
-        alert('❌ Failed to record receipt: ' + (e.message || 'Server error'));
+        loadPOs();
+      } catch(e) {
+        showToast(e.message || "Error processing receipt", "error");
+        loadGRNs();
       }
     }
 
-    async function viewGRNDetail(grnId) {
+    // ── REPROCESS INVOICE — Full Form ─────────────────────────────
+    let currentReprocessGrnId = null;
+    let reprocessGrnData = null;
+
+    async function openReprocessModal(grnId, grnNumber) {
+      currentReprocessGrnId = grnId;
       try {
-        const data = await api.get(`/grn/${grnId}`);
-        const modal = document.getElementById('grn-detail-modal');
-        document.getElementById('grn-detail-title').textContent = `GRN: ${data.grn_number}`;
-        const statusClass = data.match_status === 'Matched' ? 'badge-success' : data.match_status === 'Exception' ? 'badge-danger' : 'badge-warning';
-        document.getElementById('grn-detail-body').innerHTML = `
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
-            <div><strong>GRN Number:</strong> ${data.grn_number}</div>
-            <div><strong>PO Reference:</strong> ${data.po_number || '—'}</div>
-            <div><strong>Vendor:</strong> ${data.vendor_name || '—'}</div>
-            <div><strong>Received Date:</strong> ${data.received_date ? new Date(data.received_date).toLocaleDateString('en-IN') : '—'}</div>
-            <div><strong>Received By:</strong> ${data.received_by || '—'}</div>
-            <div><strong>Match Status:</strong> <span class="badge ${statusClass}">${data.match_status}</span></div>
-          </div>
-          ${data.match_notes ? `<div class="alert-box" style="background:rgba(245,158,11,0.1);border-left:4px solid #f59e0b;padding:0.75rem;border-radius:6px;margin-bottom:1rem;"><strong>Match Notes:</strong> ${data.match_notes}</div>` : ''}
-          <h4 style="margin-bottom:0.5rem;">Line Items</h4>
-          <table class="data-table">
-            <thead><tr><th>Item</th><th>Received</th><th>Accepted</th><th>Condition</th></tr></thead>
-            <tbody>
-              ${(data.items||[]).map(it => `
-                <tr>
-                  <td>${it.description || it.po_item_id}</td>
-                  <td>${it.received_qty}</td>
-                  <td>${it.accepted_qty}</td>
-                  <td><span class="badge ${it.condition === 'Good' ? 'badge-success' : 'badge-warning'}">${it.condition}</span></td>
-                </tr>`).join('')}
-            </tbody>
-          </table>`;
-        modal.classList.add('open');
-      } catch (e) {
-        alert('Failed to load GRN details');
+        // Fetch the existing GRN detail from API to pre-fill form
+        reprocessGrnData = await api.get(`/invoices/grn/${grnId}`);
+        document.getElementById('rp-grn-label').textContent =
+          `${grnNumber}  ·  PO: ${reprocessGrnData.po_number || 'PO#' + reprocessGrnData.po_id}`;
+
+        // Pre-fill header fields
+        document.getElementById('rp-date').value    = reprocessGrnData.received_date || new Date().toISOString().split('T')[0];
+        document.getElementById('rp-user').value    = reprocessGrnData.received_by   || 'Warehouse Admin';
+        document.getElementById('rp-notes').value   = reprocessGrnData.notes         || '';
+        document.getElementById('rp-quality').value = reprocessGrnData.quality_status === 'GRN Payment Run: Failed'
+                                                       ? 'Partially Accepted'
+                                                       : (reprocessGrnData.quality_status || 'Partially Accepted');
+
+        // Build items checklist pre-filled with existing qty data
+        const tbody = document.getElementById('rp-items-body');
+        tbody.innerHTML = (reprocessGrnData.items || []).map(it => `
+          <tr style="border-bottom:1px solid #f1f5f9;" class="rp-item-row" data-po-item-id="${it.po_item_id}" data-desc="${it.description}">
+            <td style="padding:6px;font-weight:500;font-size:12px;">${it.description}</td>
+            <td style="padding:6px;text-align:center;" class="rp-ord">${it.ordered_qty}</td>
+            <td style="padding:6px;"><input type="number" class="rp-recv" value="${it.received_qty}" min="0" max="${it.ordered_qty}" style="width:55px;padding:3px;border:1px solid #e2e8f0;border-radius:4px;"/></td>
+            <td style="padding:6px;"><input type="number" class="rp-rej" value="${it.rejected_qty}" min="0" style="width:55px;padding:3px;border:1px solid #e2e8f0;border-radius:4px;"/></td>
+          </tr>
+        `).join('');
+
+        // Reset invoice file input
+        document.getElementById('rp-invoice').value = '';
+        document.getElementById('rp-autosettle').checked = false;
+        document.getElementById('rp-payment-container').style.display = 'none';
+
+        document.getElementById('reprocess-modal').style.display = 'flex';
+      } catch(e) {
+        showToast('Failed to load GRN details: ' + e.message, 'error');
       }
     }
 
-    loadGRNs();
+    function closeReprocessModal() {
+      document.getElementById('reprocess-modal').style.display = 'none';
+      currentReprocessGrnId = null;
+      reprocessGrnData = null;
+    }
+
+    async function submitReprocess() {
+      if (!currentReprocessGrnId || !reprocessGrnData) { showToast('No GRN selected.', 'error'); return; }
+
+      // Collect items
+      const items = [];
+      document.querySelectorAll('.rp-item-row').forEach(row => {
+        items.push({
+          po_item_id:  parseInt(row.getAttribute('data-po-item-id')),
+          description: row.getAttribute('data-desc'),
+          ordered_qty: parseFloat(row.querySelector('.rp-ord').innerText),
+          received_qty:parseFloat(row.querySelector('.rp-recv').value  || 0),
+          rejected_qty:parseFloat(row.querySelector('.rp-rej').value   || 0)
+        });
+      });
+
+      const payload = {
+        received_date : document.getElementById('rp-date').value,
+        received_by   : document.getElementById('rp-user').value,
+        notes         : document.getElementById('rp-notes').value,
+        quality_status: document.getElementById('rp-quality').value,
+        items         : items,
+        payment_method: document.getElementById('rp-payment-method').value,
+        auto_settle   : document.getElementById('rp-autosettle').checked,
+        invoice_file_b64: null
+      };
+
+      const file = document.getElementById('rp-invoice').files[0];
+      showToast('Reprocessing GRN...', 'info');
+
+      const doSubmit = async (b64) => {
+        if (b64) payload.invoice_file_b64 = b64;
+        try {
+          const res = await api.post(`/invoices/reprocess-invoice/${currentReprocessGrnId}`, payload);
+          if (res.status === 'mismatch') {
+            showToast(`⚠️ Re-match Failed: ${res.message}`, 'error');
+          } else {
+            showToast('✅ GRN Reprocessed & Verified!', 'success');
+            closeReprocessModal();
+            loadGRNs();
+            loadPOs();
+          }
+        } catch(err) {
+          showToast(err.message || 'Reprocess failed.', 'error');
+        }
+      };
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => doSubmit(e.target.result.split(',')[1]);
+        reader.readAsDataURL(file);
+      } else {
+        await doSubmit(null);
+      }
+    }
+
+    init();
   </script>
+
+  <!-- ── REPROCESS MODAL — Full GRN Form ──────────────────────────── -->
+  <div id="reprocess-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:9999;align-items:flex-start;justify-content:center;overflow-y:auto;padding:30px 0;">
+    <div style="background:#fff;border-radius:16px;padding:28px;width:520px;max-width:95%;box-shadow:0 24px 60px rgba(0,0,0,0.3);margin:auto;">
+
+      <!-- Header -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+        <div>
+          <h3 style="margin:0;font-size:17px;"><i class="fa fa-rotate" style="color:#f59e0b;"></i> Reprocess Receipt</h3>
+          <p id="rp-grn-label" style="margin:4px 0 0;font-size:12px;color:#64748b;"></p>
+        </div>
+        <button onclick="closeReprocessModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#64748b;line-height:1;">&times;</button>
+      </div>
+
+      <!-- Info banner -->
+      <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:12px;color:#92400e;">
+        <i class="fa fa-circle-info"></i> Correct the receipt data below and optionally re-upload the vendor invoice for re-matching.
+      </div>
+
+      <!-- Date + Received By -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Received Date *</label>
+          <input type="date" id="rp-date"/>
+        </div>
+        <div class="form-group">
+          <label>Received By</label>
+          <input type="text" id="rp-user" value="Warehouse Admin"/>
+        </div>
+      </div>
+
+      <!-- Quality -->
+      <div class="form-group">
+        <label>Received Quality *</label>
+        <select id="rp-quality" style="width:100%;border:1px solid #e2e8f0;border-radius:6px;padding:10px;">
+          <option value="Accepted">Excellent — fully accepted</option>
+          <option value="Partially Accepted">Average — partially accepted (minor issues)</option>
+          <option value="Rejected">Poor — rejected (items damaged/incorrect)</option>
+        </select>
+      </div>
+
+      <!-- Item Checklist -->
+      <div style="border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:16px;background:#f8fafc;">
+        <label style="font-weight:700;color:var(--primary);display:block;margin-bottom:10px;font-size:13px;">
+          <i class="fa fa-list-check"></i> Item Verification Checklist
+        </label>
+        <table style="width:100%;font-size:12px;border-collapse:collapse;">
+          <thead>
+            <tr style="text-align:left;border-bottom:1px solid #cbd5e1;">
+              <th style="padding:6px;">Description</th>
+              <th style="padding:6px;width:55px;text-align:center;">Ord.</th>
+              <th style="padding:6px;width:65px;">Recv.</th>
+              <th style="padding:6px;width:65px;">Reject</th>
+            </tr>
+          </thead>
+          <tbody id="rp-items-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Notes -->
+      <div class="form-group">
+        <label>Notes / Quality Observation</label>
+        <textarea id="rp-notes" rows="2" placeholder="e.g. 2 units damaged on arrival"></textarea>
+      </div>
+
+      <!-- Invoice Upload -->
+      <div class="form-group" style="padding:12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;">
+        <label style="font-weight:600;color:#92400e;font-size:12px;display:block;margin-bottom:8px;">
+          <i class="fa fa-file-invoice"></i> Vendor Invoice (PDF/Image) — Optional
+        </label>
+        <input type="file" id="rp-invoice" accept="application/pdf,image/*" style="font-size:11px;width:100%;"/>
+      </div>
+
+      <!-- Auto-settle -->
+      <div style="background:#fefce8;border:1px solid #fde68a;padding:14px;border-radius:12px;margin-top:14px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <input type="checkbox" id="rp-autosettle" style="width:20px;height:20px;cursor:pointer;accent-color:#92400e;" onchange="document.getElementById('rp-payment-container').style.display=this.checked?'block':'none';">
+          <div>
+            <label style="margin:0;font-weight:700;color:#92400e;font-size:14px;">⚡ Touchless Auto-Settle (ERS)</label>
+            <div style="font-size:11px;color:#a16207;">Verified 3-Way Match: PO ↔ GRN ↔ Invoice</div>
+          </div>
+        </div>
+        <div id="rp-payment-container" style="display:none;padding-top:10px;border-top:1px dashed #fde68a;">
+          <label style="font-weight:600;color:#92400e;font-size:11px;display:block;margin-bottom:6px;"><i class="fa fa-credit-card"></i> SELECT PAYMENT METHOD</label>
+          <select id="rp-payment-method" style="width:100%;border:1px solid #fde68a;border-radius:8px;padding:10px;font-size:13px;background:#fff;">
+            <option value="NEFT">NEFT / Bank Transfer</option>
+            <option value="RTGS">RTGS (Instant High-Value)</option>
+            <option value="UPI">Business UPI</option>
+            <option value="Cheque">Manual Cheque</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;">
+        <button onclick="closeReprocessModal()" class="btn btn-outline">Cancel</button>
+        <button onclick="submitReprocess()" class="btn btn-primary"><i class="fa fa-paper-plane"></i> Reprocess & Re-Match</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

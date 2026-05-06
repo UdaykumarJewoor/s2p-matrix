@@ -3,32 +3,60 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Checklists ΓÇö Matrix S2P</title>
+  <title>Checklists — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+        <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
-      <div class="logo-text"><span class="logo-main">Matrix S2P</span><span class="logo-sub">Comsec Pvt. Ltd.</span></div>
+      <div class="logo-text">
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
+      </div>
     </div>
     <nav class="sidebar-nav">
-  <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-  <a href="vendors.html"         class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
-  <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-  <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
-  <a href="purchase_orders.html" class="nav-item"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-  <a href="invoices.html"        class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-  <a href="payments.html"        class="nav-item"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-  <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-  <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
-  <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-  <a href="contracts.html"       class="nav-item"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-  <a href="negotiations.html"    class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-  <a href="checklists.html"      class="nav-item active"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-  <a href="audit.html"           class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
-</nav>
+      <a href="../index.html" class="nav-item" data-page="dashboard">
+        <i class="fa fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="vendors.html" class="nav-item" data-page="vendors">
+        <i class="fa fa-building"></i><span>Vendors</span>
+      </a>
+      <a href="rfq.html" class="nav-item" data-page="rfq">
+        <i class="fa fa-file-alt"></i><span>RFQ</span>
+      </a>
+      <a href="quotations.html" class="nav-item" data-page="quotations">
+        <i class="fa fa-balance-scale"></i><span>Quotations</span>
+      </a>
+      <a href="negotiations.html" class="nav-item" data-page="negotiations">
+        <i class="fa fa-handshake"></i><span>Negotiations</span>
+      </a>
+      <a href="contracts.html" class="nav-item" data-page="contracts">
+        <i class="fa fa-file-signature"></i><span>Contracts</span>
+      </a>
+      <a href="purchase_orders.html" class="nav-item" data-page="po">
+        <i class="fa fa-shopping-cart"></i><span>Purchase Orders</span>
+      </a>
+      <a href="grn.html" class="nav-item" data-page="grn">
+        <i class="fa fa-truck-loading"></i><span>Goods Receipt</span>
+      </a>
+      <a href="invoices.html" class="nav-item" data-page="invoices">
+        <i class="fa fa-file-invoice"></i><span>Invoices</span>
+      </a>
+      <a href="payments.html" class="nav-item" data-page="payments">
+        <i class="fa fa-money-bill-wave"></i><span>Payments</span>
+      </a>
+      <a href="checklists.html" class="nav-item active" data-page="checklists">
+        <i class="fa fa-tasks"></i><span>Checklists</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <i class="fa fa-history"></i><span>Audit Trail</span>
+      </a>
+      <a href="sap_integration.html" class="nav-item" data-page="sap_integration">
+        <i class="fa fa-plug"></i><span>SAP Integration</span>
+      </a>
+    </nav>
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
 
@@ -72,7 +100,7 @@
     <div class="modal" style="max-width:600px;">
       <div class="modal-header">
         <h2><i class="fa fa-tasks"></i> New Checklist</h2>
-        <button class="modal-close" onclick="document.getElementById('cl-modal').classList.remove('open')">├ù</button>
+        <button class="modal-close" onclick="document.getElementById('cl-modal').classList.remove('open')">×</button>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -116,7 +144,7 @@
     <div class="modal" style="max-width:440px;">
       <div class="modal-header">
         <h2><i class="fa fa-plus"></i> Add Checklist Item</h2>
-        <button class="modal-close" onclick="document.getElementById('add-item-modal').classList.remove('open')">├ù</button>
+        <button class="modal-close" onclick="document.getElementById('add-item-modal').classList.remove('open')">×</button>
       </div>
       <input type="hidden" id="add-item-cl-id"/>
       <div class="form-group">
@@ -134,13 +162,13 @@
     </div>
   </div>
 
-  <script src="../js/api.js"></script>
+  <script src="../js/api.js?v=2.0"></script>
   <script>
     let clItemCount = 0;
 
     // FIX: Added formatDate() since it was used but never defined
     function formatDate(dateStr) {
-      if (!dateStr) return "ΓÇö";
+      if (!dateStr) return "—";
       const d = new Date(dateStr);
       if (isNaN(d)) return dateStr;
       return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
@@ -169,7 +197,7 @@
           <input type="checkbox" class="cl-item-mandatory" checked/> Mandatory
         </label>
         <button onclick="document.getElementById('cl-item-${clItemCount}').remove()"
-                style="padding:6px 10px;background:var(--red);color:white;border:none;border-radius:8px;cursor:pointer;">Γ£ò</button>`;
+                style="padding:6px 10px;background:var(--red);color:white;border:none;border-radius:8px;cursor:pointer;">✕</button>`;
       document.getElementById("cl-items-container").appendChild(div);
     }
 
@@ -205,13 +233,13 @@
           <div class="card" style="${cl.review_overdue ? 'border:2px solid var(--orange);' : ''}">
             <div class="card-header" style="justify-content:space-between;">
               <div style="display:flex;align-items:center;gap:10px;">
-                <!-- FIX: Fixed broken template literal ΓÇö inner ternary was a plain string, not an expression -->
+                <!-- FIX: Fixed broken template literal — inner ternary was a plain string, not an expression -->
                 <span style="background:${cl.category === 'Electronic' ? '#dbeafe' : cl.category === 'Mechanical' ? '#fef9c3' : '#f0fdf4'};
                       padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;">
                   ${cl.category}
                 </span>
                 ${cl.review_overdue
-                  ? '<span style="background:#fef2f2;color:var(--red);padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700;">ΓÜá∩╕Å REVIEW OVERDUE</span>'
+                  ? '<span style="background:#fef2f2;color:var(--red);padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700;">⚠️ REVIEW OVERDUE</span>'
                   : ''}
               </div>
               <span style="font-size:12px;color:var(--text-muted);">v${cl.version}</span>
@@ -242,7 +270,7 @@
                     </div>
                     <button onclick="deleteItem(${cl.id},${item.id})"
                             style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;"
-                            title="Remove item">Γ£ò</button>
+                            title="Remove item">✕</button>
                   </div>`).join('')}
               </div>
 
@@ -257,7 +285,7 @@
                 </button>
                 ${cl.review_overdue
                   ? `<span style="font-size:12px;color:var(--red);align-self:center;">
-                       ΓÜá∩╕Å Overdue! Please review now.
+                       ⚠️ Overdue! Please review now.
                      </span>` : ''}
               </div>
             </div>
@@ -283,7 +311,7 @@
           name: name, category: category,
           review_months: cycle, items: items
         });
-        showToast("Γ£à Checklist created!", "success");
+        showToast("✅ Checklist created!", "success");
         document.getElementById("cl-modal").classList.remove("open");
         loadChecklists();
       } catch(e) { showToast("Error: " + e.message, "error"); }
@@ -303,7 +331,7 @@
       try {
         await api.post(`/checklists/${clId}/items`,
           { item_text: text, is_mandatory: mand, sort_order: 99 });
-        showToast("Γ£à Item added!", "success");
+        showToast("✅ Item added!", "success");
         document.getElementById("add-item-modal").classList.remove("open");
         loadChecklists();
       } catch(e) { showToast(e.message, "error"); }
@@ -323,7 +351,7 @@
       if (!confirm(`Mark "${name}" as reviewed? This resets the review cycle.`)) return;
       try {
         const res = await api.post(`/checklists/${id}/review?review_months=${reviewMonths}`);
-        showToast(`Γ£à Reviewed! ${res.message}`, "success");
+        showToast(`✅ Reviewed! ${res.message}`, "success");
         loadChecklists();
       } catch(e) { showToast(e.message, "error"); }
     }

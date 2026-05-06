@@ -70,21 +70,7 @@ def get_rfqs(status: Optional[str] = None, db: Session = Depends(get_db)):
     if status:
         query = query.filter(RFQ.status == status)
     rfqs = query.order_by(RFQ.created_at.desc()).all()
-    
-    # Enrich with vendor names for the list view
-    results = []
-    for r in rfqs:
-        # Get names of all vendors assigned to this RFQ
-        vendor_names = db.query(Vendor.company_name).join(RFQVendor).filter(RFQVendor.rfq_id == r.id).all()
-        # Get count of actual responses
-        response_count = db.query(Quotation).filter(Quotation.rfq_id == r.id).count()
-        
-        r_dict = {c.name: getattr(r, c.name) for c in r.__table__.columns}
-        r_dict["vendor_names"] = [v[0] for v in vendor_names]
-        r_dict["response_count"] = response_count
-        results.append(r_dict)
-
-    return {"total": len(results), "rfqs": results}
+    return {"total": len(rfqs), "rfqs": rfqs}
 
 @router.get("/{rfq_id}")
 def get_rfq(rfq_id: int, db: Session = Depends(get_db)):

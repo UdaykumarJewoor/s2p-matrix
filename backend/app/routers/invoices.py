@@ -109,19 +109,7 @@ def get_invoices(match_status: Optional[str] = None, db: Session = Depends(get_d
     query = db.query(Invoice)
     if match_status:
         query = query.filter(Invoice.match_status == match_status)
-    invoices = query.order_by(Invoice.created_at.desc()).all()
-    
-    results = []
-    for inv in invoices:
-        vendor = db.query(Vendor).filter(Vendor.id == inv.vendor_id).first()
-        po = db.query(PurchaseOrder).filter(PurchaseOrder.id == inv.po_id).first() if inv.po_id else None
-        
-        inv_dict = {c.name: getattr(inv, c.name) for c in inv.__table__.columns}
-        inv_dict["vendor_name"] = vendor.company_name if vendor else f"Vendor #{inv.vendor_id}"
-        inv_dict["po_number"] = po.po_number if po else "N/A"
-        results.append(inv_dict)
-
-    return {"invoices": results}
+    return {"invoices": query.order_by(Invoice.created_at.desc()).all()}
 
 @router.post("/")
 def create_invoice(data: InvoiceCreate, db: Session = Depends(get_db)):
@@ -289,18 +277,7 @@ def three_way_match(invoice_id: int, db: Session = Depends(get_db)):
 
 @router.get("/grn/")
 def get_grns(db: Session = Depends(get_db)):
-    grns = db.query(GRN).order_by(GRN.created_at.desc()).all()
-    results = []
-    for g in grns:
-        vendor = db.query(Vendor).filter(Vendor.id == g.vendor_id).first()
-        po = db.query(PurchaseOrder).filter(PurchaseOrder.id == g.po_id).first() if g.po_id else None
-        
-        g_dict = {c.name: getattr(g, c.name) for c in g.__table__.columns}
-        g_dict["vendor_name"] = vendor.company_name if vendor else f"Vendor #{g.vendor_id}"
-        g_dict["po_number"] = po.po_number if po else "N/A"
-        results.append(g_dict)
-
-    return {"grns": results}
+    return {"grns": db.query(GRN).order_by(GRN.created_at.desc()).all()}
 
 @router.get("/grn/{grn_id}")
 def get_grn_detail(grn_id: int, db: Session = Depends(get_db)):

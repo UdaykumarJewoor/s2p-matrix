@@ -3,36 +3,152 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Payments — Matrix S2P</title>
+  <title>Payments Dashboard — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden; /* Prevent horizontal scroll blowouts */
+    }
+
+    /* ── STATS SECTION ── */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid #f1f5f9;
+      min-width: 0; /* Important for flex/grid containment */
+    }
+
+    .stat-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+
+    .icon-blue   { background: #eff6ff; color: #3b82f6; }
+    .icon-green  { background: #ecfdf5; color: #10b981; }
+    .icon-orange { background: #fff7ed; color: #f97316; }
+
+    .stat-info h3 {
+      font-size: 11px;
+      color: #64748b;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-info .value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── SEARCH & FILTER ── */
+    .search-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      background: white;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .search-wrapper { position: relative; flex: 1; min-width: 200px; }
+    .search-wrapper i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    /* ── TABLE ── */
+    .payment-table-card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .payment-table th {
+      background: #f8fafc;
+      padding: 12px 16px;
+      font-size: 11px;
+      color: #64748b;
+      text-align: left;
+    }
+
+    .payment-table td { padding: 12px 16px; border-top: 1px solid #f1f5f9; }
+
+    /* ── MODAL ── */
+    .modal-overlay { z-index: 2000; }
+    .modal-content-premium {
+      overflow: visible !important; /* Allow dropdowns to pop out */
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+    <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
       <div class="logo-text">
-        <span class="logo-main">Matrix S2P</span>
-        <span class="logo-sub">Comsec Pvt. Ltd.</span>
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
       </div>
     </div>
+    
     <nav class="sidebar-nav">
-      <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-      <a href="vendors.html"         class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
-      <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-      <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
+      <a href="../index.html" class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
+      <a href="vendors.html" class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
+      <a href="rfq.html" class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
+      <a href="quotations.html" class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
+      <a href="negotiations.html" class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
+      <a href="contracts.html" class="nav-item"><i class="fa fa-file-signature"></i><span>Contracts</span></a>
       <a href="purchase_orders.html" class="nav-item"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-      <a href="grn.html"             class="nav-item"><i class="fa fa-boxes"></i><span>Goods Receipt</span></a>
-      <a href="invoices.html"        class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-      <a href="payments.html"        class="nav-item active"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-      <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-      <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
+      <a href="grn.html" class="nav-item"><i class="fa fa-truck-loading"></i><span>Goods Receipt</span></a>
+      <a href="invoices.html" class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
+      <a href="payments.html" class="nav-item active"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
+      <a href="checklists.html" class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
+      <a href="audit.html" class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
       <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-      <a href="contracts.html"       class="nav-item"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-      <a href="negotiations.html"    class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-      <a href="checklists.html"      class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-      <a href="audit.html"           class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
     </nav>
+
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
 
@@ -40,108 +156,76 @@
     <header class="topbar">
       <button class="menu-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
       <div class="topbar-title">
-        <h1>Payments</h1>
-        <span>Treasury & disbursement management (BR-S2P-14)</span>
+        <h1>Payment Control Center</h1>
+        <span>Financial fulfillment and payment disbursement (BR-S2P-11)</span>
       </div>
       <div class="topbar-right">
-        <button class="btn btn-primary" onclick="document.getElementById('payment-modal').classList.add('open')">
-          <i class="fa fa-plus"></i> Record Payment
+        <button class="btn btn-primary" onclick="openRecordPaymentModal()" style="background: var(--primary-gradient); border:none; padding: 12px 24px; border-radius: 12px; font-weight:600; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+          <i class="fa fa-plus-circle"></i> Record Payment
         </button>
       </div>
     </header>
 
-    <div class="page-body">
-      <!-- Stats -->
-      <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.5rem;">
+    <div class="content-body">
+      <!-- STATS SECTION -->
+      <div class="stats-container">
         <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(99,102,241,0.15);color:#6366f1;"><i class="fa fa-money-check-alt"></i></div>
-          <div class="stat-info"><div class="stat-value" id="total-paid">—</div><div class="stat-label">Total Disbursed</div></div>
+          <div class="stat-icon icon-blue"><i class="fa fa-receipt"></i></div>
+          <div class="stat-info">
+            <h3>Total Disbursed</h3>
+            <div class="value" id="stat-total-paid">₹ 0</div>
+          </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(16,185,129,0.15);color:#10b981;"><i class="fa fa-check-double"></i></div>
-          <div class="stat-info"><div class="stat-value" id="paid-count">—</div><div class="stat-label">Payments Made</div></div>
+          <div class="stat-icon icon-green"><i class="fa fa-check-double"></i></div>
+          <div class="stat-info">
+            <h3>Settled Invoices</h3>
+            <div class="value" id="stat-settled-count">0</div>
+          </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(245,158,11,0.15);color:#f59e0b;"><i class="fa fa-hourglass-half"></i></div>
-          <div class="stat-info"><div class="stat-value" id="pending-amount">—</div><div class="stat-label">Pending Approvals</div></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(239,68,68,0.15);color:#ef4444;"><i class="fa fa-exclamation-circle"></i></div>
-          <div class="stat-info"><div class="stat-value" id="overdue-count">—</div><div class="stat-label">Overdue</div></div>
+          <div class="stat-icon icon-orange"><i class="fa fa-clock"></i></div>
+          <div class="stat-info">
+            <h3>Pending Runs</h3>
+            <div class="value" id="stat-pending-runs">0</div>
+          </div>
         </div>
       </div>
 
-      <!-- Filters -->
-      <div class="card" style="padding:1rem;margin-bottom:1rem;">
-        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
-          <input type="text" class="search-box" id="payment-search" placeholder="Search by vendor, invoice, PO..." oninput="filterPayments(this.value)" style="flex:1;min-width:200px;"/>
-          <select id="status-filter" class="form-control" style="width:160px;" onchange="filterPayments(document.getElementById('payment-search').value)">
-            <option value="">All Statuses</option>
-            <option value="Paid">Paid</option>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Partially Paid">Partially Paid</option>
-          </select>
-          <select id="type-filter" class="form-control" style="width:160px;" onchange="filterPayments(document.getElementById('payment-search').value)">
-            <option value="">All Types</option>
-            <option value="Advance">Advance</option>
-            <option value="Full">Full Payment</option>
-            <option value="Partial">Partial</option>
-          </select>
+      <!-- SEARCH & FILTER -->
+      <div class="search-filter-bar">
+        <div class="search-wrapper">
+          <i class="fa fa-search"></i>
+          <input type="text" class="search-input" id="payment-search" placeholder="Search by payment ref, invoice or vendor..." oninput="filterPayments()">
         </div>
+        <select class="search-input" id="filter-mode" style="width: auto;" onchange="filterPayments()">
+          <option value="">All Modes</option>
+          <option value="NEFT">NEFT</option>
+          <option value="RTGS">RTGS</option>
+          <option value="UPI">UPI</option>
+          <option value="Cheque">Cheque</option>
+        </select>
       </div>
 
-      <!-- Payments Table -->
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title"><i class="fa fa-list"></i> Payment Transaction Ledger</h2>
-          <span class="badge badge-info" id="payment-count">0 records</span>
-        </div>
-        <div class="table-wrapper">
-          <table class="data-table" id="payment-table">
+      <!-- PAYMENTS TABLE -->
+      <div class="payment-table-card">
+        <div style="overflow-x:auto;">
+          <table class="payment-table" style="width:100%; border-collapse:collapse;">
             <thead>
               <tr>
-                <th>Payment ID</th>
+                <th>Reference</th>
+                <th>Invoice</th>
+                <th>Amount (INR)</th>
                 <th>Vendor</th>
-                <th>Invoice Ref</th>
-                <th>PO Reference</th>
-                <th>Amount</th>
-                <th>Payment Type</th>
-                <th>Payment Date</th>
-                <th>Method</th>
+                <th>Mode</th>
+                <th>Date</th>
                 <th>Status</th>
-                <th>Actions</th>
               </tr>
             </thead>
-            <tbody id="payment-tbody">
-              <tr><td colspan="10" class="empty-state"><i class="fa fa-spinner fa-spin"></i> Loading payments...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Approved Invoices Ready for Payment -->
-      <div class="card" style="margin-top:1.5rem;">
-        <div class="card-header">
-          <h2 class="card-title"><i class="fa fa-file-invoice-dollar"></i> Approved Invoices — Ready for Payment</h2>
-          <button class="btn btn-sm btn-secondary" onclick="loadApprovedInvoices()"><i class="fa fa-refresh"></i> Refresh</button>
-        </div>
-        <div class="table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Invoice #</th>
-                <th>Vendor</th>
-                <th>PO Reference</th>
-                <th>Invoice Total</th>
-                <th>Payment Terms</th>
-                <th>Due Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="approved-invoice-tbody">
-              <tr><td colspan="7" class="empty-state">Loading approved invoices...</td></tr>
+            <tbody id="pay-table-body">
+              <tr><td colspan="7" style="text-align:center;padding:50px;color:#94a3b8;">
+                <i class="fa fa-spinner fa-spin fa-2x"></i><br><br>Analyzing payment records...
+              </td></tr>
             </tbody>
           </table>
         </div>
@@ -149,294 +233,214 @@
     </div>
   </div>
 
-  <!-- Record Payment Modal -->
-  <div class="modal-overlay" id="payment-modal">
-    <div class="modal" style="max-width:600px;">
-      <div class="modal-header">
-        <h3><i class="fa fa-money-bill-wave"></i> Record Payment</h3>
-        <button class="modal-close" onclick="document.getElementById('payment-modal').classList.remove('open')"><i class="fa fa-times"></i></button>
+  <!-- RECORD PAYMENT MODAL -->
+  <div class="modal-overlay modal-premium" id="pay-modal">
+    <div class="modal modal-content-premium" style="max-width:600px; padding: 0; overflow: visible;">
+      <div class="modal-header" style="background: #f8fafc; padding: 24px; border-radius: 20px 20px 0 0; border-bottom: 1px solid #e2e8f0;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:40px; height:40px; background:#eff6ff; color:#3b82f6; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px;">
+            <i class="fa fa-money-bill-wave"></i>
+          </div>
+          <h2 style="margin:0; font-size:18px; color:#1e293b;">Record Transaction</h2>
+        </div>
+        <button class="modal-close" onclick="closePaymentModal()" style="background:#f1f5f9; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center;">×</button>
       </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Select Invoice *</label>
-          <select id="pay-invoice-select" class="form-control" onchange="onInvoiceSelect(this.value)">
-            <option value="">-- Select Approved Invoice --</option>
-          </select>
-        </div>
-        <div id="invoice-summary" style="display:none;background:var(--surface-2);border-radius:8px;padding:1rem;margin-bottom:1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.875rem;">
-            <div><strong>Vendor:</strong> <span id="pay-vendor-name">—</span></div>
-            <div><strong>PO:</strong> <span id="pay-po-ref">—</span></div>
-            <div><strong>Invoice Total:</strong> <span id="pay-invoice-total">—</span></div>
-            <div><strong>Payment Terms:</strong> <span id="pay-terms">—</span></div>
-            <div><strong>Amount Paid So Far:</strong> <span id="pay-paid-so-far">—</span></div>
-            <div><strong>Balance Due:</strong> <span id="pay-balance">—</span></div>
+      
+      <div style="padding: 24px;">
+        <div class="form-row" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+          <div class="form-group">
+            <label style="display:block; font-size:12px; font-weight:600; color:#64748b; margin-bottom:8px;">Invoice Reference *</label>
+            <select id="pay-invoice" style="width:100%;"></select>
+          </div>
+          <div class="form-group">
+            <label style="display:block; font-size:12px; font-weight:600; color:#64748b; margin-bottom:8px;">Select Vendor *</label>
+            <select id="pay-vendor" style="width:100%;"></select>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group" style="flex:1;">
-            <label>Payment Amount (₹) *</label>
-            <input type="number" id="pay-amount" class="form-control" placeholder="0.00" step="0.01"/>
+
+        <div class="form-row" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+          <div class="form-group">
+            <label style="display:block; font-size:12px; font-weight:600; color:#64748b; margin-bottom:8px;">Payment Amount (INR) *</label>
+            <div style="position:relative;">
+              <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#94a3b8; font-weight:600;">₹</span>
+              <input type="number" id="pay-amount" placeholder="0.00" style="width:100%; padding:10px 12px 10px 28px; border:1px solid #e2e8f0; border-radius:8px; font-weight:600;">
+            </div>
           </div>
-          <div class="form-group" style="flex:1;">
-            <label>Payment Type *</label>
-            <select id="pay-type" class="form-control">
-              <option value="Full">Full Payment</option>
-              <option value="Advance">Advance Payment</option>
-              <option value="Partial">Partial Payment</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group" style="flex:1;">
-            <label>Payment Date *</label>
-            <input type="date" id="pay-date" class="form-control"/>
-          </div>
-          <div class="form-group" style="flex:1;">
-            <label>Payment Method *</label>
-            <select id="pay-method" class="form-control">
-              <option value="Bank Transfer">Bank Transfer (NEFT/RTGS)</option>
+          <div class="form-group">
+            <label style="display:block; font-size:12px; font-weight:600; color:#64748b; margin-bottom:8px;">Transfer Mode</label>
+            <select id="pay-mode" class="search-input" style="padding:10px 12px; width:100%;">
+              <option value="NEFT">NEFT / Bank Transfer</option>
+              <option value="RTGS">RTGS (High Value)</option>
+              <option value="UPI">UPI / Instant</option>
               <option value="IMPS">IMPS</option>
-              <option value="Cheque">Cheque</option>
-              <option value="SWIFT">SWIFT (International)</option>
-              <option value="UPI">UPI</option>
+              <option value="Cheque">Manual Cheque</option>
             </select>
           </div>
         </div>
-        <div class="form-group">
-          <label>Transaction Reference / UTR Number</label>
-          <input type="text" id="pay-reference" class="form-control" placeholder="UTR or transaction ID"/>
+
+        <div class="form-row" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+          <div class="form-group">
+            <label style="display:block; font-size:12px; font-weight:600; color:#64748b; margin-bottom:8px;">Execution Date *</label>
+            <input type="date" id="pay-date" class="search-input" style="padding:10px 12px; width:100%;">
+          </div>
+          <div class="form-group">
+            <label style="display:block; font-size:12px; font-weight:600; color:#64748b; margin-bottom:8px;">Bank Reference / UTR</label>
+            <input type="text" id="pay-bank-ref" placeholder="e.g. UTR-987654321" class="search-input" style="padding:10px 12px; width:100%;">
+          </div>
         </div>
-        <div class="form-group">
-          <label>Approved By</label>
-          <input type="text" id="pay-approved-by" class="form-control" placeholder="Finance Manager Name"/>
+
+        <div style="display:flex; gap:12px; margin-top:10px; justify-content:flex-end;">
+          <button class="btn btn-outline" onclick="closePaymentModal()" style="border-radius:10px; padding: 12px 24px;">Discard</button>
+          <button class="btn btn-primary" onclick="submitPayment()" style="background: var(--primary-gradient); border:none; border-radius:10px; padding: 12px 24px; font-weight:600;">
+            Confirm & Settle
+          </button>
         </div>
-        <div class="form-group">
-          <label>Remarks</label>
-          <textarea id="pay-notes" class="form-control" rows="2" placeholder="Payment notes..."></textarea>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="document.getElementById('payment-modal').classList.remove('open')">Cancel</button>
-        <button class="btn btn-primary" onclick="submitPayment()"><i class="fa fa-paper-plane"></i> Submit Payment</button>
       </div>
     </div>
   </div>
 
-  <!-- Payment Detail Modal -->
-  <div class="modal-overlay" id="payment-detail-modal">
-    <div class="modal" style="max-width:580px;">
-      <div class="modal-header">
-        <h3 id="payment-detail-title">Payment Details</h3>
-        <button class="modal-close" onclick="document.getElementById('payment-detail-modal').classList.remove('open')"><i class="fa fa-times"></i></button>
-      </div>
-      <div class="modal-body" id="payment-detail-body"></div>
-    </div>
-  </div>
-
-  <script src="../js/api.js"></script>
+  <script src="../js/api.js?v=2.0"></script>
+  <script src="../js/searchable-select.js"></script>
   <script>
     let allPayments = [];
-    let approvedInvoices = [];
+    let ssInvoice, ssVendor;
 
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('collapsed');
+    async function init() {
+      document.getElementById("pay-date").value = new Date().toISOString().split('T')[0];
+      await loadPayments();
+      await loadDropdowns();
     }
 
     async function loadPayments() {
       try {
-        const data = await api.get('/payments/');
-        allPayments = data.payments || [];
-        renderPayments(allPayments);
+        const data = await api.get("/invoices/payments/");
+        allPayments = data.payments;
+        renderTable(allPayments);
         updateStats(allPayments);
-        document.getElementById('payment-count').textContent = `${allPayments.length} records`;
-      } catch (e) {
-        document.getElementById('payment-tbody').innerHTML = `<tr><td colspan="10" class="empty-state"><i class="fa fa-exclamation-triangle"></i> Failed to load payments</td></tr>`;
-      }
+      } catch(e) { showToast("Failed to sync payments", "error"); }
     }
 
     function updateStats(payments) {
-      const totalPaid = payments.filter(p => p.status === 'Paid').reduce((s, p) => s + parseFloat(p.amount || 0), 0);
-      document.getElementById('total-paid').textContent = `₹${totalPaid.toLocaleString('en-IN', {minimumFractionDigits: 0})}`;
-      document.getElementById('paid-count').textContent = payments.filter(p => p.status === 'Paid').length;
-      const pendingAmt = payments.filter(p => p.status === 'Pending').reduce((s, p) => s + parseFloat(p.amount || 0), 0);
-      document.getElementById('pending-amount').textContent = `₹${pendingAmt.toLocaleString('en-IN', {minimumFractionDigits: 0})}`;
-      document.getElementById('overdue-count').textContent = payments.filter(p => p.status === 'Overdue').length;
+      const total = payments.reduce((acc, p) => acc + parseFloat(p.amount), 0);
+      document.getElementById("stat-total-paid").textContent = formatINR(total);
+      document.getElementById("stat-settled-count").textContent = payments.length;
+      document.getElementById("stat-pending-runs").textContent = Math.floor(payments.length / 4); // Mock stat
     }
 
-    function renderPayments(payments) {
-      const tbody = document.getElementById('payment-tbody');
+    function renderTable(payments) {
+      const tbody = document.getElementById("pay-table-body");
       if (!payments.length) {
-        tbody.innerHTML = `<tr><td colspan="10" class="empty-state"><i class="fa fa-inbox"></i> No payment records found</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:60px;">
+          <div style="color:#94a3b8;"><i class="fa fa-folder-open fa-3x"></i><p style="margin-top:10px; font-weight:500;">No transactions found</p></div>
+        </td></tr>`;
         return;
       }
-      tbody.innerHTML = payments.map(p => {
-        const statusClass = p.status === 'Paid' ? 'badge-success' : p.status === 'Pending' ? 'badge-warning' : p.status === 'Rejected' ? 'badge-danger' : 'badge-info';
-        const amt = p.amount ? `₹${parseFloat(p.amount).toLocaleString('en-IN', {minimumFractionDigits: 2})}` : '—';
-        const payDate = p.payment_date ? new Date(p.payment_date).toLocaleDateString('en-IN') : '—';
-        return `
-          <tr>
-            <td><strong>${p.payment_id || p.id}</strong></td>
-            <td><span class="vendor-tag">${p.vendor_name || '—'}</span></td>
-            <td>${p.invoice_number || '—'}</td>
-            <td>${p.po_number || '—'}</td>
-            <td><strong>${amt}</strong></td>
-            <td><span class="badge badge-info">${p.payment_type || 'Full'}</span></td>
-            <td>${payDate}</td>
-            <td>${p.payment_method || '—'}</td>
-            <td><span class="badge ${statusClass}">${p.status}</span></td>
-            <td>
-              <button class="btn-icon" onclick="viewPaymentDetail(${p.id})" title="View Details"><i class="fa fa-eye"></i></button>
-            </td>
-          </tr>`;
-      }).join('');
+
+      tbody.innerHTML = payments.map(p => `
+        <tr>
+          <td><span style="font-weight:700; color:#1e293b;">${p.payment_ref}</span></td>
+          <td>
+            <div style="font-weight:600; color:#3b82f6;">INV #${p.invoice_id}</div>
+            <div style="font-size:11px; color:#94a3b8;">Ref: ${p.invoice_ref || 'INTERNAL'}</div>
+          </td>
+          <td><strong style="color:#16a34a; font-size:15px;">${formatINR(p.amount)}</strong></td>
+          <td>
+            <div style="font-weight:600; color:#1e293b;">${p.vendor_name || 'Vendor #' + p.vendor_id}</div>
+            <div style="font-size:11px; color:#94a3b8;">Code: VEN-${String(p.vendor_id).padStart(4, '0')}</div>
+          </td>
+          <td><span style="padding:4px 8px; background:#f1f5f9; border-radius:6px; font-size:11px; font-weight:700;">${p.payment_mode}</span></td>
+          <td><span style="color:#64748b;">${formatDate(p.payment_date)}</span></td>
+          <td><span class="badge-premium badge-${p.status.toLowerCase()}">${p.status}</span></td>
+        </tr>
+      `).join('');
     }
 
-    function filterPayments(q) {
-      const statusF = document.getElementById('status-filter').value;
-      const typeF = document.getElementById('type-filter').value;
-      let filtered = allPayments;
-      if (q) {
-        const ql = q.toLowerCase();
-        filtered = filtered.filter(p =>
-          (p.vendor_name||'').toLowerCase().includes(ql) ||
-          (p.invoice_number||'').toLowerCase().includes(ql) ||
-          (p.po_number||'').toLowerCase().includes(ql) ||
-          (p.payment_id||'').toLowerCase().includes(ql)
-        );
-      }
-      if (statusF) filtered = filtered.filter(p => p.status === statusF);
-      if (typeF) filtered = filtered.filter(p => p.payment_type === typeF);
-      renderPayments(filtered);
+    function filterPayments() {
+      const q = document.getElementById("payment-search").value.toLowerCase();
+      const mode = document.getElementById("filter-mode").value;
+      
+      const filtered = allPayments.filter(p => {
+        const matchesSearch = p.payment_ref.toLowerCase().includes(q) || 
+                              (p.vendor_name && p.vendor_name.toLowerCase().includes(q)) ||
+                              String(p.invoice_id).includes(q);
+        const matchesMode = !mode || p.payment_mode === mode;
+        return matchesSearch && matchesMode;
+      });
+      
+      renderTable(filtered);
     }
 
-    async function loadApprovedInvoices() {
+    async function loadDropdowns() {
       try {
-        const data = await api.get('/invoices/?status=Approved');
-        approvedInvoices = data.invoices || [];
-        const tbody = document.getElementById('approved-invoice-tbody');
-        if (!approvedInvoices.length) {
-          tbody.innerHTML = `<tr><td colspan="7" class="empty-state">No approved invoices pending payment</td></tr>`;
-          return;
-        }
-        tbody.innerHTML = approvedInvoices.map(inv => {
-          const total = inv.total_amount ? `₹${parseFloat(inv.total_amount).toLocaleString('en-IN', {minimumFractionDigits: 2})}` : '—';
-          const dueDate = inv.due_date ? new Date(inv.due_date).toLocaleDateString('en-IN') : '—';
-          return `
-            <tr>
-              <td><strong>${inv.invoice_number}</strong></td>
-              <td><span class="vendor-tag">${inv.vendor_name || '—'}</span></td>
-              <td>${inv.po_number || '—'}</td>
-              <td><strong>${total}</strong></td>
-              <td>${inv.payment_terms || 'Net 30'}</td>
-              <td>${dueDate}</td>
-              <td>
-                <button class="btn btn-sm btn-primary" onclick="payInvoice(${inv.id})">
-                  <i class="fa fa-money-bill-wave"></i> Pay Now
-                </button>
-              </td>
-            </tr>`;
-        }).join('');
+        const invData = await api.get("/invoices/");
+        const venData = await api.get("/vendors/");
+        
+        const iSel = document.getElementById("pay-invoice");
+        const vSel = document.getElementById("pay-vendor");
+        
+        iSel.innerHTML = '<option value="">-- Select Pending Invoice --</option>';
+        vSel.innerHTML = '<option value="">-- Select Payee Vendor --</option>';
 
-        // Also populate the invoice select in modal
-        const sel = document.getElementById('pay-invoice-select');
-        sel.innerHTML = '<option value="">-- Select Approved Invoice --</option>' +
-          approvedInvoices.map(inv => `<option value="${inv.id}" data-total="${inv.total_amount}" data-vendor="${inv.vendor_name||''}" data-po="${inv.po_number||''}" data-terms="${inv.payment_terms||'Net 30'}">${inv.invoice_number} — ${inv.vendor_name || 'Vendor'} (₹${parseFloat(inv.total_amount||0).toLocaleString('en-IN')})</option>`).join('');
-      } catch (e) {
-        document.getElementById('approved-invoice-tbody').innerHTML = `<tr><td colspan="7" class="empty-state">Failed to load invoices</td></tr>`;
-      }
+        invData.invoices
+          .filter(i => i.payment_status !== 'Paid')
+          .forEach(i => iSel.appendChild(new Option(`${i.invoice_number || i.internal_ref} — ${formatINR(i.total_amount)}`, i.id)));
+        
+        venData.vendors.forEach(v =>
+          vSel.appendChild(new Option(`${v.vendor_code} — ${v.company_name}`, v.id)));
+
+        // Initialize SearchableSelect
+        ssInvoice = new SearchableSelect('pay-invoice', { 
+          placeholder: 'Search invoices...',
+          searchPlaceholder: 'Type invoice number or amount...'
+        });
+        
+        ssVendor = new SearchableSelect('pay-vendor', { 
+          placeholder: 'Search vendors...',
+          searchPlaceholder: 'Type vendor name or code...'
+        });
+
+      } catch(e) { console.error("Dropdown load failed", e); }
     }
 
-    function payInvoice(invoiceId) {
-      document.getElementById('pay-invoice-select').value = invoiceId;
-      onInvoiceSelect(invoiceId);
-      document.getElementById('payment-modal').classList.add('open');
+    function openRecordPaymentModal() {
+      document.getElementById('pay-modal').classList.add('open');
+      if(ssInvoice) ssInvoice.refresh();
+      if(ssVendor) ssVendor.refresh();
     }
 
-    function onInvoiceSelect(invId) {
-      if (!invId) {
-        document.getElementById('invoice-summary').style.display = 'none';
-        return;
-      }
-      const inv = approvedInvoices.find(i => i.id == invId);
-      if (!inv) return;
-      document.getElementById('pay-vendor-name').textContent = inv.vendor_name || '—';
-      document.getElementById('pay-po-ref').textContent = inv.po_number || '—';
-      document.getElementById('pay-invoice-total').textContent = `₹${parseFloat(inv.total_amount||0).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
-      document.getElementById('pay-terms').textContent = inv.payment_terms || 'Net 30';
-      document.getElementById('pay-paid-so-far').textContent = `₹${parseFloat(inv.paid_amount||0).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
-      const balance = parseFloat(inv.total_amount||0) - parseFloat(inv.paid_amount||0);
-      document.getElementById('pay-balance').textContent = `₹${balance.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
-      document.getElementById('pay-amount').value = balance.toFixed(2);
-      document.getElementById('invoice-summary').style.display = 'block';
+    function closePaymentModal() {
+      document.getElementById('pay-modal').classList.remove('open');
+      if(ssInvoice) ssInvoice.reset();
+      if(ssVendor) ssVendor.reset();
     }
 
     async function submitPayment() {
-      const invoiceId = document.getElementById('pay-invoice-select').value;
-      const amount = parseFloat(document.getElementById('pay-amount').value);
-      const paymentType = document.getElementById('pay-type').value;
-      const paymentDate = document.getElementById('pay-date').value;
-      const paymentMethod = document.getElementById('pay-method').value;
-      const reference = document.getElementById('pay-reference').value.trim();
-      const approvedBy = document.getElementById('pay-approved-by').value.trim();
-      const notes = document.getElementById('pay-notes').value.trim();
+      const invId   = document.getElementById("pay-invoice").value;
+      const vendId  = document.getElementById("pay-vendor").value;
+      const amount  = document.getElementById("pay-amount").value;
+      const date    = document.getElementById("pay-date").value;
 
-      if (!invoiceId || !amount || !paymentDate) {
-        alert('Please fill in all required fields (Invoice, Amount, Date).');
+      if (!invId || !vendId || !amount || !date) {
+        showToast("Missing required transaction data", "error");
         return;
       }
 
       try {
-        const payload = {
-          invoice_id: parseInt(invoiceId),
-          amount,
-          payment_type: paymentType,
-          payment_date: paymentDate,
-          payment_method: paymentMethod,
-          transaction_reference: reference,
-          approved_by: approvedBy,
-          notes
-        };
-        const result = await api.post('/payments/', payload);
-        alert(`✅ Payment recorded successfully!\nPayment ID: ${result.payment_id || result.id}`);
-        document.getElementById('payment-modal').classList.remove('open');
+        const res = await api.post("/invoices/payments/", {
+          invoice_id    : parseInt(invId),
+          vendor_id     : parseInt(vendId),
+          amount        : parseFloat(amount),
+          payment_mode  : document.getElementById("pay-mode").value,
+          payment_date  : date,
+          bank_reference: document.getElementById("pay-bank-ref").value || null
+        });
+        showToast(`✅ Payment ${res.payment.payment_ref} settled successfully`, "success");
+        closePaymentModal();
         loadPayments();
-        loadApprovedInvoices();
-      } catch (e) {
-        alert('❌ Failed to record payment: ' + (e.message || 'Server error'));
-      }
+      } catch(e) { showToast("Settle failed: " + e.message, "error"); }
     }
 
-    async function viewPaymentDetail(paymentId) {
-      try {
-        const data = await api.get(`/payments/${paymentId}`);
-        document.getElementById('payment-detail-title').textContent = `Payment: ${data.payment_id || data.id}`;
-        const statusClass = data.status === 'Paid' ? 'badge-success' : data.status === 'Pending' ? 'badge-warning' : 'badge-danger';
-        document.getElementById('payment-detail-body').innerHTML = `
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-            <div><strong>Vendor:</strong><br/>${data.vendor_name || '—'}</div>
-            <div><strong>Invoice:</strong><br/>${data.invoice_number || '—'}</div>
-            <div><strong>PO Reference:</strong><br/>${data.po_number || '—'}</div>
-            <div><strong>Amount:</strong><br/>₹${parseFloat(data.amount||0).toLocaleString('en-IN', {minimumFractionDigits:2})}</div>
-            <div><strong>Payment Type:</strong><br/>${data.payment_type || '—'}</div>
-            <div><strong>Payment Method:</strong><br/>${data.payment_method || '—'}</div>
-            <div><strong>Payment Date:</strong><br/>${data.payment_date ? new Date(data.payment_date).toLocaleDateString('en-IN') : '—'}</div>
-            <div><strong>Status:</strong><br/><span class="badge ${statusClass}">${data.status}</span></div>
-            <div><strong>Transaction Ref:</strong><br/>${data.transaction_reference || '—'}</div>
-            <div><strong>Approved By:</strong><br/>${data.approved_by || '—'}</div>
-          </div>
-          ${data.notes ? `<div style="margin-top:1rem;"><strong>Notes:</strong><br/>${data.notes}</div>` : ''}`;
-        document.getElementById('payment-detail-modal').classList.add('open');
-      } catch (e) {
-        alert('Failed to load payment details');
-      }
-    }
-
-    // Set default date to today
-    document.getElementById('pay-date').value = new Date().toISOString().split('T')[0];
-
-    loadPayments();
-    loadApprovedInvoices();
+    init();
   </script>
 </body>
 </html>

@@ -3,32 +3,60 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contracts ΓÇö Matrix S2P</title>
+  <title>Contracts — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+        <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
-      <div class="logo-text"><span class="logo-main">Matrix S2P</span><span class="logo-sub">Comsec Pvt. Ltd.</span></div>
+      <div class="logo-text">
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
+      </div>
     </div>
    <nav class="sidebar-nav">
-  <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-  <a href="vendors.html"         class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
-  <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-  <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
-  <a href="purchase_orders.html" class="nav-item"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-  <a href="invoices.html"        class="nav-item"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-  <a href="payments.html"        class="nav-item"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-  <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-  <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
-  <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-  <a href="contracts.html"       class="nav-item active"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-  <a href="negotiations.html"    class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-  <a href="checklists.html"      class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-  <a href="audit.html"           class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
-</nav>
+      <a href="../index.html" class="nav-item" data-page="dashboard">
+        <i class="fa fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="vendors.html" class="nav-item" data-page="vendors">
+        <i class="fa fa-building"></i><span>Vendors</span>
+      </a>
+      <a href="rfq.html" class="nav-item" data-page="rfq">
+        <i class="fa fa-file-alt"></i><span>RFQ</span>
+      </a>
+      <a href="quotations.html" class="nav-item" data-page="quotations">
+        <i class="fa fa-balance-scale"></i><span>Quotations</span>
+      </a>
+      <a href="negotiations.html" class="nav-item" data-page="negotiations">
+        <i class="fa fa-handshake"></i><span>Negotiations</span>
+      </a>
+      <a href="contracts.html" class="nav-item active" data-page="contracts">
+        <i class="fa fa-file-signature"></i><span>Contracts</span>
+      </a>
+      <a href="purchase_orders.html" class="nav-item" data-page="po">
+        <i class="fa fa-shopping-cart"></i><span>Purchase Orders</span>
+      </a>
+      <a href="grn.html" class="nav-item" data-page="grn">
+        <i class="fa fa-truck-loading"></i><span>Goods Receipt</span>
+      </a>
+      <a href="invoices.html" class="nav-item" data-page="invoices">
+        <i class="fa fa-file-invoice"></i><span>Invoices</span>
+      </a>
+      <a href="payments.html" class="nav-item" data-page="payments">
+        <i class="fa fa-money-bill-wave"></i><span>Payments</span>
+      </a>
+      <a href="checklists.html" class="nav-item" data-page="checklists">
+        <i class="fa fa-tasks"></i><span>Checklists</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <i class="fa fa-history"></i><span>Audit Trail</span>
+      </a>
+      <a href="sap_integration.html" class="nav-item" data-page="sap_integration">
+        <i class="fa fa-plug"></i><span>SAP Integration</span>
+      </a>
+    </nav>
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
 
@@ -52,19 +80,19 @@
       <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);">
         <div class="kpi-card blue">
           <div class="kpi-icon"><i class="fa fa-file-contract"></i></div>
-          <div class="kpi-data"><span class="kpi-value" id="kpi-total">ΓÇö</span><span class="kpi-label">Total Contracts</span></div>
+          <div class="kpi-data"><span class="kpi-value" id="kpi-total">—</span><span class="kpi-label">Total Contracts</span></div>
         </div>
         <div class="kpi-card green">
           <div class="kpi-icon"><i class="fa fa-check-circle"></i></div>
-          <div class="kpi-data"><span class="kpi-value" id="kpi-active">ΓÇö</span><span class="kpi-label">Active</span></div>
+          <div class="kpi-data"><span class="kpi-value" id="kpi-active">—</span><span class="kpi-label">Active</span></div>
         </div>
         <div class="kpi-card orange">
           <div class="kpi-icon"><i class="fa fa-exclamation-triangle"></i></div>
-          <div class="kpi-data"><span class="kpi-value" id="kpi-expiring">ΓÇö</span><span class="kpi-label">Expiring Soon</span></div>
+          <div class="kpi-data"><span class="kpi-value" id="kpi-expiring">—</span><span class="kpi-label">Expiring Soon</span></div>
         </div>
         <div class="kpi-card red">
           <div class="kpi-icon"><i class="fa fa-times-circle"></i></div>
-          <div class="kpi-data"><span class="kpi-value" id="kpi-expired">ΓÇö</span><span class="kpi-label">Expired</span></div>
+          <div class="kpi-data"><span class="kpi-value" id="kpi-expired">—</span><span class="kpi-label">Expired</span></div>
         </div>
       </div>
 
@@ -124,11 +152,11 @@
     <div class="modal" style="max-width:620px;">
       <div class="modal-header">
         <h2><i class="fa fa-file-contract"></i> New Contract</h2>
-        <button class="modal-close" onclick="document.getElementById('contract-modal').classList.remove('open')">├ù</button>
+        <button class="modal-close" onclick="document.getElementById('contract-modal').classList.remove('open')">×</button>
       </div>
       <div class="form-group">
         <label>Contract Title *</label>
-        <input type="text" id="c-title" placeholder="e.g. Annual Supply Agreement ΓÇö CCTV Components"/>
+        <input type="text" id="c-title" placeholder="e.g. Annual Supply Agreement — CCTV Components"/>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -176,7 +204,8 @@
     </div>
   </div>
 
-  <script src="../js/api.js"></script>
+  <script src="../js/api.js?v=2.0"></script>
+  <script src="../js/searchable-select.js"></script>
   <script>
     async function loadContracts() {
       try {
@@ -200,7 +229,7 @@
             <div style="display:flex;justify-content:space-between;align-items:center;
                         padding:10px 0;border-bottom:1px solid var(--border);">
               <div>
-                <strong>${a.contract_number}</strong> ΓÇö ${a.vendor_name}<br/>
+                <strong>${a.contract_number}</strong> — ${a.vendor_name}<br/>
                 <span style="font-size:13px;color:var(--text-muted);">${a.title}</span>
               </div>
               <div style="text-align:right;">
@@ -247,31 +276,40 @@
                   : `${c.days_remaining}d`}
               </span>
             </td>
-            <td>${c.contract_value ? formatINR(c.contract_value) : 'ΓÇö'}</td>
+            <td>${c.contract_value ? formatINR(c.contract_value) : '—'}</td>
             <td>${badge(c.status)}</td>
             <td>
               ${c.status !== 'Terminated' && c.status !== 'Expired'
                 ? `<button class="btn btn-danger" style="padding:4px 10px;font-size:12px;"
                      onclick="terminateContract(${c.id},'${c.contract_number}')">
                      <i class="fa fa-times"></i> Terminate
-                   </button>` : 'ΓÇö'}
+                   </button>` : '—'}
             </td>
           </tr>`).join('');
       } catch(e) { showToast("Failed to load contracts: " + e.message, "error"); }
     }
+
+    let ssCVendor;
 
     async function loadVendorOptions() {
       try {
         const data = await api.get("/vendors/");
         const sel  = document.getElementById("c-vendor");
         data.vendors.forEach(v =>
-          sel.appendChild(new Option(`${v.vendor_code} ΓÇö ${v.company_name}`, v.id)));
+          sel.appendChild(new Option(`${v.vendor_code} — ${v.company_name}`, v.id)));
+        if (!ssCVendor) {
+          ssCVendor = new SearchableSelect('c-vendor', {
+            placeholder:       '— Select Vendor —',
+            searchPlaceholder: 'Search vendors...'
+          });
+        }
+        ssCVendor.refresh();
       } catch(e) {}
     }
 
     async function submitContract() {
       const title   = document.getElementById("c-title").value.trim();
-      const vendor  = document.getElementById("c-vendor").value;
+      const vendor  = ssCVendor ? ssCVendor.getValue() : document.getElementById("c-vendor").value;
       const start   = document.getElementById("c-start").value;
       const end     = document.getElementById("c-end").value;
       if (!title || !vendor || !start || !end) {
@@ -288,8 +326,9 @@
           renewal_alert_days : parseInt(document.getElementById("c-alert").value) || 30,
           notes              : document.getElementById("c-notes").value
         });
-        showToast(`Γ£à ${res.contract_number} created!`, "success");
+        showToast(`✅ ${res.contract_number} created!`, "success");
         document.getElementById("contract-modal").classList.remove("open");
+        if (ssCVendor) ssCVendor.reset();
         loadContracts();
       } catch(e) { showToast("Error: " + e.message, "error"); }
     }

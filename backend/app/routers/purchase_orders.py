@@ -48,16 +48,7 @@ def get_pos(status: Optional[str] = None, db: Session = Depends(get_db)):
     query = db.query(PurchaseOrder)
     if status:
         query = query.filter(PurchaseOrder.status == status)
-    pos = query.order_by(PurchaseOrder.created_at.desc()).all()
-    
-    results = []
-    for po in pos:
-        vendor = db.query(Vendor).filter(Vendor.id == po.vendor_id).first()
-        po_dict = {c.name: getattr(po, c.name) for c in po.__table__.columns}
-        po_dict["vendor_name"] = vendor.company_name if vendor else f"Vendor #{po.vendor_id}"
-        results.append(po_dict)
-
-    return {"purchase_orders": results}
+    return {"purchase_orders": query.order_by(PurchaseOrder.created_at.desc()).all()}
 
 # GET single PO
 @router.get("/{po_id}")

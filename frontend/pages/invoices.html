@@ -3,33 +3,110 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Invoices ΓÇö Matrix S2P</title>
+  <title>Invoices — Matrix S2P</title>
   <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.default.min.css" rel="stylesheet">
+  <style>
+    /* Clean up TomSelect to match S2P UI */
+    .ts-control { border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; font-family: inherit; font-size: 14px; }
+    .ts-control.focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--accent); }
+    .ts-dropdown { border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 4px; }
+
+    /* Mismatch reason display */
+    .mismatch-reason {
+      margin-top: 5px;
+      padding: 5px 8px;
+      background: #fff7f7;
+      border-left: 3px solid #ef4444;
+      border-radius: 0 6px 6px 0;
+      font-size: 11px;
+      color: #b91c1c;
+      line-height: 1.5;
+      max-width: 260px;
+    }
+    .mismatch-reason .reason-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 1px 7px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      margin: 2px 2px 2px 0;
+      white-space: nowrap;
+    }
+    .match-verified {
+      font-size: 11px;
+      color: #15803d;
+      font-weight: 600;
+      margin-top:4px;
+    }
+    .partial-reason {
+      margin-top: 5px;
+      padding: 5px 8px;
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      border-radius: 0 6px 6px 0;
+      font-size: 11px;
+      color: #92400e;
+      max-width: 260px;
+    }
+  </style>
 </head>
 <body>
   <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
+        <div class="sidebar-header" onclick="window.location.href='../index.html'" style="cursor:pointer;" title="Go to Dashboard">
       <div class="logo-icon"><i class="fa-solid fa-network-wired"></i></div>
-      <div class="logo-text"><span class="logo-main">Matrix S2P</span><span class="logo-sub">Comsec Pvt. Ltd.</span></div>
+      <div class="logo-text">
+        <span class="logo-main">HG INFO TECH</span>
+        <span class="logo-sub">S2P Workflow Automation</span>
+      </div>
     </div>
    
     <nav class="sidebar-nav">
-  <a href="../index.html"        class="nav-item"><i class="fa fa-chart-pie"></i><span>Dashboard</span></a>
-  <a href="vendors.html"         class="nav-item"><i class="fa fa-building"></i><span>Vendors</span></a>
-  <a href="rfq.html"             class="nav-item"><i class="fa fa-file-alt"></i><span>RFQ</span></a>
-  <a href="quotations.html"      class="nav-item"><i class="fa fa-balance-scale"></i><span>Quotations</span></a>
-  <a href="purchase_orders.html" class="nav-item"><i class="fa fa-shopping-cart"></i><span>Purchase Orders</span></a>
-  <a href="invoices.html"        class="nav-item active"><i class="fa fa-file-invoice"></i><span>Invoices</span></a>
-  <a href="payments.html"        class="nav-item"><i class="fa fa-money-bill-wave"></i><span>Payments</span></a>
-  <a href="performance.html"     class="nav-item"><i class="fa fa-star"></i><span>Performance</span></a>
-  <a href="ai_discovery.html"    class="nav-item"><i class="fa fa-robot"></i><span>AI Discovery</span></a>
-  <a href="sap_integration.html" class="nav-item"><i class="fa fa-plug"></i><span>SAP Integration</span></a>
-  <a href="contracts.html"       class="nav-item"><i class="fa fa-file-contract"></i><span>Contracts</span></a>
-  <a href="negotiations.html"    class="nav-item"><i class="fa fa-handshake"></i><span>Negotiations</span></a>
-  <a href="checklists.html"      class="nav-item"><i class="fa fa-tasks"></i><span>Checklists</span></a>
-  <a href="audit.html"           class="nav-item"><i class="fa fa-history"></i><span>Audit Trail</span></a>
-</nav>
+      <a href="../index.html" class="nav-item" data-page="dashboard">
+        <i class="fa fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="vendors.html" class="nav-item" data-page="vendors">
+        <i class="fa fa-building"></i><span>Vendors</span>
+      </a>
+      <a href="rfq.html" class="nav-item" data-page="rfq">
+        <i class="fa fa-file-alt"></i><span>RFQ</span>
+      </a>
+      <a href="quotations.html" class="nav-item" data-page="quotations">
+        <i class="fa fa-balance-scale"></i><span>Quotations</span>
+      </a>
+      <a href="negotiations.html" class="nav-item" data-page="negotiations">
+        <i class="fa fa-handshake"></i><span>Negotiations</span>
+      </a>
+      <a href="contracts.html" class="nav-item" data-page="contracts">
+        <i class="fa fa-file-signature"></i><span>Contracts</span>
+      </a>
+      <a href="purchase_orders.html" class="nav-item" data-page="po">
+        <i class="fa fa-shopping-cart"></i><span>Purchase Orders</span>
+      </a>
+      <a href="grn.html" class="nav-item" data-page="grn">
+        <i class="fa fa-truck-loading"></i><span>Goods Receipt</span>
+      </a>
+      <a href="invoices.html" class="nav-item active" data-page="invoices">
+        <i class="fa fa-file-invoice"></i><span>Invoices</span>
+      </a>
+      <a href="payments.html" class="nav-item" data-page="payments">
+        <i class="fa fa-money-bill-wave"></i><span>Payments</span>
+      </a>
+      <a href="checklists.html" class="nav-item" data-page="checklists">
+        <i class="fa fa-tasks"></i><span>Checklists</span>
+      </a>
+      <a href="audit.html" class="nav-item" data-page="audit">
+        <i class="fa fa-history"></i><span>Audit Trail</span>
+      </a>
+      <a href="sap_integration.html" class="nav-item" data-page="sap_integration">
+        <i class="fa fa-plug"></i><span>SAP Integration</span>
+      </a>
+    </nav>
 
     <div class="sidebar-footer"><span><i class="fa fa-circle green-dot"></i> System Online</span></div>
   </div>
@@ -39,7 +116,7 @@
       <button class="menu-toggle" onclick="toggleSidebar()"><i class="fa fa-bars"></i></button>
       <div class="topbar-title">
         <h1>Invoice Reconciliation</h1>
-        <span>3-Way Match: PO Γåö GRN Γåö Invoice (BR-S2P-10)</span>
+        <span>3-Way Match: PO ↔ GRN ↔ Invoice (BR-S2P-10)</span>
       </div>
       <div class="topbar-right">
         <button class="btn btn-primary" onclick="document.getElementById('inv-modal').classList.add('open')">
@@ -54,7 +131,16 @@
         <div style="overflow-x:auto;">
           <table class="data-table">
             <thead>
-              <tr><th>Ref</th><th>Invoice No.</th><th>Vendor</th><th>Date</th><th>Amount</th><th>Match Status</th><th>Payment</th><th>Actions</th></tr>
+              <tr>
+                <th>Ref</th>
+                <th>Invoice No.</th>
+                <th>Vendor</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Match Status</th>
+                <th>Mismatch Reason</th>
+                <th>Payment</th>
+              </tr>
             </thead>
             <tbody id="inv-table-body">
               <tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text-muted);">Loading...</td></tr>
@@ -70,7 +156,7 @@
     <div class="modal" style="max-width:580px;">
       <div class="modal-header">
         <h2><i class="fa fa-file-invoice"></i> Record Invoice</h2>
-        <button class="modal-close" onclick="document.getElementById('inv-modal').classList.remove('open')">├ù</button>
+        <button class="modal-close" onclick="document.getElementById('inv-modal').classList.remove('open')">×</button>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -119,7 +205,24 @@
     </div>
   </div>
 
-  <script src="../js/api.js"></script>
+  <!-- MISMATCH REASON MODAL -->
+  <div class="modal-overlay" id="reason-modal">
+    <div class="modal" style="max-width:500px;">
+      <div class="modal-header">
+        <h2 style="color:var(--red);"><i class="fa fa-exclamation-triangle"></i> Verification Failed</h2>
+        <button class="modal-close" onclick="document.getElementById('reason-modal').classList.remove('open')">×</button>
+      </div>
+      <div style="padding:20px;font-size:14px;color:var(--text);line-height:1.6;background:#fff5f5;border-radius:8px;margin-bottom:10px;" id="reason-modal-content">
+        <!-- Reason text goes here -->
+      </div>
+      <div style="display:flex;justify-content:flex-end;">
+        <button class="btn btn-outline" onclick="document.getElementById('reason-modal').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+  <script src="../js/api.js?v=2.0"></script>
   <script>
     async function loadDropdowns() {
       try {
@@ -128,13 +231,26 @@
         const vSel  = document.getElementById("inv-vendor");
         const poSel = document.getElementById("inv-po");
         vData.vendors.forEach(v => {
-          const o = new Option(`${v.vendor_code} ΓÇö ${v.company_name}`, v.id);
+          const o = new Option(`${v.vendor_code} — ${v.company_name}`, v.id);
           vSel.appendChild(o);
         });
         poData.purchase_orders.forEach(p => {
           const o = new Option(`${p.po_number} (${formatINR(p.total_amount)})`, p.id);
           poSel.appendChild(o);
         });
+        
+        // Initialize TomSelect for searchable dropdowns
+        new TomSelect("#inv-vendor", {
+          create: false,
+          sortField: { field: "text", direction: "asc" },
+          placeholder: "-- Search Vendor --"
+        });
+        new TomSelect("#inv-po", {
+          create: false,
+          sortField: { field: "text", direction: "desc" },
+          placeholder: "-- Search PO (Optional) --"
+        });
+
       } catch(e) {}
     }
 
@@ -147,27 +263,62 @@
             <i class="fa fa-file-invoice"></i><p>No invoices recorded yet</p></div></td></tr>`;
           return;
         }
-        tbody.innerHTML = data.invoices.map(inv => `
-          <tr>
+        tbody.innerHTML = data.invoices.map(inv => {
+          // Parse mismatch reasons from match_notes
+          const notes = inv.match_notes || '';
+          const isMismatch = inv.match_status === 'Mismatch';
+          const isPartial  = inv.match_status === 'Partial Match';
+
+          // Extract structured reason tags from notes text
+          function extractTags(notes) {
+            const tags = [];
+            if (/price|amount|value|rate|total/i.test(notes)) tags.push({ icon: '₹', label: 'Amount Variance' });
+            if (/qty|quantity|received|short/i.test(notes))   tags.push({ icon: '📦', label: 'Qty Mismatch' });
+            if (/vendor|supplier/i.test(notes))               tags.push({ icon: '🏢', label: 'Vendor Mismatch' });
+            if (/duplicate|dup/i.test(notes))                 tags.push({ icon: '🔁', label: 'Duplicate' });
+            if (/grn|goods.*receipt/i.test(notes))            tags.push({ icon: '🚚', label: 'GRN Issue' });
+            if (/po|purchase.*order/i.test(notes))            tags.push({ icon: '📋', label: 'PO Issue' });
+            if (/ocr|document/i.test(notes))                  tags.push({ icon: '📄', label: 'Document Error' });
+            if (tags.length === 0 && notes)                   tags.push({ icon: '⚠️', label: 'Exception' });
+            return tags;
+          }
+
+          let reasonCell = '—';
+          if (isMismatch && notes) {
+            const tags = extractTags(notes);
+            const safeNotes = notes.replace(/'/g, "\\'").replace(/"/g, "&quot;").replace(/\n/g, "\\n");
+            reasonCell = `
+              <div class="mismatch-reason" style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                <div>
+                  ${tags.map(t => `<span class="reason-tag"><span>${t.icon}</span>${t.label}</span>`).join('')}
+                </div>
+                <button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:#b91c1c;border-color:#fca5a5;background:white;white-space:nowrap;" onclick="openReasonModal('${safeNotes}')">View Reason</button>
+              </div>`;
+          } else if (isPartial && notes) {
+            const safeNotes = notes.replace(/'/g, "\\'").replace(/"/g, "&quot;").replace(/\n/g, "\\n");
+            reasonCell = `
+              <div class="partial-reason" style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                <div style="font-weight:600;"><i class="fa fa-exclamation-triangle"></i> Partial Match</div>
+                <button class="btn btn-outline" style="padding:4px 10px;font-size:11px;color:#92400e;border-color:#fcd34d;background:white;white-space:nowrap;" onclick="openReasonModal('${safeNotes}')">View Reason</button>
+              </div>`;
+          } else if (inv.match_status === 'Matched') {
+            reasonCell = `<div class="match-verified"><i class="fa fa-check-circle"></i> PO · GRN · Invoice verified</div>`;
+          } else if (inv.match_status === 'Pending') {
+            reasonCell = `<span style="font-size:11px;color:#94a3b8;">Run match to analyse</span>`;
+          }
+
+          return `
+          <tr style="${isMismatch ? 'background:#fff5f5;' : isPartial ? 'background:#fffdf0;' : ''}">
             <td><strong>${inv.internal_ref}</strong></td>
-            <td>${inv.invoice_number}${inv.is_duplicate ? ' <span style="color:var(--red);font-size:11px;">ΓÜá∩╕Å DUP</span>' : ''}</td>
+            <td>${inv.invoice_number}${inv.is_duplicate ? ' <span style="color:var(--red);font-size:11px;">⚠️ DUP</span>' : ''}</td>
             <td>Vendor #${inv.vendor_id}</td>
             <td>${formatDate(inv.invoice_date)}</td>
             <td><strong>${formatINR(inv.total_amount)}</strong></td>
             <td>${badge(inv.match_status)}</td>
+            <td>${reasonCell}</td>
             <td>${badge(inv.payment_status)}</td>
-            <td>
-              ${inv.match_status === 'Pending'
-                ? `<button class="btn btn-primary" style="padding:4px 10px;font-size:12px;"
-                     onclick="runMatch(${inv.id})">
-                     <i class="fa fa-sync"></i> Run Match
-                   </button>` : ''}
-              ${inv.match_status === 'Matched' && inv.payment_status === 'Unpaid'
-                ? `<a href="payments.html" class="btn btn-success" style="padding:4px 10px;font-size:12px;">
-                     <i class="fa fa-money-bill"></i> Pay
-                   </a>` : ''}
-            </td>
-          </tr>`).join('');
+          </tr>`;
+        }).join('');
       } catch(e) { showToast("Failed to load invoices", "error"); }
     }
 
@@ -191,7 +342,7 @@
           total_amount   : parseFloat(amount)
         });
         if (res.warning) showToast(res.warning, "error");
-        else showToast(`Γ£à Invoice ${res.invoice.internal_ref} recorded!`, "success");
+        else showToast(`✅ Invoice ${res.invoice.internal_ref} recorded!`, "success");
         document.getElementById("inv-modal").classList.remove("open");
         loadInvoices();
       } catch(e) { showToast("Error: " + e.message, "error"); }
@@ -201,11 +352,16 @@
       try {
         const res = await api.post(`/invoices/${id}/match`);
         const msg = res.match_status === 'Matched'
-          ? `Γ£à 3-Way Match Passed!`
-          : `ΓÜá∩╕Å Match Status: ${res.match_status} ΓÇö ${res.issues.join(', ')}`;
+          ? `✅ 3-Way Match Passed!`
+          : `⚠️ Match Status: ${res.match_status} — ${res.issues.join(', ')}`;
         showToast(msg, res.match_status === 'Matched' ? 'success' : 'error');
         loadInvoices();
       } catch(e) { showToast(e.message, "error"); }
+    }
+
+    function openReasonModal(notesText) {
+      document.getElementById('reason-modal-content').innerText = notesText;
+      document.getElementById('reason-modal').classList.add('open');
     }
 
     document.getElementById("inv-date").value = new Date().toISOString().split('T')[0];
